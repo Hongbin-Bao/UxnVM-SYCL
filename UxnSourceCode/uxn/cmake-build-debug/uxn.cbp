@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="uxn"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\opt\;CMake Files\..\..\..\..\opt\homebrew\;CMake Files\..\..\..\..\opt\homebrew\lib\;CMake Files\..\..\..\..\opt\homebrew\lib\cmake\;CMake Files\..\..\..\..\opt\homebrew\lib\cmake\SDL2\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uxnemu">
+				<Option output="/Users/baohongbin/Desktop/uxn/cmake-build-debug/uxnemu" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_DARWIN_C_SOURCE"/>
+					<Add directory="/opt/homebrew/include/SDL2"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnemu"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uxnemu/fast">
+				<Option output="/Users/baohongbin/Desktop/uxn/cmake-build-debug/uxnemu" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_DARWIN_C_SOURCE"/>
+					<Add directory="/opt/homebrew/include/SDL2"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnemu/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uxncli">
+				<Option output="/Users/baohongbin/Desktop/uxn/cmake-build-debug/uxncli" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_DARWIN_C_SOURCE"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxncli"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uxncli/fast">
+				<Option output="/Users/baohongbin/Desktop/uxn/cmake-build-debug/uxncli" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_DARWIN_C_SOURCE"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxncli/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uxnasm">
+				<Option output="/Users/baohongbin/Desktop/uxn/cmake-build-debug/uxnasm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_DARWIN_C_SOURCE"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnasm"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uxnasm/fast">
+				<Option output="/Users/baohongbin/Desktop/uxn/cmake-build-debug/uxnasm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_DARWIN_C_SOURCE"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnasm/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/baohongbin/Desktop/uxn/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/audio.c">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/audio.h">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/controller.c">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/controller.h">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/datetime.c">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/datetime.h">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/file.c">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/file.h">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/mouse.c">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/mouse.h">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/screen.c">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/screen.h">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/system.c">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/devices/system.h">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/uxn.c">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/uxn.h">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/uxnasm.c">
+			<Option target="uxnasm"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/uxncli.c">
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/src/uxnemu.c">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/../../../../opt/homebrew/lib/cmake/SDL2/sdl2-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\opt\homebrew\lib\cmake\SDL2\"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/uxn/../../../../opt/homebrew/lib/cmake/SDL2/sdl2-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\opt\homebrew\lib\cmake\SDL2\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,5 @@
+/Users/baohongbin/Desktop/uxn/cmake-build-debug/CMakeFiles/uxnemu.dir
+/Users/baohongbin/Desktop/uxn/cmake-build-debug/CMakeFiles/uxncli.dir
+/Users/baohongbin/Desktop/uxn/cmake-build-debug/CMakeFiles/uxnasm.dir
+/Users/baohongbin/Desktop/uxn/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/baohongbin/Desktop/uxn/cmake-build-debug/CMakeFiles/rebuild_cache.dir
