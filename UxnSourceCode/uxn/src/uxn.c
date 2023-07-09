@@ -38,17 +38,16 @@ WITH REGARD TO THIS SOFTWARE.
 
 int
 uxn_eval(Uxn *u, Uint16 pc)
-{
-	int t, n, l, k, tmp, opc, ins;
-	Uint8 *ram = u->ram;
-	Stack *s, *z;
-	if(!pc || u->dev[0x0f]) return 0;
-	for(;;) {
-		ins = ram[pc++] & 0xff;
-		k = ins & 0x80 ? 0xff : 0;
-		s = ins & 0x40 ? &u->rst : &u->wst;
-		opc = !(ins & 0x1f) ? (0 - (ins >> 5)) & 0xff : ins & 0x3f;
-		switch(opc) {
+{   int t, n, l, k, tmp, opc, ins;  // 定义一些整型变量，用于后续的计算
+    Uint8 *ram = u->ram;  // 定义一个8位无符号整型指针，指向Uxn结构体中的ram成员
+    Stack *s, *z;  // 定义两个指向Stack的指针
+    if(!pc || u->dev[0x0f]) return 0;  // 如果pc为0或者u的dev数组的第16个元素（0x0f）非零，则函数返回0
+    for(;;) {  // 无限循环，直到满足某个退出条件才会跳出
+        ins = ram[pc++] & 0xff;  // 获取ram中pc指定的元素值，并与0xff做与操作，然后pc自增
+        k = ins & 0x80 ? 0xff : 0;  // 若ins的最高位（第8位）为1，则k为0xff，否则为0
+        s = ins & 0x40 ? &u->rst : &u->wst;  // 若ins的第7位为1，则s指向u的rst成员，否则指向wst成员
+        opc = !(ins & 0x1f) ? (0 - (ins >> 5)) & 0xff : ins & 0x3f;  // 如果ins的最低5位全为0，则opc等于ins右移5位后的负值与0xff的与运算结果，否则等于ins与0x3f的与运算结果
+        switch(opc) {  // 开始switch语句，对opc进行分支处理
 			/* IMM */
 			case 0x00: /* BRK   */ return 1;
 			case 0xff: /* JCI   */ pc += !!s->dat[--s->ptr] * PEEK2(ram + pc) + 2; break;
@@ -124,14 +123,24 @@ uxn_eval(Uxn *u, Uint16 pc)
 		}
 	}
 }
-
-int
-uxn_boot(Uxn *u, Uint8 *ram)
+/**
+ * 先初始化指向Uxn的指针u，将其所指向的内存区域全部清零。
+ * 然后将传入的ram指针赋值给Uxn结构体的ram成员，即设置Uxn的内存块为ram。
+ * 最后返回1，表示函数执行成功
+ * @param u
+ * @param ram
+ * @return
+ */
+int uxn_boot(Uxn *u, Uint8 *ram) // 定义一个函数，输入是指向Uxn结构体的指针u和指向一个8位无符号整数的指针ram
 {
-	Uint32 i;
-	char *cptr = (char *)u;
-	for(i = 0; i < sizeof(*u); i++)
-		cptr[i] = 0;
-	u->ram = ram;
-	return 1;
+    Uint32 i; // 定义一个32位无符号整数i，用于循环计数
+    char *cptr = (char *)u; // 定义一个字符指针cptr，并将u的地址转换为char*类型后赋值给cptr
+
+    for(i = 0; i < sizeof(*u); i++) // 循环，从0开始，直到i等于Uxn结构体的大小（字节数），每次循环i加1
+        cptr[i] = 0; // 将cptr指向的内存区域的当前位置（cptr + i）清零
+
+    u->ram = ram; // 将输入的ram指针赋值给Uxn结构体的ram成员
+
+    return 1; // 返回1，表示函数执行成功
 }
+

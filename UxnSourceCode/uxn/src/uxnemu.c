@@ -91,41 +91,44 @@ audio_deo(int instance, Uint8 *d, Uint8 port, Uxn *u)
 	}
 }
 
+// 输入函数实现
 Uint8
 uxn_dei(Uxn *u, Uint8 addr)
 {
-	Uint8 p = addr & 0x0f, d = addr & 0xf0;
-	switch(d) {
-	case 0x20: return screen_dei(u, addr);
-	case 0x30: return audio_dei(0, &u->dev[d], p);
-	case 0x40: return audio_dei(1, &u->dev[d], p);
-	case 0x50: return audio_dei(2, &u->dev[d], p);
-	case 0x60: return audio_dei(3, &u->dev[d], p);
-	case 0xc0: return datetime_dei(u, addr);
-	}
-	return u->dev[addr];
+    Uint8 p = addr & 0x0f, d = addr & 0xf0; // 提取设备编号和端口号
+    switch(d) {  // 判断设备编号
+        case 0x20: return screen_dei(u, addr); // 屏幕设备输入
+        case 0x30: return audio_dei(0, &u->dev[d], p); // 音频设备输入1
+        case 0x40: return audio_dei(1, &u->dev[d], p); // 音频设备输入2
+        case 0x50: return audio_dei(2, &u->dev[d], p); // 音频设备输入3
+        case 0x60: return audio_dei(3, &u->dev[d], p); // 音频设备输入4
+        case 0xc0: return datetime_dei(u, addr); // 时间日期设备输入
+    }
+    return u->dev[addr];  // 无匹配设备，返回指定地址的设备状态
 }
 
+// 输出函数实现
 void
 uxn_deo(Uxn *u, Uint8 addr)
 {
-	Uint8 p = addr & 0x0f, d = addr & 0xf0;
-	switch(d) {
-	case 0x00:
-		system_deo(u, &u->dev[d], p);
-		if(p > 0x7 && p < 0xe)
-			screen_palette(&u->dev[0x8]);
-		break;
-	case 0x10: console_deo(&u->dev[d], p); break;
-	case 0x20: screen_deo(u->ram, &u->dev[d], p); break;
-	case 0x30: audio_deo(0, &u->dev[d], p, u); break;
-	case 0x40: audio_deo(1, &u->dev[d], p, u); break;
-	case 0x50: audio_deo(2, &u->dev[d], p, u); break;
-	case 0x60: audio_deo(3, &u->dev[d], p, u); break;
-	case 0xa0: file_deo(0, u->ram, &u->dev[d], p); break;
-	case 0xb0: file_deo(1, u->ram, &u->dev[d], p); break;
-	}
+    Uint8 p = addr & 0x0f, d = addr & 0xf0;  // 提取设备编号和端口号
+    switch(d) {  // 判断设备编号
+        case 0x00:  // 系统设备
+            system_deo(u, &u->dev[d], p);  // 系统设备输出
+            if(p > 0x7 && p < 0xe)
+                screen_palette(&u->dev[0x8]);  // 屏幕颜色输出
+            break;
+        case 0x10: console_deo(&u->dev[d], p); break; // 控制台设备输出
+        case 0x20: screen_deo(u->ram, &u->dev[d], p); break; // 屏幕设备输出
+        case 0x30: audio_deo(0, &u->dev[d], p, u); break; // 音频设备输出1
+        case 0x40: audio_deo(1, &u->dev[d], p, u); break; // 音频设备输出2
+        case 0x50: audio_deo(2, &u->dev[d], p, u); break; // 音频设备输出3
+        case 0x60: audio_deo(3, &u->dev[d], p, u); break; // 音频设备输出4
+        case 0xa0: file_deo(0, u->ram, &u->dev[d], p); break; // 文件设备输出1
+        case 0xb0: file_deo(1, u->ram, &u->dev[d], p); break; // 文件设备输出2
+    }
 }
+
 
 #pragma mark - Generics
 
@@ -243,19 +246,34 @@ init(void)
 #pragma mark - Devices
 
 /* Boot */
-
+/**
+ * 主要负责启动Uxn系统并加载rom文件
+ * @param u
+ * @param rom
+ * @param queue
+ * @return
+ */
 static int
 start(Uxn *u, char *rom, int queue)
-{
+{   // 释放之前的内存
 	free(u->ram);
+
+    // 启动uxn 为其分配内存空间
 	if(!uxn_boot(u, (Uint8 *)calloc(0x10000 * RAM_PAGES, sizeof(Uint8))))
 		return system_error("Boot", "Failed to start uxn.");
+    // 加载rom 文件
 	if(!system_load(u, rom))
 		return system_error("Boot", "Failed to load rom.");
+    // 将命令行参数数量 存入设备内存中的特定位置
 	u->dev[0x17] = queue;
+    // 设置执行截止时间
 	exec_deadline = SDL_GetPerformanceCounter() + deadline_interval;
+
+    // 执行rom 中的程序
 	if(!uxn_eval(u, PAGE_PROGRAM))
 		return system_error("Boot", "Failed to eval rom.");
+
+    // 将窗口标题设置为rom 文件名
 	SDL_SetWindowTitle(emu_window, rom);
 	return 1;
 }
@@ -500,25 +518,37 @@ run(Uxn *u)
 int
 main(int argc, char **argv)
 {
+    // 初始化显示模式变量
 	SDL_DisplayMode DM;
+    //Uxn u = {0};这行代码是在创建一个Uxn类型的变量u，并对其进行初始化。
+    // {0}是一个初始化列表，它将u的所有成员（包括ram, dev, wst, rst, dei, deo）初始化为零或者NULL
 	Uxn u = {0};
+    // 创建并初始化索引i
 	int i = 1;
+
+    // 如果初始化失败 返回错误
 	if(!init())
 		return system_error("Init", "Failed to initialize emulator.");
 	/* default resolution */
+    // 设置默认屏幕分辨率
 	screen_resize(WIDTH, HEIGHT);
 	/* default zoom */
+    // 检查是否存在缩放选项
 	if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
 		set_zoom(argv[i++][1] - '0');
 	else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
 		set_zoom(DM.w / 1280);
 	/* load rom */
+    // 检查是否提供了rom 文件路径
 	if(i == argc)
 		return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
-	rom_path = argv[i++];
+	rom_path = argv[i++]; // 存储rom路径
+
+    // 如果启动失败 返回错误
 	if(!start(&u, rom_path, argc - i))
 		return system_error("Start", "Failed");
 	/* read arguments */
+    // 读取命令行参数
 	for(; i < argc; i++) {
 		char *p = argv[i];
 		while(*p) console_input(&u, *p++, CONSOLE_ARG);
@@ -533,6 +563,8 @@ main(int argc, char **argv)
 #elif !defined(__APPLE__)
 	close(0); /* make stdin thread exit */
 #endif
+
+    // 清理SDL资源
 	SDL_Quit();
 	return 0;
 }
