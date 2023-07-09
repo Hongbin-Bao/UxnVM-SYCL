@@ -1,0 +1,5 @@
+# ninja log v5
+0	41	1688312059295885025	CMakeFiles/uxncli.dir/src/devices/datetime.c.o	fc0e16e54100056
+0	44	1688312059298395777	CMakeFiles/uxncli.dir/src/uxncli.c.o	763b48b2c9d3f9b7
+0	46	1688312059301284112	CMakeFiles/uxncli.dir/src/devices/system.c.o	99066a2939cfe639
+0	53	1688312059307883823	CMakeFiles/uxncli.dir/src/uxn.c.o	eeaab4b2e5b1e460
