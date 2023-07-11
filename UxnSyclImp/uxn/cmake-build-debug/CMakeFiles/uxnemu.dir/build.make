@@ -53,10 +53,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn
+CMAKE_SOURCE_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/uxnemu.dir/depend.make
@@ -69,160 +69,160 @@ include CMakeFiles/uxnemu.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/uxnemu.dir/flags.make
 
-CMakeFiles/uxnemu.dir/src/uxnemu.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/uxnemu.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnemu.c
-CMakeFiles/uxnemu.dir/src/uxnemu.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/uxnemu.dir/src/uxnemu.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/uxnemu.c.o -MF CMakeFiles/uxnemu.dir/src/uxnemu.c.o.d -o CMakeFiles/uxnemu.dir/src/uxnemu.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnemu.c
+CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnemu.cpp
+CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o -MF CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o.d -o CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnemu.cpp
 
-CMakeFiles/uxnemu.dir/src/uxnemu.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/uxnemu.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnemu.c > CMakeFiles/uxnemu.dir/src/uxnemu.c.i
+CMakeFiles/uxnemu.dir/src/uxnemu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/uxnemu.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnemu.cpp > CMakeFiles/uxnemu.dir/src/uxnemu.cpp.i
 
-CMakeFiles/uxnemu.dir/src/uxnemu.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/uxnemu.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnemu.c -o CMakeFiles/uxnemu.dir/src/uxnemu.c.s
+CMakeFiles/uxnemu.dir/src/uxnemu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/uxnemu.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnemu.cpp -o CMakeFiles/uxnemu.dir/src/uxnemu.cpp.s
 
-CMakeFiles/uxnemu.dir/src/uxn.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/uxn.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c
-CMakeFiles/uxnemu.dir/src/uxn.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/uxnemu.dir/src/uxn.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/uxn.c.o -MF CMakeFiles/uxnemu.dir/src/uxn.c.o.d -o CMakeFiles/uxnemu.dir/src/uxn.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c
+CMakeFiles/uxnemu.dir/src/uxn.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/uxn.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp
+CMakeFiles/uxnemu.dir/src/uxn.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/uxnemu.dir/src/uxn.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/uxn.cpp.o -MF CMakeFiles/uxnemu.dir/src/uxn.cpp.o.d -o CMakeFiles/uxnemu.dir/src/uxn.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp
 
-CMakeFiles/uxnemu.dir/src/uxn.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/uxn.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c > CMakeFiles/uxnemu.dir/src/uxn.c.i
+CMakeFiles/uxnemu.dir/src/uxn.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/uxn.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp > CMakeFiles/uxnemu.dir/src/uxn.cpp.i
 
-CMakeFiles/uxnemu.dir/src/uxn.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/uxn.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c -o CMakeFiles/uxnemu.dir/src/uxn.c.s
+CMakeFiles/uxnemu.dir/src/uxn.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/uxn.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp -o CMakeFiles/uxnemu.dir/src/uxn.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/system.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/system.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c
-CMakeFiles/uxnemu.dir/src/devices/system.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/uxnemu.dir/src/devices/system.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/system.c.o -MF CMakeFiles/uxnemu.dir/src/devices/system.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/system.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c
+CMakeFiles/uxnemu.dir/src/devices/system.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/system.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp
+CMakeFiles/uxnemu.dir/src/devices/system.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/system.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/system.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/system.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/system.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/system.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/system.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c > CMakeFiles/uxnemu.dir/src/devices/system.c.i
+CMakeFiles/uxnemu.dir/src/devices/system.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/system.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp > CMakeFiles/uxnemu.dir/src/devices/system.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/system.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/system.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c -o CMakeFiles/uxnemu.dir/src/devices/system.c.s
+CMakeFiles/uxnemu.dir/src/devices/system.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/system.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp -o CMakeFiles/uxnemu.dir/src/devices/system.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/screen.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/screen.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.c
-CMakeFiles/uxnemu.dir/src/devices/screen.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/uxnemu.dir/src/devices/screen.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/screen.c.o -MF CMakeFiles/uxnemu.dir/src/devices/screen.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/screen.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.c
+CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.cpp
+CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/screen.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/screen.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.c > CMakeFiles/uxnemu.dir/src/devices/screen.c.i
+CMakeFiles/uxnemu.dir/src/devices/screen.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/screen.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.cpp > CMakeFiles/uxnemu.dir/src/devices/screen.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/screen.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/screen.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.c -o CMakeFiles/uxnemu.dir/src/devices/screen.c.s
+CMakeFiles/uxnemu.dir/src/devices/screen.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/screen.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.cpp -o CMakeFiles/uxnemu.dir/src/devices/screen.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/audio.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/audio.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.c
-CMakeFiles/uxnemu.dir/src/devices/audio.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/uxnemu.dir/src/devices/audio.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/audio.c.o -MF CMakeFiles/uxnemu.dir/src/devices/audio.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/audio.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.c
+CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.cpp
+CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/audio.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/audio.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.c > CMakeFiles/uxnemu.dir/src/devices/audio.c.i
+CMakeFiles/uxnemu.dir/src/devices/audio.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/audio.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.cpp > CMakeFiles/uxnemu.dir/src/devices/audio.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/audio.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/audio.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.c -o CMakeFiles/uxnemu.dir/src/devices/audio.c.s
+CMakeFiles/uxnemu.dir/src/devices/audio.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/audio.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.cpp -o CMakeFiles/uxnemu.dir/src/devices/audio.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/file.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/file.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c
-CMakeFiles/uxnemu.dir/src/devices/file.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/uxnemu.dir/src/devices/file.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/file.c.o -MF CMakeFiles/uxnemu.dir/src/devices/file.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/file.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c
+CMakeFiles/uxnemu.dir/src/devices/file.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/file.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp
+CMakeFiles/uxnemu.dir/src/devices/file.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/file.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/file.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/file.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/file.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/file.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/file.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c > CMakeFiles/uxnemu.dir/src/devices/file.c.i
+CMakeFiles/uxnemu.dir/src/devices/file.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/file.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp > CMakeFiles/uxnemu.dir/src/devices/file.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/file.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/file.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c -o CMakeFiles/uxnemu.dir/src/devices/file.c.s
+CMakeFiles/uxnemu.dir/src/devices/file.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/file.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp -o CMakeFiles/uxnemu.dir/src/devices/file.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/controller.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/controller.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.c
-CMakeFiles/uxnemu.dir/src/devices/controller.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/uxnemu.dir/src/devices/controller.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/controller.c.o -MF CMakeFiles/uxnemu.dir/src/devices/controller.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/controller.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.c
+CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.cpp
+CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/controller.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/controller.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.c > CMakeFiles/uxnemu.dir/src/devices/controller.c.i
+CMakeFiles/uxnemu.dir/src/devices/controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/controller.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.cpp > CMakeFiles/uxnemu.dir/src/devices/controller.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/controller.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/controller.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.c -o CMakeFiles/uxnemu.dir/src/devices/controller.c.s
+CMakeFiles/uxnemu.dir/src/devices/controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/controller.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.cpp -o CMakeFiles/uxnemu.dir/src/devices/controller.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/mouse.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/mouse.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.c
-CMakeFiles/uxnemu.dir/src/devices/mouse.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/uxnemu.dir/src/devices/mouse.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/mouse.c.o -MF CMakeFiles/uxnemu.dir/src/devices/mouse.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/mouse.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.c
+CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.cpp
+CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/mouse.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/mouse.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.c > CMakeFiles/uxnemu.dir/src/devices/mouse.c.i
+CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.cpp > CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/mouse.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/mouse.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.c -o CMakeFiles/uxnemu.dir/src/devices/mouse.c.s
+CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.cpp -o CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.s
 
-CMakeFiles/uxnemu.dir/src/devices/datetime.c.o: CMakeFiles/uxnemu.dir/flags.make
-CMakeFiles/uxnemu.dir/src/devices/datetime.c.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c
-CMakeFiles/uxnemu.dir/src/devices/datetime.c.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/uxnemu.dir/src/devices/datetime.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/datetime.c.o -MF CMakeFiles/uxnemu.dir/src/devices/datetime.c.o.d -o CMakeFiles/uxnemu.dir/src/devices/datetime.c.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c
+CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o: CMakeFiles/uxnemu.dir/flags.make
+CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp
+CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o: CMakeFiles/uxnemu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o -MF CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o.d -o CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o -c /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp
 
-CMakeFiles/uxnemu.dir/src/devices/datetime.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/uxnemu.dir/src/devices/datetime.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c > CMakeFiles/uxnemu.dir/src/devices/datetime.c.i
+CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp > CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.i
 
-CMakeFiles/uxnemu.dir/src/devices/datetime.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/uxnemu.dir/src/devices/datetime.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c -o CMakeFiles/uxnemu.dir/src/devices/datetime.c.s
+CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp -o CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.s
 
 # Object files for target uxnemu
 uxnemu_OBJECTS = \
-"CMakeFiles/uxnemu.dir/src/uxnemu.c.o" \
-"CMakeFiles/uxnemu.dir/src/uxn.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/system.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/screen.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/audio.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/file.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/controller.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/mouse.c.o" \
-"CMakeFiles/uxnemu.dir/src/devices/datetime.c.o"
+"CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/uxn.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/system.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/file.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o" \
+"CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o"
 
 # External object files for target uxnemu
 uxnemu_EXTERNAL_OBJECTS =
 
-uxnemu: CMakeFiles/uxnemu.dir/src/uxnemu.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/uxn.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/system.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/screen.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/audio.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/file.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/controller.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/mouse.c.o
-uxnemu: CMakeFiles/uxnemu.dir/src/devices/datetime.c.o
+uxnemu: CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/uxn.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/system.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/file.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o
+uxnemu: CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o
 uxnemu: CMakeFiles/uxnemu.dir/build.make
 uxnemu: /opt/homebrew/lib/libSDL2.dylib
 uxnemu: CMakeFiles/uxnemu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable uxnemu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable uxnemu"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/uxnemu.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -234,6 +234,6 @@ CMakeFiles/uxnemu.dir/clean:
 .PHONY : CMakeFiles/uxnemu.dir/clean
 
 CMakeFiles/uxnemu.dir/depend:
-	cd /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles/uxnemu.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles/uxnemu.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uxnemu.dir/depend
 

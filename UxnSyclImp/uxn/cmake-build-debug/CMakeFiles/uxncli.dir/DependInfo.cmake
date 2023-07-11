@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c" "CMakeFiles/uxncli.dir/src/devices/datetime.c.o" "gcc" "CMakeFiles/uxncli.dir/src/devices/datetime.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c" "CMakeFiles/uxncli.dir/src/devices/file.c.o" "gcc" "CMakeFiles/uxncli.dir/src/devices/file.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c" "CMakeFiles/uxncli.dir/src/devices/system.c.o" "gcc" "CMakeFiles/uxncli.dir/src/devices/system.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c" "CMakeFiles/uxncli.dir/src/uxn.c.o" "gcc" "CMakeFiles/uxncli.dir/src/uxn.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxncli.c" "CMakeFiles/uxncli.dir/src/uxncli.c.o" "gcc" "CMakeFiles/uxncli.dir/src/uxncli.c.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp" "CMakeFiles/uxncli.dir/src/devices/datetime.cpp.o" "gcc" "CMakeFiles/uxncli.dir/src/devices/datetime.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp" "CMakeFiles/uxncli.dir/src/devices/file.cpp.o" "gcc" "CMakeFiles/uxncli.dir/src/devices/file.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp" "CMakeFiles/uxncli.dir/src/devices/system.cpp.o" "gcc" "CMakeFiles/uxncli.dir/src/devices/system.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp" "CMakeFiles/uxncli.dir/src/uxn.cpp.o" "gcc" "CMakeFiles/uxncli.dir/src/uxn.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxncli.cpp" "CMakeFiles/uxncli.dir/src/uxncli.cpp.o" "gcc" "CMakeFiles/uxncli.dir/src/uxncli.cpp.o.d"
   )
 
 # Targets to which this target links.

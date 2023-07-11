@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnasm.c" "CMakeFiles/uxnasm.dir/src/uxnasm.c.o" "gcc" "CMakeFiles/uxnasm.dir/src/uxnasm.c.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnasm.cpp" "CMakeFiles/uxnasm.dir/src/uxnasm.cpp.o" "gcc" "CMakeFiles/uxnasm.dir/src/uxnasm.cpp.o.d"
   )
 
 # Targets to which this target links.

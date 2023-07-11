@@ -8,15 +8,15 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.c" "CMakeFiles/uxnemu.dir/src/devices/audio.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/audio.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.c" "CMakeFiles/uxnemu.dir/src/devices/controller.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/controller.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c" "CMakeFiles/uxnemu.dir/src/devices/datetime.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/datetime.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c" "CMakeFiles/uxnemu.dir/src/devices/file.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/file.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.c" "CMakeFiles/uxnemu.dir/src/devices/mouse.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/mouse.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.c" "CMakeFiles/uxnemu.dir/src/devices/screen.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/screen.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c" "CMakeFiles/uxnemu.dir/src/devices/system.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/system.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c" "CMakeFiles/uxnemu.dir/src/uxn.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/uxn.c.o.d"
-  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnemu.c" "CMakeFiles/uxnemu.dir/src/uxnemu.c.o" "gcc" "CMakeFiles/uxnemu.dir/src/uxnemu.c.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.cpp" "CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.cpp" "CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp" "CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp" "CMakeFiles/uxnemu.dir/src/devices/file.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/file.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.cpp" "CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.cpp" "CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp" "CMakeFiles/uxnemu.dir/src/devices/system.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/devices/system.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp" "CMakeFiles/uxnemu.dir/src/uxn.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/uxn.cpp.o.d"
+  "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnemu.cpp" "CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o" "gcc" "CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o.d"
   )
 
 # Targets to which this target links.

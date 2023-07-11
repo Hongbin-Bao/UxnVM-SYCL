@@ -1,0 +1,4 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=/usr/local/bin/syclcc -G "CodeBlocks - Unix Makefiles" -S /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn -B /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug-syclcc
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug-syclcc

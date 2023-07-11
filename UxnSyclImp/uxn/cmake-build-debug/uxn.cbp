@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\..\opt\homebrew\;CMake Files\..\..\..\..\..\..\opt\homebrew\lib\;CMake Files\..\..\..\..\..\..\opt\homebrew\lib\cmake\;CMake Files\..\..\..\..\..\..\opt\homebrew\lib\cmake\SDL2\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uxnemu">
-				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/uxnemu" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/uxnemu" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -34,15 +34,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnemu"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnemu"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uxnemu/fast">
-				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/uxnemu" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/uxnemu" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -57,15 +57,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnemu/fast"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnemu/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uxncli">
-				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/uxncli" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/uxncli" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -79,15 +79,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxncli"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxncli"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uxncli/fast">
-				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/uxncli" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/uxncli" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -101,15 +101,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxncli/fast"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxncli/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uxnasm">
-				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/uxnasm" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/uxnasm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -123,15 +123,15 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnasm"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnasm"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uxnasm/fast">
-				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/uxnasm" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option output="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/uxnasm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -145,105 +145,105 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnasm/fast"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 uxnasm/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug"/>
+				<Option working_dir="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.cpp">
 			<Option target="uxnemu"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/audio.h">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/audio.h">
 			<Option target="uxnemu"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.cpp">
 			<Option target="uxnemu"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/controller.h">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/controller.h">
 			<Option target="uxnemu"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.c">
-			<Option target="uxnemu"/>
-			<Option target="uxncli"/>
-		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/datetime.h">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.cpp">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/datetime.h">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/file.h">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.cpp">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.c">
-			<Option target="uxnemu"/>
-		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/mouse.h">
-			<Option target="uxnemu"/>
-		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.c">
-			<Option target="uxnemu"/>
-		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/screen.h">
-			<Option target="uxnemu"/>
-		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/file.h">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/devices/system.h">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.cpp">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/mouse.h">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.cpp">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/screen.h">
+			<Option target="uxnemu"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.cpp">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/devices/system.h">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxn.h">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.cpp">
 			<Option target="uxnemu"/>
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnasm.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxn.h">
+			<Option target="uxnemu"/>
+			<Option target="uxncli"/>
+		</Unit>
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnasm.cpp">
 			<Option target="uxnasm"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxncli.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxncli.cpp">
 			<Option target="uxncli"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/src/uxnemu.c">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/src/uxnemu.cpp">
 			<Option target="uxnemu"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/CMakeLists.txt">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/../../../../../../opt/homebrew/lib/cmake/SDL2/sdl2-config-version.cmake">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/../../../../../../opt/homebrew/lib/cmake/SDL2/sdl2-config-version.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\homebrew\lib\cmake\SDL2\"/>
 		</Unit>
-		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/../../../../../../opt/homebrew/lib/cmake/SDL2/sdl2-config.cmake">
+		<Unit filename="/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/../../../../../../opt/homebrew/lib/cmake/SDL2/sdl2-config.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\homebrew\lib\cmake\SDL2\"/>
 		</Unit>
 	</Project>

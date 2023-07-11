@@ -1,4 +1,4 @@
-# Install script for directory: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn
+# Install script for directory: /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

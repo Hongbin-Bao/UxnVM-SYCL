@@ -57,10 +57,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn
+CMAKE_SOURCE_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -155,281 +155,281 @@ uxnasm/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/build
 .PHONY : uxnasm/fast
 
-src/devices/audio.o: src/devices/audio.c.o
+src/devices/audio.o: src/devices/audio.cpp.o
 .PHONY : src/devices/audio.o
 
 # target to build an object file
-src/devices/audio.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/audio.c.o
-.PHONY : src/devices/audio.c.o
+src/devices/audio.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/audio.cpp.o
+.PHONY : src/devices/audio.cpp.o
 
-src/devices/audio.i: src/devices/audio.c.i
+src/devices/audio.i: src/devices/audio.cpp.i
 .PHONY : src/devices/audio.i
 
 # target to preprocess a source file
-src/devices/audio.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/audio.c.i
-.PHONY : src/devices/audio.c.i
+src/devices/audio.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/audio.cpp.i
+.PHONY : src/devices/audio.cpp.i
 
-src/devices/audio.s: src/devices/audio.c.s
+src/devices/audio.s: src/devices/audio.cpp.s
 .PHONY : src/devices/audio.s
 
 # target to generate assembly for a file
-src/devices/audio.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/audio.c.s
-.PHONY : src/devices/audio.c.s
+src/devices/audio.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/audio.cpp.s
+.PHONY : src/devices/audio.cpp.s
 
-src/devices/controller.o: src/devices/controller.c.o
+src/devices/controller.o: src/devices/controller.cpp.o
 .PHONY : src/devices/controller.o
 
 # target to build an object file
-src/devices/controller.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/controller.c.o
-.PHONY : src/devices/controller.c.o
+src/devices/controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/controller.cpp.o
+.PHONY : src/devices/controller.cpp.o
 
-src/devices/controller.i: src/devices/controller.c.i
+src/devices/controller.i: src/devices/controller.cpp.i
 .PHONY : src/devices/controller.i
 
 # target to preprocess a source file
-src/devices/controller.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/controller.c.i
-.PHONY : src/devices/controller.c.i
+src/devices/controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/controller.cpp.i
+.PHONY : src/devices/controller.cpp.i
 
-src/devices/controller.s: src/devices/controller.c.s
+src/devices/controller.s: src/devices/controller.cpp.s
 .PHONY : src/devices/controller.s
 
 # target to generate assembly for a file
-src/devices/controller.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/controller.c.s
-.PHONY : src/devices/controller.c.s
+src/devices/controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/controller.cpp.s
+.PHONY : src/devices/controller.cpp.s
 
-src/devices/datetime.o: src/devices/datetime.c.o
+src/devices/datetime.o: src/devices/datetime.cpp.o
 .PHONY : src/devices/datetime.o
 
 # target to build an object file
-src/devices/datetime.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/datetime.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/datetime.c.o
-.PHONY : src/devices/datetime.c.o
+src/devices/datetime.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/datetime.cpp.o
+.PHONY : src/devices/datetime.cpp.o
 
-src/devices/datetime.i: src/devices/datetime.c.i
+src/devices/datetime.i: src/devices/datetime.cpp.i
 .PHONY : src/devices/datetime.i
 
 # target to preprocess a source file
-src/devices/datetime.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/datetime.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/datetime.c.i
-.PHONY : src/devices/datetime.c.i
+src/devices/datetime.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/datetime.cpp.i
+.PHONY : src/devices/datetime.cpp.i
 
-src/devices/datetime.s: src/devices/datetime.c.s
+src/devices/datetime.s: src/devices/datetime.cpp.s
 .PHONY : src/devices/datetime.s
 
 # target to generate assembly for a file
-src/devices/datetime.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/datetime.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/datetime.c.s
-.PHONY : src/devices/datetime.c.s
+src/devices/datetime.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/datetime.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/datetime.cpp.s
+.PHONY : src/devices/datetime.cpp.s
 
-src/devices/file.o: src/devices/file.c.o
+src/devices/file.o: src/devices/file.cpp.o
 .PHONY : src/devices/file.o
 
 # target to build an object file
-src/devices/file.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/file.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/file.c.o
-.PHONY : src/devices/file.c.o
+src/devices/file.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/file.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/file.cpp.o
+.PHONY : src/devices/file.cpp.o
 
-src/devices/file.i: src/devices/file.c.i
+src/devices/file.i: src/devices/file.cpp.i
 .PHONY : src/devices/file.i
 
 # target to preprocess a source file
-src/devices/file.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/file.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/file.c.i
-.PHONY : src/devices/file.c.i
+src/devices/file.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/file.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/file.cpp.i
+.PHONY : src/devices/file.cpp.i
 
-src/devices/file.s: src/devices/file.c.s
+src/devices/file.s: src/devices/file.cpp.s
 .PHONY : src/devices/file.s
 
 # target to generate assembly for a file
-src/devices/file.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/file.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/file.c.s
-.PHONY : src/devices/file.c.s
+src/devices/file.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/file.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/file.cpp.s
+.PHONY : src/devices/file.cpp.s
 
-src/devices/mouse.o: src/devices/mouse.c.o
+src/devices/mouse.o: src/devices/mouse.cpp.o
 .PHONY : src/devices/mouse.o
 
 # target to build an object file
-src/devices/mouse.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/mouse.c.o
-.PHONY : src/devices/mouse.c.o
+src/devices/mouse.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.o
+.PHONY : src/devices/mouse.cpp.o
 
-src/devices/mouse.i: src/devices/mouse.c.i
+src/devices/mouse.i: src/devices/mouse.cpp.i
 .PHONY : src/devices/mouse.i
 
 # target to preprocess a source file
-src/devices/mouse.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/mouse.c.i
-.PHONY : src/devices/mouse.c.i
+src/devices/mouse.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.i
+.PHONY : src/devices/mouse.cpp.i
 
-src/devices/mouse.s: src/devices/mouse.c.s
+src/devices/mouse.s: src/devices/mouse.cpp.s
 .PHONY : src/devices/mouse.s
 
 # target to generate assembly for a file
-src/devices/mouse.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/mouse.c.s
-.PHONY : src/devices/mouse.c.s
+src/devices/mouse.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/mouse.cpp.s
+.PHONY : src/devices/mouse.cpp.s
 
-src/devices/screen.o: src/devices/screen.c.o
+src/devices/screen.o: src/devices/screen.cpp.o
 .PHONY : src/devices/screen.o
 
 # target to build an object file
-src/devices/screen.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/screen.c.o
-.PHONY : src/devices/screen.c.o
+src/devices/screen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/screen.cpp.o
+.PHONY : src/devices/screen.cpp.o
 
-src/devices/screen.i: src/devices/screen.c.i
+src/devices/screen.i: src/devices/screen.cpp.i
 .PHONY : src/devices/screen.i
 
 # target to preprocess a source file
-src/devices/screen.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/screen.c.i
-.PHONY : src/devices/screen.c.i
+src/devices/screen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/screen.cpp.i
+.PHONY : src/devices/screen.cpp.i
 
-src/devices/screen.s: src/devices/screen.c.s
+src/devices/screen.s: src/devices/screen.cpp.s
 .PHONY : src/devices/screen.s
 
 # target to generate assembly for a file
-src/devices/screen.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/screen.c.s
-.PHONY : src/devices/screen.c.s
+src/devices/screen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/screen.cpp.s
+.PHONY : src/devices/screen.cpp.s
 
-src/devices/system.o: src/devices/system.c.o
+src/devices/system.o: src/devices/system.cpp.o
 .PHONY : src/devices/system.o
 
 # target to build an object file
-src/devices/system.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/system.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/system.c.o
-.PHONY : src/devices/system.c.o
+src/devices/system.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/system.cpp.o
+.PHONY : src/devices/system.cpp.o
 
-src/devices/system.i: src/devices/system.c.i
+src/devices/system.i: src/devices/system.cpp.i
 .PHONY : src/devices/system.i
 
 # target to preprocess a source file
-src/devices/system.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/system.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/system.c.i
-.PHONY : src/devices/system.c.i
+src/devices/system.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/system.cpp.i
+.PHONY : src/devices/system.cpp.i
 
-src/devices/system.s: src/devices/system.c.s
+src/devices/system.s: src/devices/system.cpp.s
 .PHONY : src/devices/system.s
 
 # target to generate assembly for a file
-src/devices/system.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/system.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/system.c.s
-.PHONY : src/devices/system.c.s
+src/devices/system.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/devices/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/devices/system.cpp.s
+.PHONY : src/devices/system.cpp.s
 
-src/uxn.o: src/uxn.c.o
+src/uxn.o: src/uxn.cpp.o
 .PHONY : src/uxn.o
 
 # target to build an object file
-src/uxn.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxn.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxn.c.o
-.PHONY : src/uxn.c.o
+src/uxn.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxn.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxn.cpp.o
+.PHONY : src/uxn.cpp.o
 
-src/uxn.i: src/uxn.c.i
+src/uxn.i: src/uxn.cpp.i
 .PHONY : src/uxn.i
 
 # target to preprocess a source file
-src/uxn.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxn.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxn.c.i
-.PHONY : src/uxn.c.i
+src/uxn.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxn.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxn.cpp.i
+.PHONY : src/uxn.cpp.i
 
-src/uxn.s: src/uxn.c.s
+src/uxn.s: src/uxn.cpp.s
 .PHONY : src/uxn.s
 
 # target to generate assembly for a file
-src/uxn.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxn.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxn.c.s
-.PHONY : src/uxn.c.s
+src/uxn.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxn.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxn.cpp.s
+.PHONY : src/uxn.cpp.s
 
-src/uxnasm.o: src/uxnasm.c.o
+src/uxnasm.o: src/uxnasm.cpp.o
 .PHONY : src/uxnasm.o
 
 # target to build an object file
-src/uxnasm.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/src/uxnasm.c.o
-.PHONY : src/uxnasm.c.o
+src/uxnasm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/src/uxnasm.cpp.o
+.PHONY : src/uxnasm.cpp.o
 
-src/uxnasm.i: src/uxnasm.c.i
+src/uxnasm.i: src/uxnasm.cpp.i
 .PHONY : src/uxnasm.i
 
 # target to preprocess a source file
-src/uxnasm.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/src/uxnasm.c.i
-.PHONY : src/uxnasm.c.i
+src/uxnasm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/src/uxnasm.cpp.i
+.PHONY : src/uxnasm.cpp.i
 
-src/uxnasm.s: src/uxnasm.c.s
+src/uxnasm.s: src/uxnasm.cpp.s
 .PHONY : src/uxnasm.s
 
 # target to generate assembly for a file
-src/uxnasm.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/src/uxnasm.c.s
-.PHONY : src/uxnasm.c.s
+src/uxnasm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/src/uxnasm.cpp.s
+.PHONY : src/uxnasm.cpp.s
 
-src/uxncli.o: src/uxncli.c.o
+src/uxncli.o: src/uxncli.cpp.o
 .PHONY : src/uxncli.o
 
 # target to build an object file
-src/uxncli.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxncli.c.o
-.PHONY : src/uxncli.c.o
+src/uxncli.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxncli.cpp.o
+.PHONY : src/uxncli.cpp.o
 
-src/uxncli.i: src/uxncli.c.i
+src/uxncli.i: src/uxncli.cpp.i
 .PHONY : src/uxncli.i
 
 # target to preprocess a source file
-src/uxncli.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxncli.c.i
-.PHONY : src/uxncli.c.i
+src/uxncli.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxncli.cpp.i
+.PHONY : src/uxncli.cpp.i
 
-src/uxncli.s: src/uxncli.c.s
+src/uxncli.s: src/uxncli.cpp.s
 .PHONY : src/uxncli.s
 
 # target to generate assembly for a file
-src/uxncli.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxncli.c.s
-.PHONY : src/uxncli.c.s
+src/uxncli.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/src/uxncli.cpp.s
+.PHONY : src/uxncli.cpp.s
 
-src/uxnemu.o: src/uxnemu.c.o
+src/uxnemu.o: src/uxnemu.cpp.o
 .PHONY : src/uxnemu.o
 
 # target to build an object file
-src/uxnemu.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxnemu.c.o
-.PHONY : src/uxnemu.c.o
+src/uxnemu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxnemu.cpp.o
+.PHONY : src/uxnemu.cpp.o
 
-src/uxnemu.i: src/uxnemu.c.i
+src/uxnemu.i: src/uxnemu.cpp.i
 .PHONY : src/uxnemu.i
 
 # target to preprocess a source file
-src/uxnemu.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxnemu.c.i
-.PHONY : src/uxnemu.c.i
+src/uxnemu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxnemu.cpp.i
+.PHONY : src/uxnemu.cpp.i
 
-src/uxnemu.s: src/uxnemu.c.s
+src/uxnemu.s: src/uxnemu.cpp.s
 .PHONY : src/uxnemu.s
 
 # target to generate assembly for a file
-src/uxnemu.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxnemu.c.s
-.PHONY : src/uxnemu.c.s
+src/uxnemu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/src/uxnemu.cpp.s
+.PHONY : src/uxnemu.cpp.s
 
 # Help Target
 help:

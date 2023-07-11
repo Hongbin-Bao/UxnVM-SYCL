@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "uxn",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "uxnasm::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uxnasm-Debug-c0b43fbe61e5504de8ef.json",
+					"name" : "uxnasm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uxncli::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uxncli-Debug-d40b7bd20575c9e2e1d3.json",
+					"name" : "uxncli",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uxnemu::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uxnemu-Debug-edb7f8cf5175a9043ee6.json",
+					"name" : "uxnemu",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug-syclcc",
+		"source" : "/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

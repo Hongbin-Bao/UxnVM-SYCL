@@ -54,10 +54,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn
+CMAKE_SOURCE_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -85,14 +85,14 @@ clean: CMakeFiles/uxnasm.dir/clean
 CMakeFiles/uxnemu.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnemu.dir/build.make CMakeFiles/uxnemu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17,18 "Built target uxnemu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17,18 "Built target uxnemu"
 .PHONY : CMakeFiles/uxnemu.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/uxnemu.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/uxnemu.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/uxnemu.dir/rule
 
 # Convenience name for target.
@@ -111,14 +111,14 @@ CMakeFiles/uxnemu.dir/clean:
 CMakeFiles/uxncli.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxncli.dir/build.make CMakeFiles/uxncli.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=3,4,5,6,7,8 "Built target uxncli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=3,4,5,6,7,8 "Built target uxncli"
 .PHONY : CMakeFiles/uxncli.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/uxncli.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/uxncli.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/uxncli.dir/rule
 
 # Convenience name for target.
@@ -137,14 +137,14 @@ CMakeFiles/uxncli.dir/clean:
 CMakeFiles/uxnasm.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uxnasm.dir/build.make CMakeFiles/uxnasm.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target uxnasm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target uxnasm"
 .PHONY : CMakeFiles/uxnasm.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/uxnasm.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/uxnasm.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSourceCode/uxn/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/baohongbin/Desktop/UxnVM-SYCL/UxnSyclImp/uxn/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/uxnasm.dir/rule
 
 # Convenience name for target.
