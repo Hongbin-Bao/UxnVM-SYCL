@@ -36,55 +36,56 @@ find_package(SDL2 REQUIRED)
 set(UXN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 
 set(UXN_SOURCE_CORE
-        ${UXN_SOURCE_DIR}/uxn.c
+        ${UXN_SOURCE_DIR}/uxn.cpp
         ${UXN_SOURCE_DIR}/uxn.h
         )
 source_group("core" FILES ${UXN_SOURCE_CORE})
 
 set(UXN_SOURCE_DEVICE_SYSTEM
-        ${UXN_SOURCE_DIR}/devices/system.c
+        ${UXN_SOURCE_DIR}/devices/system.cpp
         ${UXN_SOURCE_DIR}/devices/system.h
         )
 source_group("devices\\system" FILES ${UXN_SOURCE_DEVICE_SYSTEM})
 
 set(UXN_SOURCE_DEVICE_SCREEN
-        ${UXN_SOURCE_DIR}/devices/screen.c
+        ${UXN_SOURCE_DIR}/devices/screen.cpp
         ${UXN_SOURCE_DIR}/devices/screen.h
         )
 source_group("devices\\screen" FILES ${UXN_SOURCE_DEVICE_SCREEN})
 
 set(UXN_SOURCE_DEVICE_AUDIO
-        ${UXN_SOURCE_DIR}/devices/audio.c
+        ${UXN_SOURCE_DIR}/devices/audio.cpp
         ${UXN_SOURCE_DIR}/devices/audio.h
         )
 source_group("devices\\audio" FILES ${UXN_SOURCE_DEVICE_AUDIO})
 
 set(UXN_SOURCE_DEVICE_FILE
-        ${UXN_SOURCE_DIR}/devices/file.c
+        ${UXN_SOURCE_DIR}/devices/file.cpp
         ${UXN_SOURCE_DIR}/devices/file.h
         )
 source_group("devices\\file" FILES ${UXN_SOURCE_DEVICE_FILE})
 
 set(UXN_SOURCE_DEVICE_CONTROLLER
-        ${UXN_SOURCE_DIR}/devices/controller.c
+        ${UXN_SOURCE_DIR}/devices/controller.cpp
         ${UXN_SOURCE_DIR}/devices/controller.h
         )
 source_group("devices\\controller" FILES ${UXN_SOURCE_DEVICE_CONTROLLER})
 
 set(UXN_SOURCE_DEVICE_MOUSE
-        ${UXN_SOURCE_DIR}/devices/mouse.c
+        ${UXN_SOURCE_DIR}/devices/mouse.cpp
         ${UXN_SOURCE_DIR}/devices/mouse.h
+        #src/uxncli.cpp src/uxnemu.cpp src/uxnasm.cpp src/uxn.cpp src/devices/audio.cpp src/devices/controller.cpp src/devices/datetime.cpp src/devices/file.cpp src/devices/mouse.cpp src/devices/screen.cpp src/devices/system.cpp
         )
 source_group("devices\\mouse" FILES ${UXN_SOURCE_DEVICE_MOUSE})
 
 set(UXN_SOURCE_DEVICE_DATETIME
-        ${UXN_SOURCE_DIR}/devices/datetime.c
+        ${UXN_SOURCE_DIR}/devices/datetime.cpp
         ${UXN_SOURCE_DIR}/devices/datetime.h
         )
 source_group("devices\\datetime" FILES ${UXN_SOURCE_DEVICE_DATETIME})
 
 add_executable(uxnemu
-        ${UXN_SOURCE_DIR}/uxnemu.c
+        ${UXN_SOURCE_DIR}/uxnemu.cpp
         ${UXN_SOURCE_CORE}
         ${UXN_SOURCE_DEVICE_SYSTEM}
         ${UXN_SOURCE_DEVICE_SCREEN}
@@ -98,7 +99,7 @@ target_include_directories(uxnemu PRIVATE ${SDL2_INCLUDE_DIR})
 target_link_libraries(uxnemu PRIVATE ${SDL2_LIBRARIES})
 
 add_executable(uxncli
-        ${UXN_SOURCE_DIR}/uxncli.c
+        ${UXN_SOURCE_DIR}/uxncli.cpp
         ${UXN_SOURCE_CORE}
         ${UXN_SOURCE_DEVICE_SYSTEM}
         ${UXN_SOURCE_DEVICE_FILE}
@@ -107,7 +108,7 @@ add_executable(uxncli
 
 
 add_executable(uxnasm
-        ${UXN_SOURCE_DIR}/uxnasm.c
+        ${UXN_SOURCE_DIR}/uxnasm.cpp
         )
 
 #add_sycl_to_target(TARGET uxnasm SOURCES uxnasm.cpp)
