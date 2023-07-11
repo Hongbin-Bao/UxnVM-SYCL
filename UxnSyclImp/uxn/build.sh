@@ -51,8 +51,11 @@ then
 fi
 
 mkdir -p bin
-CC="${CC:-cc}"
-CFLAGS="${CFLAGS:--std=c89 -Wall -Wno-unknown-pragmas}"
+# CC="${CC:-cc}"
+CC="${CC:-syclcc}"
+CFLAGS="${CFLAGS:--std=c++17 -Wall -Wno-unknown-pragmas}"
+
+#CFLAGS="${CFLAGS:--std=c89 -Wall -Wno-unknown-pragmas}"
 case "$(uname -s 2>/dev/null)" in
 MSYS_NT*|MINGW*) # MSYS2 on Windows
 	FILE_LDFLAGS="-liberty"
@@ -80,9 +83,9 @@ else
 	CFLAGS="${CFLAGS} -DNDEBUG -O2 -g0 -s"
 fi
 
-${CC} ${CFLAGS} src/uxnasm.c -o bin/uxnasm
-${CC} ${CFLAGS} src/uxn.c src/devices/system.c src/devices/file.c src/devices/datetime.c src/devices/mouse.c src/devices/controller.c src/devices/screen.c src/devices/audio.c src/uxnemu.c ${UXNEMU_LDFLAGS} ${FILE_LDFLAGS} -o bin/uxnemu
-${CC} ${CFLAGS} src/uxn.c src/devices/system.c src/devices/file.c src/devices/datetime.c src/uxncli.c ${FILE_LDFLAGS} -o bin/uxncli
+${CC} ${CFLAGS} src/uxnasm.cpp -o bin/uxnasm
+${CC} ${CFLAGS} src/uxn.cpp src/devices/system.cpp src/devices/file.cpp src/devices/datetime.cpp src/devices/mouse.cpp src/devices/controller.cpp src/devices/screen.cpp src/devices/audio.cpp src/uxnemu.cpp ${UXNEMU_LDFLAGS} ${FILE_LDFLAGS} -o bin/uxnemu
+${CC} ${CFLAGS} src/uxn.cpp src/devices/system.cpp src/devices/file.cpp src/devices/datetime.cpp src/uxncli.cpp ${FILE_LDFLAGS} -o bin/uxncli
 
 if [ $install = 1 ]
 then
