@@ -121,8 +121,15 @@ static char ops[][4] = {
         "LDZ", "STZ", "LDR", "STR", "LDA", "STA", "DEI", "DEO",
         "ADD", "SUB", "MUL", "DIV", "AND", "ORA", "EOR", "SFT"
 };
+static int scmp(const char *a, const char *b, int len) {
+    int i = 0;
+    while(a[i] == b[i])
+        if(!a[i] || ++i >= len)
+            return 1;
+    return 0;
+} /* string compare */
 
-static int   scmp(char *a, char *b, int len) { int i = 0; while(a[i] == b[i]) if(!a[i] || ++i >= len) return 1; return 0; } /* string compare */
+//static int   scmp(char *a, char *b, int len) { int i = 0; while(a[i] == b[i]) if(!a[i] || ++i >= len) return 1; return 0; } /* string compare */
 static int   sihx(char *s) { int i = 0; char c; while((c = s[i++])) if(!(c >= '0' && c <= '9') && !(c >= 'a' && c <= 'f')) return 0; return i > 1; } /* string is hexadecimal */
 static int   shex(char *s) { int n = 0, i = 0; char c; while((c = s[i++])) if(c >= '0' && c <= '9') n = n * 16 + (c - '0'); else if(c >= 'a' && c <= 'f') n = n * 16 + 10 + (c - 'a'); return n; } /* string to num */
 static int   slen(char *s) { int i = 0; while(s[i]) i++; return i; } /* string length */
@@ -172,7 +179,7 @@ findlabel(char *name)
 }
 
 static Uint8
-findopcode(char *s)
+findopcode(const char *s)
 {
     int i;
     for(i = 0; i < 0x20; i++) {
