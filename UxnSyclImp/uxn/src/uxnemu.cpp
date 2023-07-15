@@ -393,10 +393,58 @@ do_shortcut(Uxn *u, SDL_Event *event)
         restart(u);
 }
 
+/**
+ * 在代码中，添加一个MouseState类型的静态变量来保存当前鼠标的状态，包括鼠标的位置，滚轮的状态，以及鼠标的按键状态。
+ * 然后，将处理鼠标移动，鼠标滚轮移动，鼠标按键按下，和鼠标按键释放的代码统一放在一个函数mouse_state_update中。
+ * 在每一次SDL事件循环中，如果发现有鼠标的相关事件，我就更新MouseState变量的状态，并调用mouse_state_update函数处理这个事件。
+ * 同时，保留了上一次鼠标的状态，只有当鼠标的状态发生改变的时候，才会调用相关的处理函数。这样，就可以减少不必要的函数调用和设备与主机间的通讯。
+ * *
+ * 这种优化方法的思路是减少对设备的操作。对设备的每一次操作，都会涉及到设备与主机之间的数据传输，这是一种相对昂贵的操作。
+ * 如果能够通过在主机端预处理数据，减少对设备的操作，就可以提高效率。
+ * 通过在主机端保存鼠标的状态，并只在状态发生改变的时候调用处理函数，从而减少了对设备的操作，提高了效率。
+ * 同时，通过合并处理多种鼠标事件的代码，还减少了代码的冗余。
+ * 在原来的代码中，处理鼠标移动，鼠标滚轮移动，鼠标按键按下，
+ * 和鼠标按键释放的代码是分散在不同的地方的。在代码中，将这些代码统一放在了一个函数中，减少了代码的冗余，提高了代码的可读性和可维护性。
+ */
+// 定义鼠标状态的数据结构，包含了当前和上次鼠标的位置、按键状态、滚轮位置等信息
+typedef struct MouseState {
+    int x, y, button;  // 当前鼠标的位置和按键状态
+    int lastX, lastY, lastButton;  // 上次鼠标的位置和按键状态
+    bool isButtonDown;  // 鼠标是否按下的状态
+    SDL_Point wheel, lastWheel;  // 当前和上次滚轮的位置
+} MouseState;
+
+// 更新并处理鼠标状态的函数
+void mouse_state_update(Uxn* u, MouseState* ms, int eventType) {
+    // 如果鼠标位置发生了变化，更新鼠标位置
+    if(ms->x != ms->lastX || ms->y != ms->lastY)
+        mouse_pos(u, &u->dev[0x90], ms->x, ms->y);
+    // 如果滚轮位置发生了变化，处理滚轮滚动事件
+    if(ms->wheel.x != ms->lastWheel.x || ms->wheel.y != ms->lastWheel.y)
+        mouse_scroll(u, &u->dev[0x90], ms->wheel.x, ms->wheel.y);
+
+    // 如果检测到鼠标按键释放事件，处理按键释放
+    if(eventType == SDL_MOUSEBUTTONUP)
+        mouse_up(u, &u->dev[0x90], ms->button);
+        // 如果检测到鼠标按键按下事件，处理按键按下
+    else if(eventType == SDL_MOUSEBUTTONDOWN)
+        mouse_down(u, &u->dev[0x90], ms->button);
+
+    // 更新上次的鼠标状态为当前状态，为下一次比较做准备
+    ms->lastX = ms->x;
+    ms->lastY = ms->y;
+    ms->lastWheel = ms->wheel;
+}
+
+
+
+
 static int
 handle_events(Uxn *u)
 {
     SDL_Event event;
+    static MouseState ms = {0};
+
     while(SDL_PollEvent(&event)) {
         /* Window */
         if(event.type == SDL_QUIT)
@@ -412,14 +460,35 @@ handle_events(Uxn *u)
         else if(event.type >= audio0_event && event.type < audio0_event + POLYPHONY)
             uxn_eval(u, PEEK2(&u->dev[0x30 + 0x10 * (event.type - audio0_event)]));
             /* Mouse */
-        else if(event.type == SDL_MOUSEMOTION)
-            mouse_pos(u, &u->dev[0x90], clamp(event.motion.x - PAD, 0, uxn_screen.width - 1), clamp(event.motion.y - PAD, 0, uxn_screen.height - 1));
-        else if(event.type == SDL_MOUSEBUTTONUP)
-            mouse_up(u, &u->dev[0x90], SDL_BUTTON(event.button.button));
-        else if(event.type == SDL_MOUSEBUTTONDOWN)
-            mouse_down(u, &u->dev[0x90], SDL_BUTTON(event.button.button));
-        else if(event.type == SDL_MOUSEWHEEL)
-            mouse_scroll(u, &u->dev[0x90], event.wheel.x, event.wheel.y);
+//        else if(event.type == SDL_MOUSEMOTION)
+//            mouse_pos(u, &u->dev[0x90], clamp(event.motion.x - PAD, 0, uxn_screen.width - 1), clamp(event.motion.y - PAD, 0, uxn_screen.height - 1));
+//        else if(event.type == SDL_MOUSEBUTTONUP)
+//            mouse_up(u, &u->dev[0x90], SDL_BUTTON(event.button.button));
+//        else if(event.type == SDL_MOUSEBUTTONDOWN)
+//            mouse_down(u, &u->dev[0x90], SDL_BUTTON(event.button.button));
+//        else if(event.type == SDL_MOUSEWHEEL)
+//            mouse_scroll(u, &u->dev[0x90], event.wheel.x, event.wheel.y);
+        else if(event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONUP || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEWHEEL)
+        {
+            switch(event.type) {
+                case SDL_MOUSEMOTION:
+                    ms.x = clamp(event.motion.x - PAD, 0, uxn_screen.width - 1);
+                    ms.y = clamp(event.motion.y - PAD, 0, uxn_screen.height - 1);
+                    break;
+                case SDL_MOUSEBUTTONUP:
+                    ms.button = SDL_BUTTON(event.button.button);
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    ms.button = SDL_BUTTON(event.button.button);
+                    break;
+                case SDL_MOUSEWHEEL:
+                    ms.wheel.x = event.wheel.x;
+                    ms.wheel.y = event.wheel.y;
+                    break;
+            }
+            mouse_state_update(u, &ms, event.type);
+        }
+
             /* Controller */
         else if(event.type == SDL_TEXTINPUT)
             controller_key(u, &u->dev[0x80], event.text.text[0]);
