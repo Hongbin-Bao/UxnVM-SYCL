@@ -559,6 +559,38 @@ handle_events(Uxn *u)
     return 1;
 }
 
+//static int
+//run(Uxn *u)
+//{
+//    Uint64 next_refresh = 0;
+//    Uint64 now = SDL_GetPerformanceCounter();
+//    Uint64 frame_interval = SDL_GetPerformanceFrequency() / 60;
+//    for(;;) {
+//        Uint16 screen_vector;
+//        /* .System/halt */
+//        if(u->dev[0x0f])
+//            return system_error("Run", "Ended.");
+//        now = SDL_GetPerformanceCounter();
+//        exec_deadline = now + deadline_interval;
+//        if(!handle_events(u))
+//            return 0;
+//        screen_vector = PEEK2(&u->dev[0x20]);
+//        if(BENCH || now >= next_refresh) {
+//            now = SDL_GetPerformanceCounter();
+//            next_refresh = now + frame_interval;
+//            uxn_eval(u, screen_vector);
+//            if(uxn_screen.x2)
+//                redraw();
+//        }
+//        if(BENCH)
+//            ;
+//        else if(screen_vector || uxn_screen.x2) {
+//            Uint64 delay_ms = (next_refresh - now) / ms_interval;
+//            if(delay_ms > 0) SDL_Delay(delay_ms);
+//        } else
+//            SDL_WaitEvent(NULL);
+//    }
+//}
 static int
 run(Uxn *u)
 {
@@ -572,8 +604,11 @@ run(Uxn *u)
             return system_error("Run", "Ended.");
         now = SDL_GetPerformanceCounter();
         exec_deadline = now + deadline_interval;
-        if(!handle_events(u))
+        int event_result = handle_events(u);
+        if(event_result == 0)
             return 0;
+        else if(event_result == -1)
+            break;
         screen_vector = PEEK2(&u->dev[0x20]);
         if(BENCH || now >= next_refresh) {
             now = SDL_GetPerformanceCounter();
@@ -587,61 +622,133 @@ run(Uxn *u)
         else if(screen_vector || uxn_screen.x2) {
             Uint64 delay_ms = (next_refresh - now) / ms_interval;
             if(delay_ms > 0) SDL_Delay(delay_ms);
-        } else
-            SDL_WaitEvent(NULL);
+        }
     }
+    return 1;
 }
+//int
+//main(int argc, char **argv)
+//{
+//    // 初始化显示模式变量
+//    SDL_DisplayMode DM;
+//    //Uxn u = {0};这行代码是在创建一个Uxn类型的变量u，并对其进行初始化。
+//    // {0}是一个初始化列表，它将u的所有成员（包括ram, dev, wst, rst, dei, deo）初始化为零或者NULL
+//    Uxn u = {0};
+//    // 创建并初始化索引i
+//    int i = 1;
+//
+//    // 如果初始化失败 返回错误
+//    if(!init())
+//        return system_error("Init", "Failed to initialize emulator.");
+//    /* default resolution */
+//    // 设置默认屏幕分辨率
+//    screen_resize(WIDTH, HEIGHT);
+//    /* default zoom */
+//    // 检查是否存在缩放选项
+//    if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
+//        set_zoom(argv[i++][1] - '0');
+//    else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
+//        set_zoom(DM.w / 1280);
+//    /* load rom */
+//    // 检查是否提供了rom 文件路径
+//    if(i == argc)
+//        return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
+//    rom_path = argv[i++]; // 存储rom路径
+//
+//    // 如果启动失败 返回错误
+//    if(!start(&u, rom_path, argc - i))
+//        return system_error("Start", "Failed");
+//    /* read arguments */
+//    // 读取命令行参数
+//    for(; i < argc; i++) {
+//        char *p = argv[i];
+//        while(*p) console_input(&u, *p++, CONSOLE_ARG);
+//        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+//    }
+//    /* start rom */
+//    run(&u);
+//    /* finished */
+//#ifdef _WIN32
+//    #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+//	TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
+//#elif !defined(__APPLE__)
+//    close(0); /* make stdin thread exit */
+//#endif
+//
+//    // 清理SDL资源
+//    SDL_Quit();
+//    return 0;
+//}
 
-int
-main(int argc, char **argv)
-{
-    // 初始化显示模式变量
+
+int main(int argc, char **argv) {
     SDL_DisplayMode DM;
-    //Uxn u = {0};这行代码是在创建一个Uxn类型的变量u，并对其进行初始化。
-    // {0}是一个初始化列表，它将u的所有成员（包括ram, dev, wst, rst, dei, deo）初始化为零或者NULL
     Uxn u = {0};
-    // 创建并初始化索引i
     int i = 1;
 
-    // 如果初始化失败 返回错误
     if(!init())
         return system_error("Init", "Failed to initialize emulator.");
-    /* default resolution */
-    // 设置默认屏幕分辨率
+
     screen_resize(WIDTH, HEIGHT);
-    /* default zoom */
-    // 检查是否存在缩放选项
+
     if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
         set_zoom(argv[i++][1] - '0');
     else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
         set_zoom(DM.w / 1280);
-    /* load rom */
-    // 检查是否提供了rom 文件路径
+
     if(i == argc)
         return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
-    rom_path = argv[i++]; // 存储rom路径
 
-    // 如果启动失败 返回错误
+    rom_path = argv[i++];
+
     if(!start(&u, rom_path, argc - i))
         return system_error("Start", "Failed");
-    /* read arguments */
-    // 读取命令行参数
+
     for(; i < argc; i++) {
         char *p = argv[i];
         while(*p) console_input(&u, *p++, CONSOLE_ARG);
         console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
     }
-    /* start rom */
-    run(&u);
-    /* finished */
+
+    // Main event loop
+    SDL_Event event;
+    bool running = true;
+//    while(running) {
+//        if(SDL_PollEvent(&event)) {
+//            if(event.type == SDL_QUIT) {
+//                running = false;
+//                break;
+//            } else {
+//                if (handle_events(&u) == 0) {
+//                    running = false;
+//                } else {
+//                    run(&u);
+//                }
+//            }
+//        } else {
+//            SDL_Delay(1);
+//        }
+//    }
+    while(running) {
+        if(SDL_PollEvent(&event)) {
+            if (handle_events(&u) == 0) {
+                running = false;
+            } else {
+                run(&u);
+            }
+        } else {
+            SDL_Delay(1);
+        }
+    }
+
+
 #ifdef _WIN32
     #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
-	TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
+    TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
 #elif !defined(__APPLE__)
-    close(0); /* make stdin thread exit */
+    close(0);
 #endif
 
-    // 清理SDL资源
     SDL_Quit();
     return 0;
 }
