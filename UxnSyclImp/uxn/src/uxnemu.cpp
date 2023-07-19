@@ -712,7 +712,15 @@ int main(int argc, char **argv) {
         while(*p) console_input(&u, *p++, CONSOLE_ARG);
         console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
     }
-
+/*
+ *
+ * 在主循环中使用基于 SDL（简单 DirectMedia 层）的时钟来管理来自鼠标、键盘、显示器和音频的事件的概念。在 SDL 主循环的每次迭代中运行设备内核可能会导致密集计算期间效率低下
+ * 代码会在每次循环中调用 SDL_PollEvent() 函数，该函数会检查是否有新的输入事件。如果有新的事件，它会返回 1，
+ * 并将事件数据写入 event 变量。然后，只有在有新的事件时，才会运行设备内核。如果没有新的事件，
+ * 就让程序休眠一段时间（这里是1毫秒），以减少 CPU 使用率。
+ * 这种优化方法的主要好处是，它可以在没有新的输入事件时减少不必要的计算，从而
+ * 提高程序的效率。然而，它也可能会使程序在没有新的输入事件时变得不响应。
+ */
     // Main event loop
     SDL_Event event;
     bool running = true;
