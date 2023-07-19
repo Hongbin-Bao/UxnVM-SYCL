@@ -447,8 +447,11 @@ handle_events(Uxn *u)
 
     while(SDL_PollEvent(&event)) {
         /* Window */
-        if(event.type == SDL_QUIT)
-            return 0;
+        if(event.type == SDL_QUIT){
+            SDL_Quit();
+            exit(0);
+        }
+//            return 0;
         else if(event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_EXPOSED)
             redraw();
         else if(event.type == SDL_DROPFILE) {
