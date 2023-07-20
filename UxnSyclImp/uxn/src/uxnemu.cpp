@@ -17,6 +17,7 @@
 #pragma GCC diagnostic ignored "-Wpedantic"
 #pragma clang diagnostic ignored "-Wtypedef-redefinition"
 #include <SDL.h>
+#include <iostream>
 #include "devices/system.h"
 #include "devices/screen.h"
 #include "devices/audio.h"
@@ -684,82 +685,189 @@ run(Uxn *u)
 //}
 
 
-int main(int argc, char **argv) {
-    SDL_DisplayMode DM;
-    Uxn u = {0};
-    int i = 1;
-
-    if(!init())
-        return system_error("Init", "Failed to initialize emulator.");
-
-    screen_resize(WIDTH, HEIGHT);
-
-    if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
-        set_zoom(argv[i++][1] - '0');
-    else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
-        set_zoom(DM.w / 1280);
-
-    if(i == argc)
-        return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
-
-    rom_path = argv[i++];
-
-    if(!start(&u, rom_path, argc - i))
-        return system_error("Start", "Failed");
-
-    for(; i < argc; i++) {
-        char *p = argv[i];
-        while(*p) console_input(&u, *p++, CONSOLE_ARG);
-        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
-    }
-/*
- *
- * 在主循环中使用基于 SDL（简单 DirectMedia 层）的时钟来管理来自鼠标、键盘、显示器和音频的事件的概念。在 SDL 主循环的每次迭代中运行设备内核可能会导致密集计算期间效率低下
- * 代码会在每次循环中调用 SDL_PollEvent() 函数，该函数会检查是否有新的输入事件。如果有新的事件，它会返回 1，
- * 并将事件数据写入 event 变量。然后，只有在有新的事件时，才会运行设备内核。如果没有新的事件，
- * 就让程序休眠一段时间（这里是1毫秒），以减少 CPU 使用率。
- * 这种优化方法的主要好处是，它可以在没有新的输入事件时减少不必要的计算，从而
- * 提高程序的效率。然而，它也可能会使程序在没有新的输入事件时变得不响应。
- */
-    // Main event loop
-    SDL_Event event;
-    bool running = true;
+//int main(int argc, char **argv) {
+//    SDL_DisplayMode DM;
+//    Uxn u = {0};
+//    int i = 1;
+//
+//    if(!init())
+//        return system_error("Init", "Failed to initialize emulator.");
+//
+//    screen_resize(WIDTH, HEIGHT);
+//
+//    if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
+//        set_zoom(argv[i++][1] - '0');
+//    else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
+//        set_zoom(DM.w / 1280);
+//
+//    if(i == argc)
+//        return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
+//
+//    rom_path = argv[i++];
+//
+//    if(!start(&u, rom_path, argc - i))
+//        return system_error("Start", "Failed");
+//
+//    for(; i < argc; i++) {
+//        char *p = argv[i];
+//        while(*p) console_input(&u, *p++, CONSOLE_ARG);
+//        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+//    }
+///*
+// *
+// * 在主循环中使用基于 SDL（简单 DirectMedia 层）的时钟来管理来自鼠标、键盘、显示器和音频的事件的概念。在 SDL 主循环的每次迭代中运行设备内核可能会导致密集计算期间效率低下
+// * 代码会在每次循环中调用 SDL_PollEvent() 函数，该函数会检查是否有新的输入事件。如果有新的事件，它会返回 1，
+// * 并将事件数据写入 event 变量。然后，只有在有新的事件时，才会运行设备内核。如果没有新的事件，
+// * 就让程序休眠一段时间（这里是1毫秒），以减少 CPU 使用率。
+// * 这种优化方法的主要好处是，它可以在没有新的输入事件时减少不必要的计算，从而
+// * 提高程序的效率。然而，它也可能会使程序在没有新的输入事件时变得不响应。
+// */
+//    // Main event loop
+//    SDL_Event event;
+//    bool running = true;
+////    while(running) {
+////        if(SDL_PollEvent(&event)) {
+////            if(event.type == SDL_QUIT) {
+////                running = false;
+////                break;
+////            } else {
+////                if (handle_events(&u) == 0) {
+////                    running = false;
+////                } else {
+////                    run(&u);
+////                }
+////            }
+////        } else {
+////            SDL_Delay(1);
+////        }
+////    }
 //    while(running) {
 //        if(SDL_PollEvent(&event)) {
-//            if(event.type == SDL_QUIT) {
+//            if (handle_events(&u) == 0) {
 //                running = false;
-//                break;
 //            } else {
-//                if (handle_events(&u) == 0) {
-//                    running = false;
-//                } else {
-//                    run(&u);
-//                }
+//                run(&u);
 //            }
 //        } else {
 //            SDL_Delay(1);
 //        }
 //    }
-    while(running) {
-        if(SDL_PollEvent(&event)) {
-            if (handle_events(&u) == 0) {
-                running = false;
-            } else {
-                run(&u);
+//
+//
+//#ifdef _WIN32
+//    #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+//    TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
+//#elif !defined(__APPLE__)
+//    close(0);
+//#endif
+//
+//    SDL_Quit();
+//    return 0;
+//}
+
+
+
+#define WIDTH 512
+#define HEIGHT 384
+#define PAD 10
+
+int main(int argc, char **argv)
+{
+
+//    const char *args[] = {
+//            "./bin/uxnemu",
+//            "-2x",
+//            "-o",
+//            "bin/piano.rom"
+//    };
+//
+//    argc = sizeof(args) / sizeof(args[0]);
+//    argv = new char*[argc]; // Allocate dynamic array
+//
+//    // Copy args to argv
+//    for (int i = 0; i < argc; i++) {
+//        argv[i] = const_cast<char*>(args[i]);
+//    }
+    // Print original arguments
+    std::cout << "Original arguments: " << std::endl;
+    for (int i = 0; i < argc; i++) {
+        std::cout << "argv[" << i << "] = " << argv[i] << std::endl;
+    }
+    // 创建一个标志来表示是否执行一次性的计算
+    bool run_once = false;
+
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-o") == 0 || strcmp(argv[i], "--once") == 0) {
+            run_once = true;
+            for (int j = i; j < argc - 1; j++) {
+                argv[j] = argv[j + 1];
             }
-        } else {
-            SDL_Delay(1);
+            argc--; // Decrease the count of arguments
+            i--; // Check the current index again in next iteration
         }
+    }
+    std::cout << "run_once: " << std::boolalpha << run_once << std::endl;
+    // Print modified arguments
+    std::cout << "\nModified arguments: " << std::endl;
+    for (int i = 0; i < argc; i++) {
+        std::cout << "argv[" << i << "] = " << argv[i] << std::endl;
     }
 
 
+    // 初始化显示模式变量
+    SDL_DisplayMode DM;
+    // 创建一个Uxn类型的变量u，并对其进行初始化
+    Uxn u = {0};
+    // 创建并初始化索引i
+    int i = 1;
+
+    // 如果初始化失败 返回错误
+    if(!init())
+        return system_error("Init", "Failed to initialize emulator.");
+    /* default resolution */
+    // 设置默认屏幕分辨率
+    screen_resize(WIDTH, HEIGHT);
+    /* default zoom */
+    // 检查是否存在缩放选项
+    if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
+        set_zoom(argv[i++][1] - '0');
+    else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
+        set_zoom(DM.w / 1280);
+    /* load rom */
+    // 检查是否提供了rom 文件路径
+    if(i == argc)
+        return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
+    rom_path = argv[i++]; // 存储rom路径
+
+    // 如果启动失败 返回错误
+    if(!start(&u, rom_path, argc - i))
+        return system_error("Start", "Failed");
+    /* read arguments */
+    // 读取命令行参数
+    for(; i < argc; i++) {
+        char *p = argv[i];
+        while(*p) console_input(&u, *p++, CONSOLE_ARG);
+        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+    }
+    /* start rom */
+    // 根据 run_once 标志选择执行模式
+    if(run_once) {
+        // Execute all computations at once and return the result
+        uxn_eval(&u, PEEK2(&u.dev[0x20]));
+    } else {
+        // Enter the SDL loop and process events
+        run(&u);
+    }
+    /* finished */
 #ifdef _WIN32
     #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
-    TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
+	TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
 #elif !defined(__APPLE__)
-    close(0);
+    close(0); /* make stdin thread exit */
 #endif
 
+    // 清理SDL资源
     SDL_Quit();
     return 0;
 }
+

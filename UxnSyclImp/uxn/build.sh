@@ -99,5 +99,6 @@ if [ $norun = 1 ]; then exit; fi
 
 ./bin/uxnasm projects/software/piano.tal bin/piano.rom
 
-./bin/uxnemu -2x bin/piano.rom
+#./bin/uxnemu -2x bin/piano.rom
 
+./bin/uxnemu -2x -o bin/piano.rom
