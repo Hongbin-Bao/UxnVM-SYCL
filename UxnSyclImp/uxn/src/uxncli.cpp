@@ -6,7 +6,7 @@
 #include "devices/system.h"
 #include "devices/file.h"
 #include "devices/datetime.h"
-
+#include "iostream"
 /*
 Copyright (c) 2021-2023 Devine Lu Linvega, Andrew Alderwick
 
@@ -68,6 +68,14 @@ uxn_deo(Uxn *u, Uint8 addr)
 int
 main(int argc, char **argv)
 {
+
+    // Print original arguments
+    std::cout << "Original arguments: " << std::endl;
+    for (int i = 0; i < argc; i++) {
+        std::cout << "argv[" << i << "] = " << argv[i] << std::endl;
+    }
+
+
     Uxn u;
     int i = 1;
     if(i == argc)
