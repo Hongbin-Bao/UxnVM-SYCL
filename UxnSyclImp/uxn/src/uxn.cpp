@@ -1,12 +1,14 @@
 /**
- * 
+ *
  * Description:
- * 
+ *
  * Created by: Hongbin Bao
  * Created on: 2023/7/10 17:17
- * 
+ *
  */
 #include "uxn.h"
+#include <CL/sycl.hpp>
+#include <iostream>
 
 /*
 Copyright (u) 2022-2023 Devine Lu Linvega, Andrew Alderwick, Andrew Richards
@@ -40,97 +42,219 @@ WITH REGARD TO THIS SOFTWARE.
 #define PUT(o, v) { s->dat[(Uint8)(s->ptr - 1 - (o))] = (v); }
 #define PUT2(o, v) { tmp = (v); s->dat[(Uint8)(s->ptr - o - 2)] = tmp >> 8; s->dat[(Uint8)(s->ptr - o - 1)] = tmp; }
 #define PUSH(x, v) { z = (x); if(z->ptr > 254) HALT(2) z->dat[z->ptr++] = (v); }
+
 #define PUSH2(x, v) { z = (x); if(z->ptr > 253) HALT(2) tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
 #define DEO(a, b) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a)); }
 #define DEI(a, b) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
 
-int
-uxn_eval(Uxn *u, Uint16 pc)
-{   int t, n, l, k, tmp, opc, ins;  // 定义一些整型变量，用于后续的计算
-    Uint8 *ram = u->ram;  // 定义一个8位无符号整型指针，指向Uxn结构体中的ram成员
-    Stack *s, *z;  // 定义两个指向Stack的指针
-    if(!pc || u->dev[0x0f]) return 0;  // 如果pc为0或者u的dev数组的第16个元素（0x0f）非零，则函数返回0
-    for(;;) {  // 无限循环，直到满足某个退出条件才会跳出
-        ins = ram[pc++] & 0xff;  // 获取ram中pc指定的元素值，并与0xff做与操作，然后pc自增
-        k = ins & 0x80 ? 0xff : 0;  // 若ins的最高位（第8位）为1，则k为0xff，否则为0
-        s = ins & 0x40 ? &u->rst : &u->wst;  // 若ins的第7位为1，则s指向u的rst成员，否则指向wst成员
-        opc = !(ins & 0x1f) ? (0 - (ins >> 5)) & 0xff : ins & 0x3f;  // 如果ins的最低5位全为0，则opc等于ins右移5位后的负值与0xff的与运算结果，否则等于ins与0x3f的与运算结果
-        switch(opc) {  // 开始switch语句，对opc进行分支处理
-            /* IMM */
-            case 0x00: /* BRK   */ return 1;
-            case 0xff: /* JCI   */ pc += !!s->dat[--s->ptr] * PEEK2(ram + pc) + 2; break;
-            case 0xfe: /* JMI   */ pc += PEEK2(ram + pc) + 2; break;
-            case 0xfd: /* JSI   */ PUSH2(&u->rst, pc + 2) pc += PEEK2(ram + pc) + 2; break;
-            case 0xfc: /* LIT   */ PUSH(s, ram[pc++]) break;
-            case 0xfb: /* LIT2  */ PUSH2(s, PEEK2(ram + pc)) pc += 2; break;
-            case 0xfa: /* LITr  */ PUSH(s, ram[pc++]) break;
-            case 0xf9: /* LIT2r */ PUSH2(s, PEEK2(ram + pc)) pc += 2; break;
-                /* ALU */
-            case 0x01: /* INC  */ t=T;            SET(1, 0) PUT(0, t + 1) break;
-            case 0x21:            t=T2;           SET(2, 0) PUT2(0, t + 1) break;
-            case 0x02: /* POP  */                 SET(1,-1) break;
-            case 0x22:                            SET(2,-2) break;
-            case 0x03: /* NIP  */ t=T;            SET(2,-1) PUT(0, t) break;
-            case 0x23:            t=T2;           SET(4,-2) PUT2(0, t) break;
-            case 0x04: /* SWP  */ t=T;n=N;        SET(2, 0) PUT(0, n) PUT(1, t) break;
-            case 0x24:            t=T2;n=N2;      SET(4, 0) PUT2(0, n) PUT2(2, t) break;
-            case 0x05: /* ROT  */ t=T;n=N;l=L;    SET(3, 0) PUT(0, l) PUT(1, t) PUT(2, n) break;
-            case 0x25:            t=T2;n=N2;l=L2; SET(6, 0) PUT2(0, l) PUT2(2, t) PUT2(4, n) break;
-            case 0x06: /* DUP  */ t=T;            SET(1, 1) PUT(0, t) PUT(1, t) break;
-            case 0x26:            t=T2;           SET(2, 2) PUT2(0, t) PUT2(2, t) break;
-            case 0x07: /* OVR  */ t=T;n=N;        SET(2, 1) PUT(0, n) PUT(1, t) PUT(2, n) break;
-            case 0x27:            t=T2;n=N2;      SET(4, 2) PUT2(0, n) PUT2(2, t) PUT2(4, n) break;
-            case 0x08: /* EQU  */ t=T;n=N;        SET(2,-1) PUT(0, n == t) break;
-            case 0x28:            t=T2;n=N2;      SET(4,-3) PUT(0, n == t) break;
-            case 0x09: /* NEQ  */ t=T;n=N;        SET(2,-1) PUT(0, n != t) break;
-            case 0x29:            t=T2;n=N2;      SET(4,-3) PUT(0, n != t) break;
-            case 0x0a: /* GTH  */ t=T;n=N;        SET(2,-1) PUT(0, n > t) break;
-            case 0x2a:            t=T2;n=N2;      SET(4,-3) PUT(0, n > t) break;
-            case 0x0b: /* LTH  */ t=T;n=N;        SET(2,-1) PUT(0, n < t) break;
-            case 0x2b:            t=T2;n=N2;      SET(4,-3) PUT(0, n < t) break;
-            case 0x0c: /* JMP  */ t=T;            SET(1,-1) pc += (Sint8)t; break;
-            case 0x2c:            t=T2;           SET(2,-2) pc = t; break;
-            case 0x0d: /* JCN  */ t=T;n=N;        SET(2,-2) pc += !!n * (Sint8)t; break;
-            case 0x2d:            t=T2;n=L;       SET(3,-3) if(n) pc = t; break;
-            case 0x0e: /* JSR  */ t=T;            SET(1,-1) PUSH2(&u->rst, pc) pc += (Sint8)t; break;
-            case 0x2e:            t=T2;           SET(2,-2) PUSH2(&u->rst, pc) pc = t; break;
-            case 0x0f: /* STH  */ t=T;            SET(1,-1) PUSH((ins & 0x40 ? &u->wst : &u->rst), t) break;
-            case 0x2f:            t=T2;           SET(2,-2) PUSH2((ins & 0x40 ? &u->wst : &u->rst), t) break;
-            case 0x10: /* LDZ  */ t=T;            SET(1, 0) PUT(0, ram[t]) break;
-            case 0x30:            t=T;            SET(1, 1) PUT2(0, PEEK2(ram + t)) break;
-            case 0x11: /* STZ  */ t=T;n=N;        SET(2,-2) ram[t] = n; break;
-            case 0x31:            t=T;n=H2;       SET(3,-3) POKE2(ram + t, n) break;
-            case 0x12: /* LDR  */ t=T;            SET(1, 0) PUT(0, ram[pc + (Sint8)t]) break;
-            case 0x32:            t=T;            SET(1, 1) PUT2(0, PEEK2(ram + pc + (Sint8)t)) break;
-            case 0x13: /* STR  */ t=T;n=N;        SET(2,-2) ram[pc + (Sint8)t] = n; break;
-            case 0x33:            t=T;n=H2;       SET(3,-3) POKE2(ram + pc + (Sint8)t, n) break;
-            case 0x14: /* LDA  */ t=T2;           SET(2,-1) PUT(0, ram[t]) break;
-            case 0x34:            t=T2;           SET(2, 0) PUT2(0, PEEK2(ram + t)) break;
-            case 0x15: /* STA  */ t=T2;n=L;       SET(3,-3) ram[t] = n; break;
-            case 0x35:            t=T2;n=N2;      SET(4,-4) POKE2(ram + t, n) break;
-            case 0x16: /* DEI  */ t=T;            SET(1, 0) DEI(0, t) break;
-            case 0x36:            t=T;            SET(1, 1) DEI(1, t) DEI(0, t + 1) break;
-            case 0x17: /* DEO  */ t=T;n=N;        SET(2,-2) DEO(t, n) break;
-            case 0x37:            t=T;n=N;l=L;    SET(3,-3) DEO(t, l) DEO(t + 1, n) break;
-            case 0x18: /* ADD  */ t=T;n=N;        SET(2,-1) PUT(0, n + t) break;
-            case 0x38:            t=T2;n=N2;      SET(4,-2) PUT2(0, n + t) break;
-            case 0x19: /* SUB  */ t=T;n=N;        SET(2,-1) PUT(0, n - t) break;
-            case 0x39:            t=T2;n=N2;      SET(4,-2) PUT2(0, n - t) break;
-            case 0x1a: /* MUL  */ t=T;n=N;        SET(2,-1) PUT(0, n * t) break;
-            case 0x3a:            t=T2;n=N2;      SET(4,-2) PUT2(0, n * t) break;
-            case 0x1b: /* DIV  */ t=T;n=N;        SET(2,-1) if(!t) HALT(3) PUT(0, n / t) break;
-            case 0x3b:            t=T2;n=N2;      SET(4,-2) if(!t) HALT(3) PUT2(0, n / t) break;
-            case 0x1c: /* AND  */ t=T;n=N;        SET(2,-1) PUT(0, n & t) break;
-            case 0x3c:            t=T2;n=N2;      SET(4,-2) PUT2(0, n & t) break;
-            case 0x1d: /* ORA  */ t=T;n=N;        SET(2,-1) PUT(0, n | t) break;
-            case 0x3d:            t=T2;n=N2;      SET(4,-2) PUT2(0, n | t) break;
-            case 0x1e: /* EOR  */ t=T;n=N;        SET(2,-1) PUT(0, n ^ t) break;
-            case 0x3e:            t=T2;n=N2;      SET(4,-2) PUT2(0, n ^ t) break;
-            case 0x1f: /* SFT  */ t=T;n=N;        SET(2,-1) PUT(0, n >> (t & 0xf) << (t >> 4)) break;
-            case 0x3f:            t=T;n=H2;       SET(3,-1) PUT2(0, n >> (t & 0xf) << (t >> 4)) break;
-        }
-    }
+//auto uxn_halt = [](auto &u, auto ins, auto c, auto pc_minus_one) {
+//    // 实现uxn_halt的功能
+//    // 这个函数可能需要使用到其他Accessor，所以你需要将它们作为参数传入
+//    // return的语义在SYCL内核中不能直接使用，所以你需要修改这个函数以在halt发生时通过某种方式通知主机代码
+//};
+
+//auto SET = [](auto &s, auto mul, auto add, auto k, auto &halt) {
+//    if(mul > s[0].ptr) uxn_halt(1);
+//    auto tmp = (mul & k) + add + s[0].ptr;
+//    if(tmp > 254) uxn_halt(2);
+//    s[0].ptr = tmp;
+//};
+//
+//auto PUT = [](auto &s, auto o, auto v) {
+//    s[0].dat[(Uint8)(s[0].ptr - 1 - (o))] = (v);
+//};
+//
+//auto PUT2 = [](auto &s, auto o, auto v) {
+//    auto tmp = (v);
+//    s[0].dat[(Uint8)(s[0].ptr - o - 2)] = tmp >> 8;
+//    s[0].dat[(Uint8)(s[0].ptr - o - 1)] = tmp;
+//};
+//
+//auto PUSH = [](auto &s, auto v, auto &halt) {
+//    if(s[0].ptr > 254) uxn_halt(2);
+//    s[0].dat[s[0].ptr++] = (v);
+//};
+//
+//auto PUSH2 = [](auto &s, auto v, auto &halt) {
+//    if(s[0].ptr > 253) uxn_halt(2);
+//    auto tmp = (v);
+//    s[0].dat[s[0].ptr] = tmp >> 8;
+//    s[0].dat[s[0].ptr + 1] = tmp;
+//    s[0].ptr += 2;
+//};
+//
+//auto DEO = [](auto &u, auto a, auto b, auto &deo_mask, auto &uxn_deo) {
+//    u[0].dev[(a)] = (b);
+//    if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a));
+//};
+//
+//auto DEI = [](auto &s, auto &u, auto a, auto b, auto &dei_mask, auto &uxn_dei) {
+//    PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u[0].dev[(b)]);
+//};
+
+class my_kernel;
+
+Uint16 peek2(cl::sycl::accessor<Uint8, 1, cl::sycl::access::mode::read, cl::sycl::access::target::global_buffer> accessor, int index) {
+    return (accessor[index] << 8) | accessor[index + 1];
 }
+
+void halt(cl::sycl::accessor<int, 1, cl::sycl::access::mode::read_write, cl::sycl::access::target::global_buffer> halt_accessor, int c) {
+    halt_accessor[0] = c;
+}
+
+
+void push2(cl::sycl::accessor<Stack, 1, cl::sycl::access::mode::read_write, cl::sycl::access::target::global_buffer> accessor, Uint16 v) {
+    if(accessor[0].ptr > 253) {
+        // TODO
+        // handle error
+        // you need to define what to do when ptr > 253
+        // because you cannot use exit or other standard library functions in SYCL kernel
+    }
+    Uint16 tmp = v;
+    accessor[0].dat[accessor[0].ptr] = tmp >> 8;
+    accessor[0].dat[accessor[0].ptr + 1] = tmp;
+    accessor[0].ptr += 2;
+}
+
+void push(cl::sycl::accessor<Stack, 1, cl::sycl::access::mode::read_write,  cl::sycl::access::target::global_buffer> s_accessor, Uint8 v) {
+    Stack& stack = s_accessor[0];
+    if(stack.ptr > 254)  // halt(2);  // halt函数需要你自己实现
+    stack.dat[stack.ptr++] = v;
+}
+#define PEEK2(d) ((d)[0] << 8 | (d)[1])
+
+
+
+
+
+int uxn_eval(Uxn *m, Uint16 p){
+
+
+    // 选择设备并创建SYCL队列
+    cl::sycl::queue q (cl::sycl::default_selector{});
+
+
+    cl::sycl::device dev = q.get_device();
+    std::cout << "Running on "
+              << dev.get_info<cl::sycl::info::device::name>()
+              << "\n";
+
+
+
+    Uint8* ram = cl::sycl::malloc_shared<Uint8>(1,q);
+    ram = m->ram;
+
+    Stack  *s = cl::sycl::malloc_shared<Stack>(1,q);
+    Stack  *z = cl::sycl::malloc_shared<Stack>(1,q);
+
+    Uint16 *pc = cl::sycl::malloc_shared<Uint16>(1,q);
+    Uxn *u = cl::sycl::malloc_shared<Uxn>(1,q);
+    *u = *m;
+    pc = &p;
+
+
+
+    // 如果pc为0或者u的dev数组的第16个元素（0x0f）非零，则函数返回0
+    if(!*pc || u->dev[0x0f]) return 0;
+
+    cl::sycl::queue queue; // Initialize a SYCL queue
+
+    queue.submit([&](cl::sycl::handler& cgh) {
+        cgh.single_task<class my_kernel>([=]() mutable {
+
+            // 定义一些整型变量，用于后续的计算
+            int t, n, l, k, tmp, opc, ins;
+
+            for(;;) {  // 无限循环，直到满足某个退出条件才会跳出
+                ins = ram[*pc++] & 0xff;
+                k = ins & 0x80 ? 0xff : 0;
+                s = ins & 0x40 ? &u->rst : &u->wst;
+                opc = !(ins & 0x1f) ? (0 - (ins >> 5)) & 0xff : ins & 0x3f;
+                switch(opc) {  // 开始switch语句，对opc进行分支处理
+                    /* IMM */
+                    case 0x00: /* BRK   */ return 1;
+                    case 0xff: /* JCI   */ *pc += !!s->dat[--s->ptr] * PEEK2(ram + *pc) + 2; break;
+                    case 0xfe: /* JMI   */ *pc += PEEK2(ram + *pc) + 2; break;
+
+                    // TODO  PUSH2 have  HALT  uxn_halt need   return
+                    case 0xfd: /* JSI   */ PUSH2(&u->rst, *pc + 2) pc += PEEK2(ram + *pc) + 2; break;
+                    case 0xfc: /* LIT   */ PUSH(s, ram[*pc++]) break;
+                    case 0xfb: /* LIT2  */ PUSH2(s, PEEK2(ram + *pc)) *pc += 2; break;
+                    case 0xfa: /* LITr  */ PUSH(s, ram[*pc++]) break;
+                    case 0xf9: /* LIT2r */ PUSH2(s, PEEK2(ram + *pc)) *pc += 2; break;
+                        /* ALU */
+                    case 0x01: /* INC  */ t=T;            SET(1, 0) PUT(0, t + 1) break;
+                    case 0x21:            t=T2;           SET(2, 0) PUT2(0, t + 1) break;
+                    case 0x02: /* POP  */                 SET(1,-1) break;
+                    case 0x22:                            SET(2,-2) break;
+                    case 0x03: /* NIP  */ t=T;            SET(2,-1) PUT(0, t) break;
+                    case 0x23:            t=T2;           SET(4,-2) PUT2(0, t) break;
+                    case 0x04: /* SWP  */ t=T;n=N;        SET(2, 0) PUT(0, n) PUT(1, t) break;
+                    case 0x24:            t=T2;n=N2;      SET(4, 0) PUT2(0, n) PUT2(2, t) break;
+                    case 0x05: /* ROT  */ t=T;n=N;l=L;    SET(3, 0) PUT(0, l) PUT(1, t) PUT(2, n) break;
+                    case 0x25:            t=T2;n=N2;l=L2; SET(6, 0) PUT2(0, l) PUT2(2, t) PUT2(4, n) break;
+                    case 0x06: /* DUP  */ t=T;            SET(1, 1) PUT(0, t) PUT(1, t) break;
+                    case 0x26:            t=T2;           SET(2, 2) PUT2(0, t) PUT2(2, t) break;
+                    case 0x07: /* OVR  */ t=T;n=N;        SET(2, 1) PUT(0, n) PUT(1, t) PUT(2, n) break;
+                    case 0x27:            t=T2;n=N2;      SET(4, 2) PUT2(0, n) PUT2(2, t) PUT2(4, n) break;
+                    case 0x08: /* EQU  */ t=T;n=N;        SET(2,-1) PUT(0, n == t) break;
+                    case 0x28:            t=T2;n=N2;      SET(4,-3) PUT(0, n == t) break;
+                    case 0x09: /* NEQ  */ t=T;n=N;        SET(2,-1) PUT(0, n != t) break;
+                    case 0x29:            t=T2;n=N2;      SET(4,-3) PUT(0, n != t) break;
+                    case 0x0a: /* GTH  */ t=T;n=N;        SET(2,-1) PUT(0, n > t) break;
+                    case 0x2a:            t=T2;n=N2;      SET(4,-3) PUT(0, n > t) break;
+                    case 0x0b: /* LTH  */ t=T;n=N;        SET(2,-1) PUT(0, n < t) break;
+                    case 0x2b:            t=T2;n=N2;      SET(4,-3) PUT(0, n < t) break;
+                    case 0x0c: /* JMP  */ t=T;            SET(1,-1) *pc += (Sint8)t; break;
+                    case 0x2c:            t=T2;           SET(2,-2) *pc = t; break;
+                    case 0x0d: /* JCN  */ t=T;n=N;        SET(2,-2) *pc += !!n * (Sint8)t; break;
+                    case 0x2d:            t=T2;n=L;       SET(3,-3) if(n) *pc = t; break;
+                    case 0x0e: /* JSR  */ t=T;            SET(1,-1) PUSH2(&u->rst, *pc) *pc += (Sint8)t; break;
+                    case 0x2e:            t=T2;           SET(2,-2) PUSH2(&u->rst, *pc) *pc = t; break;
+                    case 0x0f: /* STH  */ t=T;            SET(1,-1) PUSH((ins & 0x40 ? &u->wst : &u->rst), t) break;
+                    case 0x2f:            t=T2;           SET(2,-2) PUSH2((ins & 0x40 ? &u->wst : &u->rst), t) break;
+                    case 0x10: /* LDZ  */ t=T;            SET(1, 0) PUT(0, ram[t]) break;
+                    case 0x30:            t=T;            SET(1, 1) PUT2(0, PEEK2(ram + t)) break;
+                    case 0x11: /* STZ  */ t=T;n=N;        SET(2,-2) ram[t] = n; break;
+                    case 0x31:            t=T;n=H2;       SET(3,-3) POKE2(ram + t, n) break;
+                    case 0x12: /* LDR  */ t=T;            SET(1, 0) PUT(0, ram[*pc + (Sint8)t]) break;
+                    case 0x32:            t=T;            SET(1, 1) PUT2(0, PEEK2(ram + *pc + (Sint8)t)) break;
+                    case 0x13: /* STR  */ t=T;n=N;        SET(2,-2) ram[*pc + (Sint8)t] = n; break;
+                    case 0x33:            t=T;n=H2;       SET(3,-3) POKE2(ram + *pc + (Sint8)t, n) break;
+                    case 0x14: /* LDA  */ t=T2;           SET(2,-1) PUT(0, ram[t]) break;
+                    case 0x34:            t=T2;           SET(2, 0) PUT2(0, PEEK2(ram + t)) break;
+                    case 0x15: /* STA  */ t=T2;n=L;       SET(3,-3) ram[t] = n; break;
+                    case 0x35:            t=T2;n=N2;      SET(4,-4) POKE2(ram + t, n) break;
+
+                    // TODO
+                    case 0x16: /* DEI  */ t=T;            SET(1, 0) DEI(0, t) break;
+                    case 0x36:            t=T;            SET(1, 1) DEI(1, t) DEI(0, t + 1) break;
+                    case 0x17: /* DEO  */ t=T;n=N;        SET(2,-2) DEO(t, n) break;
+                    case 0x37:            t=T;n=N;l=L;    SET(3,-3) DEO(t, l) DEO(t + 1, n) break;
+                    case 0x18: /* ADD  */ t=T;n=N;        SET(2,-1) PUT(0, n + t) break;
+                    case 0x38:            t=T2;n=N2;      SET(4,-2) PUT2(0, n + t) break;
+                    case 0x19: /* SUB  */ t=T;n=N;        SET(2,-1) PUT(0, n - t) break;
+                    case 0x39:            t=T2;n=N2;      SET(4,-2) PUT2(0, n - t) break;
+                    case 0x1a: /* MUL  */ t=T;n=N;        SET(2,-1) PUT(0, n * t) break;
+                    case 0x3a:            t=T2;n=N2;      SET(4,-2) PUT2(0, n * t) break;
+                    case 0x1b: /* DIV  */ t=T;n=N;        SET(2,-1) if(!t) HALT(3) PUT(0, n / t) break;
+                    case 0x3b:            t=T2;n=N2;      SET(4,-2) if(!t) HALT(3) PUT2(0, n / t) break;
+                    case 0x1c: /* AND  */ t=T;n=N;        SET(2,-1) PUT(0, n & t) break;
+                    case 0x3c:            t=T2;n=N2;      SET(4,-2) PUT2(0, n & t) break;
+                    case 0x1d: /* ORA  */ t=T;n=N;        SET(2,-1) PUT(0, n | t) break;
+                    case 0x3d:            t=T2;n=N2;      SET(4,-2) PUT2(0, n | t) break;
+                    case 0x1e: /* EOR  */ t=T;n=N;        SET(2,-1) PUT(0, n ^ t) break;
+                    case 0x3e:            t=T2;n=N2;      SET(4,-2) PUT2(0, n ^ t) break;
+                    case 0x1f: /* SFT  */ t=T;n=N;        SET(2,-1) PUT(0, n >> (t & 0xf) << (t >> 4)) break;
+                    case 0x3f:            t=T;n=H2;       SET(3,-1) PUT2(0, n >> (t & 0xf) << (t >> 4)) break;
+                }
+            }
+        });
+    });
+
+    return 0;
+}
+
 /**
  * 先初始化指向Uxn的指针u，将其所指向的内存区域全部清零。
  * 然后将传入的ram指针赋值给Uxn结构体的ram成员，即设置Uxn的内存块为ram。
