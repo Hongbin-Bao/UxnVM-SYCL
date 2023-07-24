@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.25)
 
 project(uxn)
 
@@ -6,33 +6,33 @@ project(uxn)
 add_definitions(-D_DARWIN_C_SOURCE)
 
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(SDL2 REQUIRED)
-## SYCL
-#find_package(OpenSYCL REQUIRED)
-#####
-#if(NOT CMAKE_BUILD_TYPE)
-#    set(CMAKE_BUILD_TYPE Release)
-#endif()
-#
-#if(NOT OPENSYCL_DEBUG_LEVEL)
-#    if(CMAKE_BUILD_TYPE MATCHES "Debug")
-#        set(OPENSYCL_DEBUG_LEVEL 3 CACHE STRING
-#                "Choose the debug level, options are: 0 (no debug), 1 (print errors), 2 (also print warnings), 3 (also print general information)"
-#                FORCE)
-#    else()
-#        set(OPENSYCL_DEBUG_LEVEL 2 CACHE STRING
-#                "Choose the debug level, options are: 0 (no debug), 1 (print errors), 2 (also print warnings), 3 (also print general information)"
-#                FORCE)
-#    endif()
-#endif()
-#
-#if(WIN32)
-#    add_definitions(-D_USE_MATH_DEFINES)
-#endif()
-#include_directories(/opt/homebrew/Cellar/libomp/16.0.6/include)
-#####
+# SYCL
+find_package(OpenSYCL REQUIRED)
+####
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if(NOT OPENSYCL_DEBUG_LEVEL)
+    if(CMAKE_BUILD_TYPE MATCHES "Debug")
+        set(OPENSYCL_DEBUG_LEVEL 3 CACHE STRING
+                "Choose the debug level, options are: 0 (no debug), 1 (print errors), 2 (also print warnings), 3 (also print general information)"
+                FORCE)
+    else()
+        set(OPENSYCL_DEBUG_LEVEL 2 CACHE STRING
+                "Choose the debug level, options are: 0 (no debug), 1 (print errors), 2 (also print warnings), 3 (also print general information)"
+                FORCE)
+    endif()
+endif()
+
+if(WIN32)
+    add_definitions(-D_USE_MATH_DEFINES)
+endif()
+include_directories(/opt/homebrew/Cellar/libomp/16.0.6/include)
+####
 set(UXN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 
 set(UXN_SOURCE_CORE
@@ -111,6 +111,25 @@ add_executable(uxnasm
         ${UXN_SOURCE_DIR}/uxnasm.cpp
         )
 
-#add_sycl_to_target(TARGET uxnasm SOURCES uxnasm.cpp)
-#add_sycl_to_target(TARGET uxnemu SOURCES uxnemu.cpp)
-#add_sycl_to_target(TARGET uxncli SOURCES uxncli.cpp)
+
+add_sycl_to_target(TARGET uxncli SOURCES ${UXN_SOURCE_DIR}/uxncli.cpp
+        ${UXN_SOURCE_CORE}
+        ${UXN_SOURCE_DEVICE_SYSTEM}
+        ${UXN_SOURCE_DEVICE_FILE}
+        ${UXN_SOURCE_DEVICE_DATETIME}
+        )
+
+add_sycl_to_target(TARGET uxnemu SOURCES ${UXN_SOURCE_DIR}/uxnemu.cpp
+        ${UXN_SOURCE_CORE}
+        ${UXN_SOURCE_DEVICE_SYSTEM}
+        ${UXN_SOURCE_DEVICE_SCREEN}
+        ${UXN_SOURCE_DEVICE_AUDIO}
+        ${UXN_SOURCE_DEVICE_FILE}
+        ${UXN_SOURCE_DEVICE_CONTROLLER}
+        ${UXN_SOURCE_DEVICE_MOUSE}
+        ${UXN_SOURCE_DEVICE_DATETIME}
+        )
+
+
+
+#add_sycl_to_target(TARGET test SOURCES test.cpp)
