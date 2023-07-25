@@ -15,6 +15,7 @@ WITH REGARD TO THIS SOFTWARE.
 #define POKE2(d, v) { (d)[0] = (v) >> 8; (d)[1] = (v); } // 定义一个宏POKE2，用于将16位值v写入到地址d
 #define PEEK2(d) ((d)[0] << 8 | (d)[1]) // 定义一个宏PEEK2，用于从地址d读取16位值
 
+
 /* clang-format on */
 
 typedef unsigned char Uint8; // 定义8位无符号整数类型Uint8
@@ -47,3 +48,4 @@ extern Uint16 deo_mask[]; // 定义一个外部数组deo_mask，用于处理输�
 int uxn_boot(Uxn *u, Uint8 *ram); // 定义一个函数uxn_boot，用于初始化Uxn结构体并设置其内存块
 int uxn_eval(Uxn *u, Uint16 pc); // 定义一个函数uxn_eval，用于执行Uxn的代码
 
+//int uxn_eval_gpu(Uxn *u, Uint16 pc);
