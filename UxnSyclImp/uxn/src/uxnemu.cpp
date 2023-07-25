@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
-
+#include <CL/sycl.hpp>
 #include "uxn.h"
 
 #pragma GCC diagnostic push
@@ -18,6 +18,8 @@
 #pragma clang diagnostic ignored "-Wtypedef-redefinition"
 #include <SDL.h>
 #include <iostream>
+#include <hipSYCL/sycl/queue.hpp>
+
 #include "devices/system.h"
 #include "devices/screen.h"
 #include "devices/audio.h"
@@ -263,12 +265,21 @@ init(void)
  * @return
  */
 static int
-start(Uxn *u, char *rom, int queue)
+start(Uxn *u, char *rom, int queue,cl::sycl::queue& deviceQueue)
 {   // 释放之前的内存
-    free(u->ram);
+    //free(u->ram);
+    cl::sycl::free(u->ram, deviceQueue);
+    //cl::sycl::free(pc,deviceQueue);
 
+
+    //cl::sycl::queue deviceQueue; // Initialize a SYCL queue
+
+    uint8_t* p = malloc_shared<uint8_t>(0x10000 * RAM_PAGES, deviceQueue);
+    //uint16_t* pc = malloc_shared<uint16_t>(1, deviceQueue);
+   // *pc = PAGE_PROGRAM;
     // 启动uxn 为其分配内存空间
-    if(!uxn_boot(u, (Uint8 *)calloc(0x10000 * RAM_PAGES, sizeof(Uint8))))
+//    if(!uxn_boot(u, (Uint8 *)calloc(0x10000 * RAM_PAGES, sizeof(Uint8))))
+    if(!uxn_boot(u, p))
         return system_error("Boot", "Failed to start uxn.");
     // 加载rom 文件
     if(!system_load(u, rom))
@@ -326,11 +337,11 @@ capture_screen(void)
 }
 
 static void
-restart(Uxn *u)
+restart(Uxn *u,cl::sycl::queue& deviceQueue)
 {
     screen_resize(WIDTH, HEIGHT);
-    if(!start(u, "launcher.rom", 0))
-        start(u, rom_path, 0);
+    if(!start(u, "launcher.rom", 0,deviceQueue))
+        start(u, rom_path, 0,deviceQueue);
 }
 
 static Uint8
@@ -382,7 +393,7 @@ get_key(SDL_Event *event)
 }
 
 static void
-do_shortcut(Uxn *u, SDL_Event *event)
+do_shortcut(Uxn *u, SDL_Event *event,cl::sycl::queue& deviceQueue)
 {
     if(event->key.keysym.sym == SDLK_F1)
         set_zoom(zoom == 3 ? 1 : zoom + 1);
@@ -391,7 +402,7 @@ do_shortcut(Uxn *u, SDL_Event *event)
     else if(event->key.keysym.sym == SDLK_F3)
         capture_screen();
     else if(event->key.keysym.sym == SDLK_F4)
-        restart(u);
+        restart(u,deviceQueue);
 }
 
 /**
@@ -441,7 +452,7 @@ void mouse_state_update(Uxn* u, MouseState* ms, int eventType) {
 
 
 static int
-handle_events(Uxn *u)
+handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
 {
     SDL_Event event;
     static MouseState ms = {0};
@@ -457,7 +468,7 @@ handle_events(Uxn *u)
             redraw();
         else if(event.type == SDL_DROPFILE) {
             screen_resize(WIDTH, HEIGHT);
-            start(u, event.drop.file, 0);
+            start(u, event.drop.file, 0, deviceQueue);
             SDL_free(event.drop.file);
         }
             /* Audio */
@@ -503,7 +514,7 @@ handle_events(Uxn *u)
             else if(get_button(&event))
                 controller_down(u, &u->dev[0x80], get_button(&event));
             else
-                do_shortcut(u, &event);
+                do_shortcut(u, &event,deviceQueue);
             ksym = event.key.keysym.sym;
             if(SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_KEYUP, SDL_KEYUP) == 1 && ksym == event.key.keysym.sym) {
                 return 1;
@@ -563,40 +574,8 @@ handle_events(Uxn *u)
     return 1;
 }
 
-//static int
-//run(Uxn *u)
-//{
-//    Uint64 next_refresh = 0;
-//    Uint64 now = SDL_GetPerformanceCounter();
-//    Uint64 frame_interval = SDL_GetPerformanceFrequency() / 60;
-//    for(;;) {
-//        Uint16 screen_vector;
-//        /* .System/halt */
-//        if(u->dev[0x0f])
-//            return system_error("Run", "Ended.");
-//        now = SDL_GetPerformanceCounter();
-//        exec_deadline = now + deadline_interval;
-//        if(!handle_events(u))
-//            return 0;
-//        screen_vector = PEEK2(&u->dev[0x20]);
-//        if(BENCH || now >= next_refresh) {
-//            now = SDL_GetPerformanceCounter();
-//            next_refresh = now + frame_interval;
-//            uxn_eval(u, screen_vector);
-//            if(uxn_screen.x2)
-//                redraw();
-//        }
-//        if(BENCH)
-//            ;
-//        else if(screen_vector || uxn_screen.x2) {
-//            Uint64 delay_ms = (next_refresh - now) / ms_interval;
-//            if(delay_ms > 0) SDL_Delay(delay_ms);
-//        } else
-//            SDL_WaitEvent(NULL);
-//    }
-//}
 static int
-run(Uxn *u)
+run(Uxn *u,cl::sycl::queue& deviceQueue)
 {
     Uint64 next_refresh = 0;
     Uint64 now = SDL_GetPerformanceCounter();
@@ -608,7 +587,7 @@ run(Uxn *u)
             return system_error("Run", "Ended.");
         now = SDL_GetPerformanceCounter();
         exec_deadline = now + deadline_interval;
-        int event_result = handle_events(u);
+        int event_result = handle_events(u, deviceQueue);
         if(event_result == 0)
             return 0;
         else if(event_result == -1)
@@ -630,142 +609,6 @@ run(Uxn *u)
     }
     return 1;
 }
-//int
-//main(int argc, char **argv)
-//{
-//    // 初始化显示模式变量
-//    SDL_DisplayMode DM;
-//    //Uxn u = {0};这行代码是在创建一个Uxn类型的变量u，并对其进行初始化。
-//    // {0}是一个初始化列表，它将u的所有成员（包括ram, dev, wst, rst, dei, deo）初始化为零或者NULL
-//    Uxn u = {0};
-//    // 创建并初始化索引i
-//    int i = 1;
-//
-//    // 如果初始化失败 返回错误
-//    if(!init())
-//        return system_error("Init", "Failed to initialize emulator.");
-//    /* default resolution */
-//    // 设置默认屏幕分辨率
-//    screen_resize(WIDTH, HEIGHT);
-//    /* default zoom */
-//    // 检查是否存在缩放选项
-//    if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
-//        set_zoom(argv[i++][1] - '0');
-//    else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
-//        set_zoom(DM.w / 1280);
-//    /* load rom */
-//    // 检查是否提供了rom 文件路径
-//    if(i == argc)
-//        return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
-//    rom_path = argv[i++]; // 存储rom路径
-//
-//    // 如果启动失败 返回错误
-//    if(!start(&u, rom_path, argc - i))
-//        return system_error("Start", "Failed");
-//    /* read arguments */
-//    // 读取命令行参数
-//    for(; i < argc; i++) {
-//        char *p = argv[i];
-//        while(*p) console_input(&u, *p++, CONSOLE_ARG);
-//        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
-//    }
-//    /* start rom */
-//    run(&u);
-//    /* finished */
-//#ifdef _WIN32
-//    #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
-//	TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
-//#elif !defined(__APPLE__)
-//    close(0); /* make stdin thread exit */
-//#endif
-//
-//    // 清理SDL资源
-//    SDL_Quit();
-//    return 0;
-//}
-
-
-//int main(int argc, char **argv) {
-//    SDL_DisplayMode DM;
-//    Uxn u = {0};
-//    int i = 1;
-//
-//    if(!init())
-//        return system_error("Init", "Failed to initialize emulator.");
-//
-//    screen_resize(WIDTH, HEIGHT);
-//
-//    if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
-//        set_zoom(argv[i++][1] - '0');
-//    else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
-//        set_zoom(DM.w / 1280);
-//
-//    if(i == argc)
-//        return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
-//
-//    rom_path = argv[i++];
-//
-//    if(!start(&u, rom_path, argc - i))
-//        return system_error("Start", "Failed");
-//
-//    for(; i < argc; i++) {
-//        char *p = argv[i];
-//        while(*p) console_input(&u, *p++, CONSOLE_ARG);
-//        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
-//    }
-///*
-// *
-// * 在主循环中使用基于 SDL（简单 DirectMedia 层）的时钟来管理来自鼠标、键盘、显示器和音频的事件的概念。在 SDL 主循环的每次迭代中运行设备内核可能会导致密集计算期间效率低下
-// * 代码会在每次循环中调用 SDL_PollEvent() 函数，该函数会检查是否有新的输入事件。如果有新的事件，它会返回 1，
-// * 并将事件数据写入 event 变量。然后，只有在有新的事件时，才会运行设备内核。如果没有新的事件，
-// * 就让程序休眠一段时间（这里是1毫秒），以减少 CPU 使用率。
-// * 这种优化方法的主要好处是，它可以在没有新的输入事件时减少不必要的计算，从而
-// * 提高程序的效率。然而，它也可能会使程序在没有新的输入事件时变得不响应。
-// */
-//    // Main event loop
-//    SDL_Event event;
-//    bool running = true;
-////    while(running) {
-////        if(SDL_PollEvent(&event)) {
-////            if(event.type == SDL_QUIT) {
-////                running = false;
-////                break;
-////            } else {
-////                if (handle_events(&u) == 0) {
-////                    running = false;
-////                } else {
-////                    run(&u);
-////                }
-////            }
-////        } else {
-////            SDL_Delay(1);
-////        }
-////    }
-//    while(running) {
-//        if(SDL_PollEvent(&event)) {
-//            if (handle_events(&u) == 0) {
-//                running = false;
-//            } else {
-//                run(&u);
-//            }
-//        } else {
-//            SDL_Delay(1);
-//        }
-//    }
-//
-//
-//#ifdef _WIN32
-//    #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
-//    TerminateThread((HANDLE)SDL_GetThreadID(stdin_thread), 0);
-//#elif !defined(__APPLE__)
-//    close(0);
-//#endif
-//
-//    SDL_Quit();
-//    return 0;
-//}
-
-
 
 #define WIDTH 512
 #define HEIGHT 384
@@ -777,7 +620,7 @@ int main(int argc, char **argv)
 //    const char *args[] = {
 //            "./bin/uxnemu",
 //            "-2x",
-//            "-o",
+//            //"-o",
 //            "bin/piano.rom"
 //    };
 //
@@ -816,8 +659,21 @@ int main(int argc, char **argv)
 
     // 初始化显示模式变量
     SDL_DisplayMode DM;
+
     // 创建一个Uxn类型的变量u，并对其进行初始化
-    Uxn u = {0};
+    cl::sycl::queue deviceQueue(cl::sycl::default_selector{});
+
+    // Uint8* ram = cl::sycl::malloc_shared<Uint8>(1,deviceQueue);
+
+    Uxn* u = cl::sycl::malloc_shared<Uxn>(1, deviceQueue);
+
+    // u 指针       *u 指针 取 他指向地址的 值
+    // &u 指针变量在内存的地址
+
+    //**u
+    // 内存区域全部写0
+    *u = {0};
+    //Uxn u = {0};
     // 创建并初始化索引i
     int i = 1;
 
@@ -840,23 +696,23 @@ int main(int argc, char **argv)
     rom_path = argv[i++]; // 存储rom路径
 
     // 如果启动失败 返回错误
-    if(!start(&u, rom_path, argc - i))
+    if(!start(u, rom_path, argc - i,deviceQueue))
         return system_error("Start", "Failed");
     /* read arguments */
     // 读取命令行参数
     for(; i < argc; i++) {
         char *p = argv[i];
-        while(*p) console_input(&u, *p++, CONSOLE_ARG);
-        console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+        while(*p) console_input(u, *p++, CONSOLE_ARG);
+        console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
     }
     /* start rom */
     // 根据 run_once 标志选择执行模式
     if(run_once) {
         // Execute all computations at once and return the result
-        uxn_eval(&u, PEEK2(&u.dev[0x20]));
+//        uxn_eval(u, PEEK2(u->dev[0x20]));
     } else {
         // Enter the SDL loop and process events
-        run(&u);
+        run(u,deviceQueue);
     }
     /* finished */
 #ifdef _WIN32
@@ -867,6 +723,7 @@ int main(int argc, char **argv)
 #endif
 
     // 清理SDL资源
+
     SDL_Quit();
     return 0;
 }
