@@ -14,5 +14,6 @@
 
 *.rom
 *.sym
-
+/cmake-build-debug
+/cmake-build-debug-syclcc
 *.[o0125678vqki]
