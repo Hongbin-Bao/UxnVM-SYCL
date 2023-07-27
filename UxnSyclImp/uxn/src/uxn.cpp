@@ -37,23 +37,23 @@ WITH REGARD TO THIS SOFTWARE.
 
 */
 
-//#define HALT(c) { return uxn_halt(u, ins, (c), pc - 1); }
-#define HALT(c) { }
-//#define SET(mul, add) { if(mul > s->ptr) HALT(1) tmp = (mul & k) + add + s->ptr; if(tmp > 254) HALT(2) s->ptr = tmp; }
-#define SET(mul, add) {  tmp = (mul & k) + add + s->ptr; s->ptr = tmp; }
-
-#define PUT(o, v) { s->dat[(Uint8)(s->ptr - 1 - (o))] = (v); }
-
-
-#define PUT2(o, v) { tmp = (v); s->dat[(Uint8)(s->ptr - o - 2)] = tmp >> 8; s->dat[(Uint8)(s->ptr - o - 1)] = tmp; }
-//#define PUSH(x, v) { z = (x); if(z->ptr > 254) HALT(2) z->dat[z->ptr++] = (v); }
-#define PUSH(x, v) { z = (x);z->dat[z->ptr++] = (v); }
-
-//#define PUSH2(x, v) { z = (x); if(z->ptr > 253) HALT(2) tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
-#define PUSH2(x, v) { z = (x);  tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
-
-#define DEO(a, b) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a)); }
-#define DEI(a, b) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
+////#define HALT(c) { return uxn_halt(u, ins, (c), pc - 1); }
+//#define HALT(c) { }
+////#define SET(mul, add) { if(mul > s->ptr) HALT(1) tmp = (mul & k) + add + s->ptr; if(tmp > 254) HALT(2) s->ptr = tmp; }
+//#define SET(mul, add) {  tmp = (mul & k) + add + s->ptr; s->ptr = tmp; }
+//
+//#define PUT(o, v) { s->dat[(Uint8)(s->ptr - 1 - (o))] = (v); }
+//
+//
+//#define PUT2(o, v) { tmp = (v); s->dat[(Uint8)(s->ptr - o - 2)] = tmp >> 8; s->dat[(Uint8)(s->ptr - o - 1)] = tmp; }
+////#define PUSH(x, v) { z = (x); if(z->ptr > 254) HALT(2) z->dat[z->ptr++] = (v); }
+//#define PUSH(x, v) { z = (x);z->dat[z->ptr++] = (v); }
+//
+////#define PUSH2(x, v) { z = (x); if(z->ptr > 253) HALT(2) tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
+//#define PUSH2(x, v) { z = (x);  tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
+//
+//#define DEO(a, b) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a)); }
+//#define DEI(a, b) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
 
 //void DEI_func(int a, int b, Uxn* u) {
 //    int index = b >> 4;
@@ -70,6 +70,15 @@ WITH REGARD TO THIS SOFTWARE.
 //
 //    PUT(a, value);
 //}
+#define HALT(c) { haltCode = c; return; }
+#define SET(mul, add) { if(mul > s->ptr) HALT(1) tmp = (mul & k) + add + s->ptr; if(tmp > 254) HALT(2) s->ptr = tmp; }
+#define PUT(o, v) { s->dat[(Uint8)(s->ptr - 1 - (o))] = (v); }
+#define PUT2(o, v) { tmp = (v); s->dat[(Uint8)(s->ptr - o - 2)] = tmp >> 8; s->dat[(Uint8)(s->ptr - o - 1)] = tmp; }
+#define PUSH(x, v) { z = (x); if(z->ptr > 254) HALT(2) z->dat[z->ptr++] = (v); }
+#define PUSH2(x, v) { z = (x); if(z->ptr > 253) HALT(2) tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
+#define DEO(a, b) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a)); }
+#define DEI(a, b) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
+
 
 void PUT_F(Stack* s, Uint8 o, Uint8 v) {
     Uint8 temp = s->ptr -1 -o;
@@ -277,7 +286,7 @@ typedef struct {
 } Params;
 
 
-void gpu_k(Params &params,Uxn *u){
+void gpu_kernel(Params &params,Uxn *u){
 
     Uint8 *ram = u->ram;
     Uint16 &pc = params.pc;
@@ -293,7 +302,7 @@ void gpu_k(Params &params,Uxn *u){
     int &ret = params.ret;
     int &haltCode = params.haltCode;
     bool &yield = params.yield;
-    for(;;) {  // 无限循环，直到满足某个退出条件才会跳出
+    for(;;) {
 
         ins = ram[pc++] & 0xff;  // 获取ram中pc指定的元素值，并与0xff做与操作，然后pc自增
         k = ins & 0x80 ? 0xff : 0;  // 若ins的最高位（第8位）为1，则k为0xff，否则为0
@@ -354,21 +363,10 @@ void gpu_k(Params &params,Uxn *u){
             case 0x15: /* STA  */ t=T2;n=L;       SET(3,-3) ram[t] = n; break;
             case 0x35:            t=T2;n=N2;      SET(4,-4) POKE2(ram + t, n) break;
 
-            case 0x16: /* DEI  */{
-                t=T;
-                SET(1, 0);
-                yield = true;
-
-//
-//                DEI(0, t)
-                return ;
-//                break;
-            }
-
-                //SET(1, 0) gpuParams1.status =2; return gpuParams1;//DEI(0, t) break;
-            case 0x36:            t=T;            SET(1, 1) DEI(1, t) DEI(0, t + 1) break;
-            case 0x17: /* DEO  */ t=T;n=N;        SET(2,-2) DEO(t, n) break;
-            case 0x37:            t=T;n=N;l=L;    SET(3,-3) DEO(t, l) DEO(t + 1, n) break;
+            case 0x16: /* DEI  */ t=T;            SET(1, 0) yield = true; return;
+            case 0x36:            t=T;            SET(1, 1) yield = true; return;
+            case 0x17: /* DEO  */ t=T;n=N;        SET(2,-2) yield = true; return;
+            case 0x37:            t=T;n=N;l=L;    SET(3,-3) yield = true; return;
 
             case 0x18: /* ADD  */ t=T;n=N;        SET(2,-1) PUT(0, n + t) break;
             case 0x38:            t=T2;n=N2;      SET(4,-2) PUT2(0, n + t) break;
@@ -414,13 +412,24 @@ int gpu(Uxn *u, Uint16 pc_){
         return 0;
     }
 
-    gpu_k(params,u);
-
+    gpu_kernel(params,u);
+    if(haltCode != 0){
+        return uxn_halt(u,ins,haltCode,pc-1);
+    }
 
     while(yield){
-        yield = 0;
-        DEI(0, t)
-        gpu_k(params,u);
+        yield = false;
+        switch (params.opc) {
+            case 0x16: /* DEI  */ DEI(0, t) break;
+            case 0x36:            DEI(1, t) DEI(0, t + 1) break;
+            case 0x17: /* DEO  */ DEO(t, n) break;
+            case 0x37:            DEO(t, l) DEO(t + 1, n) break;
+
+        }
+        gpu_kernel(params,u);
+        if(haltCode != 0){
+            return uxn_halt(u,ins,haltCode,pc-1);
+        }
     }
 
     return ret;
