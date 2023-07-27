@@ -289,12 +289,15 @@ start(Uxn *u, char *rom, int queue,cl::sycl::queue& deviceQueue)
     // 设置执行截止时间
     exec_deadline = SDL_GetPerformanceCounter() + deadline_interval;
 
+    Uint16* pc = cl::sycl::malloc_shared<Uint16>(1, deviceQueue);
+    *pc = PAGE_PROGRAM;
     // 执行rom 中的程序
-    if(!uxn_eval(u, PAGE_PROGRAM))
+    if(!uxn_eval(u, *pc))
         return system_error("Boot", "Failed to eval rom.");
 
     // 将窗口标题设置为rom 文件名
     SDL_SetWindowTitle(emu_window, rom);
+    cl::sycl::free(pc, deviceQueue);
     return 1;
 }
 
@@ -664,7 +667,7 @@ int main(int argc, char **argv)
     cl::sycl::queue deviceQueue(cl::sycl::default_selector{});
 
     // Uint8* ram = cl::sycl::malloc_shared<Uint8>(1,deviceQueue);
-
+    // malloc shared memory for Uxn  by SYCL USM
     Uxn* u = cl::sycl::malloc_shared<Uxn>(1, deviceQueue);
 
     // u 指针       *u 指针 取 他指向地址的 值
