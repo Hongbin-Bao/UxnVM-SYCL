@@ -47,6 +47,35 @@
 #define DEO(a, b) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a)); }
 #define DEI(a, b) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
 
+
+
+
+void PUT_F(Stack* s, Uint8 o, Uint8 v) {
+    Uint8 temp = s->ptr -1 -o;
+    s->dat[temp] = v;
+}
+
+void DEI_F(Uxn* u, Stack* s, Uint8 a, Uint8 b, Uint16* dei_mask) {
+    Uint8 val;
+    if ((dei_mask[b >> 4] >> (b & 0xf)) & 0x1) {
+        //val = u->dei(u, b);
+        val = uxn_dei(u,b);
+    } else {
+        val = u->dev[b];
+    }
+    PUT_F(s, a, val);
+}
+
+void DEO_F(Uxn* u, Uint8 a, Uint8 b, Uint16* deo_mask) {
+    u->dev[a] = b;
+    if ((deo_mask[a >> 4] >> (a & 0xf)) & 0x1) {
+        u->deo(u, a);
+    }
+}
+
+
+
+
 typedef struct {
     Uint16 pc;
     Stack *s;
@@ -181,7 +210,7 @@ uxn_eval(Uxn *u, Uint16 pc_raw)
     cl::sycl::queue queue; // Initialize a SYCL queue
     Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),queue);
 
-// Correct way to assign values to the object that params points to
+//  assign values to the object
     *params = {pc_raw, nullptr, nullptr, 0};
 
 // Access members of the object that params points to
