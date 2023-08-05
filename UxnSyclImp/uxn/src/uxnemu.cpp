@@ -27,6 +27,11 @@
 #include "devices/controller.h"
 #include "devices/mouse.h"
 #include "devices/datetime.h"
+
+#define MOVE_THRESHOLD 5
+
+//#define SMOOTH_FACTOR 0.5
+
 #if defined(_WIN32) && defined(_WIN32_WINNT) && _WIN32_WINNT > 0x0602
 #include <processthreadsapi.h>
 #elif defined(_WIN32)
@@ -427,6 +432,7 @@ typedef struct MouseState {
     int lastX, lastY, lastButton;  // 上次鼠标的位置和按键状态
     bool isButtonDown;  // 鼠标是否按下的状态
     SDL_Point wheel, lastWheel;  // 当前和上次滚轮的位置
+    int accumulatedDeltaX, accumulatedDeltaY;  // Accumulated mouse movement
 } MouseState;
 
 // 更新并处理鼠标状态的函数
@@ -490,8 +496,46 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
         {
             switch(event.type) {
                 case SDL_MOUSEMOTION:
-                    ms.x = clamp(event.motion.x - PAD, 0, uxn_screen.width - 1);
-                    ms.y = clamp(event.motion.y - PAD, 0, uxn_screen.height - 1);
+                {
+                    // Calculate movement delta
+                    int deltaX = event.motion.x - ms.lastX;
+                    int deltaY = event.motion.y - ms.lastY;
+
+                    // Update accumulated movement
+                    ms.accumulatedDeltaX += deltaX;
+                    ms.accumulatedDeltaY += deltaY;
+
+                    // If accumulated movement exceeds the threshold
+                    if(abs(ms.accumulatedDeltaX) > MOVE_THRESHOLD || abs(ms.accumulatedDeltaY) > MOVE_THRESHOLD) {
+                        ms.x = clamp(event.motion.x - PAD, 0, uxn_screen.width - 1);
+                        ms.y = clamp(event.motion.y - PAD, 0, uxn_screen.height - 1);
+
+                        // Reset accumulated movement
+                        ms.accumulatedDeltaX = 0;
+                        ms.accumulatedDeltaY = 0;
+                    }
+
+//                    // 计算移动距离
+//                    int deltaX = event.motion.x - ms.lastX;
+//                    int deltaY = event.motion.y - ms.lastY;
+//
+//                    // 更新累计移动距离
+//                    ms.accumulatedDeltaX += deltaX;
+//                    ms.accumulatedDeltaY += deltaY;
+//
+//                    // 应用累计移动距离的一部分
+//                    int appliedDeltaX = (int)(ms.accumulatedDeltaX * SMOOTH_FACTOR);
+//                    int appliedDeltaY = (int)(ms.accumulatedDeltaY * SMOOTH_FACTOR);
+//
+//                    // 更新鼠标位置
+//                    ms.x = clamp(ms.x + appliedDeltaX - PAD, 0, uxn_screen.width - 1);
+//                    ms.y = clamp(ms.y + appliedDeltaY - PAD, 0, uxn_screen.height - 1);
+//
+//                    // 更新剩余的累计移动距离
+//                    ms.accumulatedDeltaX -= appliedDeltaX;
+//                    ms.accumulatedDeltaY -= appliedDeltaY;
+//                    break;
+                }
                     break;
                 case SDL_MOUSEBUTTONUP:
                     ms.button = SDL_BUTTON(event.button.button);
