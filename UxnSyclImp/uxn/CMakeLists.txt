@@ -7,7 +7,7 @@ add_definitions(-D_DARWIN_C_SOURCE)
 
 
 set(CMAKE_CXX_STANDARD 17)
-
+include(FetchContent)
 find_package(SDL2 REQUIRED)
 # SYCL
 find_package(OpenSYCL REQUIRED)
@@ -32,12 +32,28 @@ if(WIN32)
     add_definitions(-D_USE_MATH_DEFINES)
 endif()
 include_directories(/opt/homebrew/Cellar/libomp/16.0.6/include)
+
+# Fetch and configure Google Test
+FetchContent_Declare(
+        gtest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG v1.13.0
+)
+
+FetchContent_MakeAvailable(gtest)
+
+
 ####
 set(UXN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
+
+set(UXN_TEST_SOURCE_DIR ${PROJECT_SOURCE_DIR}/Test)
 
 set(UXN_SOURCE_CORE
         ${UXN_SOURCE_DIR}/uxn.cpp
         ${UXN_SOURCE_DIR}/uxn.h
+        )
+set(UXN_INFO
+        ${UXN_SOURCE_DIR}/uxncli.cpp
         )
 source_group("core" FILES ${UXN_SOURCE_CORE})
 
@@ -74,7 +90,6 @@ source_group("devices\\controller" FILES ${UXN_SOURCE_DEVICE_CONTROLLER})
 set(UXN_SOURCE_DEVICE_MOUSE
         ${UXN_SOURCE_DIR}/devices/mouse.cpp
         ${UXN_SOURCE_DIR}/devices/mouse.h
-        #src/uxncli.cpp src/uxnemu.cpp src/uxnasm.cpp src/uxn.cpp src/devices/audio.cpp src/devices/controller.cpp src/devices/datetime.cpp src/devices/file.cpp src/devices/mouse.cpp src/devices/screen.cpp src/devices/system.cpp
         )
 source_group("devices\\mouse" FILES ${UXN_SOURCE_DEVICE_MOUSE})
 
@@ -111,6 +126,18 @@ add_executable(uxnasm
         ${UXN_SOURCE_DIR}/uxnasm.cpp
         )
 
+add_executable(TestExample
+        ${UXN_TEST_SOURCE_DIR}/test_example.cpp
+        ${UXN_INFO}
+        ${UXN_SOURCE_CORE}
+        ${UXN_SOURCE_DEVICE_SYSTEM}
+        ${UXN_SOURCE_DEVICE_FILE}
+        ${UXN_SOURCE_DEVICE_DATETIME}
+
+
+        )
+
+target_link_libraries(TestExample PRIVATE gtest gtest_main pthread)
 
 add_sycl_to_target(TARGET uxncli SOURCES ${UXN_SOURCE_DIR}/uxncli.cpp
         ${UXN_SOURCE_CORE}
@@ -130,6 +157,22 @@ add_sycl_to_target(TARGET uxnemu SOURCES ${UXN_SOURCE_DIR}/uxnemu.cpp
         ${UXN_SOURCE_DEVICE_DATETIME}
         )
 
+add_sycl_to_target(TARGET TestExample SOURCES ${UXN_TEST_SOURCE_DIR}/test_example.cpp
+        ${UXN_SOURCE_DIR}/uxncli.cpp
+        ${UXN_SOURCE_DIR}/uxnemu.cpp
+        ${UXN_SOURCE_DIR}/uxn.cpp
+        ${UXN_SOURCE_CORE}/uxnasm.cpp
+
+        ${UXN_SOURCE_CORE}
+        ${UXN_SOURCE_DEVICE_SYSTEM}
+        ${UXN_SOURCE_DEVICE_SCREEN}
+        ${UXN_SOURCE_DEVICE_AUDIO}
+        ${UXN_SOURCE_DEVICE_FILE}
+        ${UXN_SOURCE_DEVICE_CONTROLLER}
+        ${UXN_SOURCE_DEVICE_MOUSE}
+        ${UXN_SOURCE_DEVICE_DATETIME})
 
 
-#add_sycl_to_target(TARGET test SOURCES test.cpp)
+
+enable_testing()
+add_test(NAME TestExample COMMAND TestExample)
