@@ -709,6 +709,7 @@ int main(int argc, char **argv)
 
     // 创建一个Uxn类型的变量u，并对其进行初始化
     cl::sycl::queue deviceQueue(cl::sycl::default_selector{});
+    //cl::sycl::queue deviceQueue(cl::sycl::gpu_selector {});
 
     // Uint8* ram = cl::sycl::malloc_shared<Uint8>(1,deviceQueue);
     // malloc shared memory for Uxn  by SYCL USM
