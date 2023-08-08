@@ -95,7 +95,20 @@ typedef struct {
 void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 
 
-//    cl::sycl::queue kernel_queue;
+
+
+
+//    // 查询GPU设备
+//    auto devices = cl::sycl::device::get_devices(cl::sycl::info::device_type::gpu);
+//
+//    if(devices.empty()) {
+//        std::cout << "没有可用的GPU。\n";
+//    } else {
+//        std::cout << "找到以下GPU设备：\n";
+//        for(const auto& device : devices) {
+//            std::cout << "  - " << device.get_info<cl::sycl::info::device::name>() << "\n";
+//        }
+//    }
 
         queue.submit([&](cl::sycl::handler& cgh) {
 
@@ -207,7 +220,10 @@ void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 int
 uxn_eval(Uxn *u, Uint16 pc_raw)
 {
-    cl::sycl::queue queue; // Initialize a SYCL queue
+    cl::sycl::queue queue(cl::sycl::default_selector{}); // Initialize a SYCL queue
+
+    //cl::sycl::queue queue(cl::sycl::gpu_selector{});
+
     Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),queue);
 
 //  assign values to the object
