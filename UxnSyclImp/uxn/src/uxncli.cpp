@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstdio>
+#include <CL/sycl.hpp>
 #include <cstdlib>
 #include "uxn.h"
 #include "devices/system.h"
@@ -74,28 +75,35 @@ main(int argc, char **argv)
     for (int i = 0; i < argc; i++) {
         std::cout << "argv[" << i << "] = " << argv[i] << std::endl;
     }
+    cl::sycl::queue deviceQueue(cl::sycl::default_selector{});
+    //cl::sycl::queue deviceQueue(cl::sycl::gpu_selector {});
 
-
-    Uxn u;
+    // malloc shared memory for Uxn  by SYCL USM
+    Uxn* u = cl::sycl::malloc_shared<Uxn>(1, deviceQueue);
+    //Uxn u;
     int i = 1;
     if(i == argc)
         return system_error("usage", "uxncli file.rom [args..]");
-    if(!uxn_boot(&u, (Uint8 *)calloc(0x10000 * RAM_PAGES, sizeof(Uint8))))
+
+    uint8_t* p = malloc_shared<uint8_t>(0x10000 * RAM_PAGES, deviceQueue);
+    if(!uxn_boot(u, p))
         return system_error("Boot", "Failed");
-    if(!system_load(&u, argv[i++]))
+    if(!system_load(u, argv[i++]))
         return system_error("Load", "Failed");
-    u.dev[0x17] = argc - i;
-    if(uxn_eval(&u, PAGE_PROGRAM)) {
+    u->dev[0x17] = argc - i;
+    Uint16* pc = cl::sycl::malloc_shared<Uint16>(1, deviceQueue);
+    *pc = PAGE_PROGRAM;
+    if(uxn_eval(u, *pc)) {
         for(; i < argc; i++) {
             char *p = argv[i];
-            while(*p) console_input(&u, *p++, CONSOLE_ARG);
-            console_input(&u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+            while(*p) console_input(u, *p++, CONSOLE_ARG);
+            console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
         }
-        while(!u.dev[0x0f]) {
+        while(!u->dev[0x0f]) {
             int c = fgetc(stdin);
-            if(c != EOF) console_input(&u, (Uint8)c, CONSOLE_STD);
+            if(c != EOF) console_input(u, (Uint8)c, CONSOLE_STD);
         }
     }
-    free(u.ram);
-    return u.dev[0x0f] & 0x7f;
+    free(u->ram);
+    return u->dev[0x0f] & 0x7f;
 }
