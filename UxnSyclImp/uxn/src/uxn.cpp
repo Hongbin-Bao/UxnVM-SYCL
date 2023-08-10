@@ -110,7 +110,7 @@ void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 //        }
 //    }
 
-        queue.submit([&](cl::sycl::handler& cgh) {
+        u->queue.submit([&](cl::sycl::handler& cgh) {
 
 
         cgh.single_task<class my_kernel>([=]() mutable {
@@ -213,7 +213,7 @@ void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 
         });
     });
-    queue.wait();
+    u->queue.wait();
 
 }
 

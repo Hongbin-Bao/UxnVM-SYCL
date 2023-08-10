@@ -298,7 +298,7 @@ start(Uxn *u, char *rom, int queue,cl::sycl::queue& deviceQueue)
     *pc = PAGE_PROGRAM;
     // 执行rom 中的程序
     u->params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
-
+    u->queue = deviceQueue;
     if(!uxn_eval(u, *pc,deviceQueue))
         return system_error("Boot", "Failed to eval rom.");
 
