@@ -44,8 +44,8 @@
 #define PUT2(o, v) { tmp = (v); s->dat[(Uint8)(s->ptr - o - 2)] = tmp >> 8; s->dat[(Uint8)(s->ptr - o - 1)] = tmp; }
 #define PUSH(x, v) { z = (x); if(z->ptr > 254) HALT(2) z->dat[z->ptr++] = (v); }
 #define PUSH2(x, v) { z = (x); if(z->ptr > 253) HALT(2) tmp = (v); z->dat[z->ptr] = tmp >> 8; z->dat[z->ptr + 1] = tmp; z->ptr += 2; }
-#define DEO(a, b,deviceQueue) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a),deviceQueue); }
-#define DEI(a, b,deviceQueue) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
+#define DEO(a, b) { u->dev[(a)] = (b); if((deo_mask[(a) >> 4] >> ((a) & 0xf)) & 0x1) uxn_deo(u, (a)); }
+#define DEI(a, b) { PUT((a), ((dei_mask[(b) >> 4] >> ((b) & 0xf)) & 0x1) ? uxn_dei(u, (b)) : u->dev[(b)]) }
 
 
 
@@ -92,7 +92,7 @@ typedef struct {
     bool yield;
 } Params1;
 
-void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
+void kernel(Uxn *u, Params *params) {
 
 
 
@@ -218,7 +218,7 @@ void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 }
 
 int
-uxn_eval(Uxn *u, Uint16 pc_raw,cl::sycl::queue& deviceQueue)
+uxn_eval(Uxn *u, Uint16 pc_raw)
 {
 
 
@@ -248,21 +248,21 @@ uxn_eval(Uxn *u, Uint16 pc_raw,cl::sycl::queue& deviceQueue)
         return 0;
     }
 
-    kernel(u, params, cl::sycl::queue());
+    kernel(u, params);
     if (haltCode != 0)
-        return uxn_halt(u, ins, haltCode, pc - 1,deviceQueue);
+        return uxn_halt(u, ins, haltCode, pc - 1);
 
     while (yield) {
         yield = false;
         switch(params->opc) {
-            case 0x16: /* DEI  */ DEI(0, t,deviceQueue) break;
-            case 0x36:            DEI(1, t,deviceQueue) DEI(0, t + 1,deviceQueue) break;
-            case 0x17: /* DEO  */ DEO(t, n,deviceQueue) break;
-            case 0x37:            DEO(t, l,deviceQueue) DEO(t + 1, n,deviceQueue) break;
+            case 0x16: /* DEI  */ DEI(0, t) break;
+            case 0x36:            DEI(1, t) DEI(0, t + 1) break;
+            case 0x17: /* DEO  */ DEO(t, n) break;
+            case 0x37:            DEO(t, l) DEO(t + 1, n) break;
         }
-        kernel(u, params, deviceQueue);
+        kernel(u, params);
         if (haltCode != 0)
-            return uxn_halt(u, ins, haltCode, pc - 1,deviceQueue);
+            return uxn_halt(u, ins, haltCode, pc - 1);
     }
     //cl::sycl::free(params,deviceQueue);
 

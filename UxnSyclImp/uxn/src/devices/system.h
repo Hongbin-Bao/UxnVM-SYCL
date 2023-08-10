@@ -19,6 +19,6 @@ WITH REGARD TO THIS SOFTWARE.
 int system_load(Uxn *u, char *filename);
 void system_inspect(Uxn *u);
 int system_error(char *msg, const char *err);
-void system_deo(Uxn *u, Uint8 *d, Uint8 port,cl::sycl::queue& deviceQueue);
-int console_input(Uxn *u, char c, int type,cl::sycl::queue& deviceQueue);
+void system_deo(Uxn *u, Uint8 *d, Uint8 port);
+int console_input(Uxn *u, char c, int type);
 void console_deo(Uint8 *d, Uint8 port);
