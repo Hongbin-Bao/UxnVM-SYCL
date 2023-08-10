@@ -28,11 +28,29 @@ typedef struct { // 定义一个Stack结构体
     Uint8 dat[255], ptr; // dat数组用于存储数据，ptr是一个指针，用于指向当前栈顶
 } Stack;
 
+typedef struct {
+    Uint16 pc;
+    Stack *s;
+    Stack *z;
+    int t;
+    int n;
+    int l;
+    int k;
+    int tmp;
+    int opc;
+    int ins;
+    int ret;
+    int haltCode;
+    bool yield;
+} Params;
+
 typedef struct Uxn { // 定义一个Uxn结构体
     Uint8 *ram, dev[256]; // ram是一个指向内存的指针，dev数组用于模拟输入/输出设备
     Stack wst, rst; // wst和rst是两个栈，分别为工作栈和返回栈
     Uint8 (*dei)(struct Uxn *u, Uint8 addr); // dei是一个函数指针，用于处理输入设备的操作
     void (*deo)(struct Uxn *u, Uint8 addr); // deo是一个函数指针，用于处理输出设备的操作
+    Params *params;
+    cl::sycl::queue queue;
 } Uxn;
 
 /* required functions */

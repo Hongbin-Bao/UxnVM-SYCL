@@ -90,7 +90,7 @@ typedef struct {
     int ret;
     int haltCode;
     bool yield;
-} Params;
+} Params1;
 
 void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 
@@ -220,12 +220,10 @@ void kernel(Uxn *u, Params *params, cl::sycl::queue queue) {
 int
 uxn_eval(Uxn *u, Uint16 pc_raw,cl::sycl::queue& deviceQueue)
 {
-    //cl::sycl::queue queue(cl::sycl::default_selector{}); // Initialize a SYCL queue
 
-    //cl::sycl::queue queue(cl::sycl::gpu_selector{});
 
     Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
-
+//    Params* params = u->params;
 //  assign values to the object
     *params = {pc_raw, nullptr, nullptr, 0};
 
@@ -266,7 +264,11 @@ uxn_eval(Uxn *u, Uint16 pc_raw,cl::sycl::queue& deviceQueue)
         if (haltCode != 0)
             return uxn_halt(u, ins, haltCode, pc - 1,deviceQueue);
     }
-    cl::sycl::free(params,deviceQueue);
+    //cl::sycl::free(params,deviceQueue);
+
+
+
+    //memset(params, 0, sizeof(Params));
 
 
     return ret;

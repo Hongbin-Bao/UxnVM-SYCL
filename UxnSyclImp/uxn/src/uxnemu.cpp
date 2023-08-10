@@ -714,13 +714,16 @@ int main(int argc, char **argv)
     // Uint8* ram = cl::sycl::malloc_shared<Uint8>(1,deviceQueue);
     // malloc shared memory for Uxn  by SYCL USM
     Uxn* u = cl::sycl::malloc_shared<Uxn>(1, deviceQueue);
+    Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
+    u->params = params;
+    u->queue = cl::sycl::queue (cl::sycl::default_selector{});
 
     // u 指针       *u 指针 取 他指向地址的 值
     // &u 指针变量在内存的地址
 
     //**u
     // 内存区域全部写0
-    *u = {0};
+    //*u = {0};
     //Uxn u = {0};
     // 创建并初始化索引i
     int i = 1;
