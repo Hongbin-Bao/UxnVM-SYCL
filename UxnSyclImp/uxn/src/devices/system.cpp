@@ -85,7 +85,7 @@ system_inspect(Uxn *u)
 /* IO */
 
 void
-system_deo(Uxn *u, Uint8 *d, Uint8 port)
+system_deo(Uxn *u, Uint8 *d, Uint8 port,cl::sycl::queue& deviceQueue)
 {
     switch(port) {
         case 0x3:
@@ -95,7 +95,7 @@ system_deo(Uxn *u, Uint8 *d, Uint8 port)
             if(PEEK2(d + 4)) {
                 Uxn friendUxn;
                 uxn_boot(&friendUxn, u->ram);
-                uxn_eval(&friendUxn, PEEK2(d + 4));
+                uxn_eval(&friendUxn, PEEK2(d + 4),deviceQueue);
             }
             break;
         case 0xe:
@@ -107,7 +107,7 @@ system_deo(Uxn *u, Uint8 *d, Uint8 port)
 /* Errors */
 
 int
-uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr)
+uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr,cl::sycl::queue& deviceQueue)
 {
     Uint8 *d = &u->dev[0];
     Uint16 handler = PEEK2(d);
@@ -117,7 +117,7 @@ uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr)
         u->wst.dat[1] = addr & 0xff;
         u->wst.dat[2] = instr;
         u->wst.dat[3] = err;
-        return uxn_eval(u, handler);
+        return uxn_eval(u, handler,deviceQueue);
     } else {
         system_inspect(u);
         fprintf(stderr, "%s %s, by %02x at 0x%04x.\n", (instr & 0x40) ? "Return-stack" : "Working-stack", errors[err - 1], instr, addr);
@@ -128,12 +128,12 @@ uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr)
 /* Console */
 
 int
-console_input(Uxn *u, char c, int type)
+console_input(Uxn *u, char c, int type,cl::sycl::queue& deviceQueue)
 {
     Uint8 *d = &u->dev[0x10];
     d[0x2] = c;
     d[0x7] = type;
-    return uxn_eval(u, PEEK2(d));
+    return uxn_eval(u, PEEK2(d),deviceQueue);
 }
 
 void

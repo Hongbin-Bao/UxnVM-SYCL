@@ -125,12 +125,12 @@ uxn_dei(Uxn *u, Uint8 addr)
 
 // 输出函数实现
 void
-uxn_deo(Uxn *u, Uint8 addr)
+uxn_deo(Uxn *u, Uint8 addr,cl::sycl::queue& deviceQueue)
 {
     Uint8 p = addr & 0x0f, d = addr & 0xf0;  // 提取设备编号和端口号
     switch(d) {  // 判断设备编号
         case 0x00:  // 系统设备
-            system_deo(u, &u->dev[d], p);  // 系统设备输出
+            system_deo(u, &u->dev[d], p,deviceQueue);  // 系统设备输出
             if(p > 0x7 && p < 0xe)
                 screen_palette(&u->dev[0x8]);  // 屏幕颜色输出
             break;
@@ -297,7 +297,7 @@ start(Uxn *u, char *rom, int queue,cl::sycl::queue& deviceQueue)
     Uint16* pc = cl::sycl::malloc_shared<Uint16>(1, deviceQueue);
     *pc = PAGE_PROGRAM;
     // 执行rom 中的程序
-    if(!uxn_eval(u, *pc))
+    if(!uxn_eval(u, *pc,deviceQueue))
         return system_error("Boot", "Failed to eval rom.");
 
     // 将窗口标题设置为rom 文件名
@@ -436,20 +436,20 @@ typedef struct MouseState {
 } MouseState;
 
 // 更新并处理鼠标状态的函数
-void mouse_state_update(Uxn* u, MouseState* ms, int eventType) {
+void mouse_state_update(Uxn* u, MouseState* ms, int eventType,cl::sycl::queue& deviceQueue) {
     // 如果鼠标位置发生了变化，更新鼠标位置
     if(ms->x != ms->lastX || ms->y != ms->lastY)
-        mouse_pos(u, &u->dev[0x90], ms->x, ms->y);
+        mouse_pos(u, &u->dev[0x90], ms->x, ms->y,deviceQueue);
     // 如果滚轮位置发生了变化，处理滚轮滚动事件
     if(ms->wheel.x != ms->lastWheel.x || ms->wheel.y != ms->lastWheel.y)
-        mouse_scroll(u, &u->dev[0x90], ms->wheel.x, ms->wheel.y);
+        mouse_scroll(u, &u->dev[0x90], ms->wheel.x, ms->wheel.y,deviceQueue);
 
     // 如果检测到鼠标按键释放事件，处理按键释放
     if(eventType == SDL_MOUSEBUTTONUP)
-        mouse_up(u, &u->dev[0x90], ms->button);
+        mouse_up(u, &u->dev[0x90], ms->button,deviceQueue);
         // 如果检测到鼠标按键按下事件，处理按键按下
     else if(eventType == SDL_MOUSEBUTTONDOWN)
-        mouse_down(u, &u->dev[0x90], ms->button);
+        mouse_down(u, &u->dev[0x90], ms->button,deviceQueue);
 
     // 更新上次的鼠标状态为当前状态，为下一次比较做准备
     ms->lastX = ms->x;
@@ -482,7 +482,7 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
         }
             /* Audio */
         else if(event.type >= audio0_event && event.type < audio0_event + POLYPHONY)
-            uxn_eval(u, PEEK2(&u->dev[0x30 + 0x10 * (event.type - audio0_event)]));
+            uxn_eval(u, PEEK2(&u->dev[0x30 + 0x10 * (event.type - audio0_event)]),deviceQueue);
             /* Mouse */
 //        else if(event.type == SDL_MOUSEMOTION)
 //            mouse_pos(u, &u->dev[0x90], clamp(event.motion.x - PAD, 0, uxn_screen.width - 1), clamp(event.motion.y - PAD, 0, uxn_screen.height - 1));
@@ -548,18 +548,18 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
                     ms.wheel.y = event.wheel.y;
                     break;
             }
-            mouse_state_update(u, &ms, event.type);
+            mouse_state_update(u, &ms, event.type,deviceQueue);
         }
 
             /* Controller */
         else if(event.type == SDL_TEXTINPUT)
-            controller_key(u, &u->dev[0x80], event.text.text[0]);
+            controller_key(u, &u->dev[0x80], event.text.text[0],deviceQueue);
         else if(event.type == SDL_KEYDOWN) {
             int ksym;
             if(get_key(&event))
-                controller_key(u, &u->dev[0x80], get_key(&event));
+                controller_key(u, &u->dev[0x80], get_key(&event),deviceQueue);
             else if(get_button(&event))
-                controller_down(u, &u->dev[0x80], get_button(&event));
+                controller_down(u, &u->dev[0x80], get_button(&event),deviceQueue);
             else
                 do_shortcut(u, &event,deviceQueue);
             ksym = event.key.keysym.sym;
@@ -567,47 +567,47 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
                 return 1;
             }
         } else if(event.type == SDL_KEYUP)
-            controller_up(u, &u->dev[0x80], get_button(&event));
+            controller_up(u, &u->dev[0x80], get_button(&event),deviceQueue);
         else if(event.type == SDL_JOYAXISMOTION) {
             Uint8 vec = get_vector_joystick(&event);
             if(!vec)
-                controller_up(u, &u->dev[0x80], (3 << (!event.jaxis.axis * 2)) << 4);
+                controller_up(u, &u->dev[0x80], (3 << (!event.jaxis.axis * 2)) << 4,deviceQueue);
             else
-                controller_down(u, &u->dev[0x80], (1 << ((vec + !event.jaxis.axis * 2) - 1)) << 4);
+                controller_down(u, &u->dev[0x80], (1 << ((vec + !event.jaxis.axis * 2) - 1)) << 4,deviceQueue);
         } else if(event.type == SDL_JOYBUTTONDOWN)
-            controller_down(u, &u->dev[0x80], get_button_joystick(&event));
+            controller_down(u, &u->dev[0x80], get_button_joystick(&event),deviceQueue);
         else if(event.type == SDL_JOYBUTTONUP)
-            controller_up(u, &u->dev[0x80], get_button_joystick(&event));
+            controller_up(u, &u->dev[0x80], get_button_joystick(&event),deviceQueue);
         else if(event.type == SDL_JOYHATMOTION) {
             /* NOTE: Assuming there is only one joyhat in the controller */
             switch(event.jhat.value) {
                 case SDL_HAT_UP:
-                    controller_down(u, &u->dev[0x80], 0x10);
+                    controller_down(u, &u->dev[0x80], 0x10,deviceQueue);
                     break;
                 case SDL_HAT_DOWN:
-                    controller_down(u, &u->dev[0x80], 0x20);
+                    controller_down(u, &u->dev[0x80], 0x20,deviceQueue);
                     break;
                 case SDL_HAT_LEFT:
-                    controller_down(u, &u->dev[0x80], 0x40);
+                    controller_down(u, &u->dev[0x80], 0x40,deviceQueue);
                     break;
                 case SDL_HAT_RIGHT:
-                    controller_down(u, &u->dev[0x80], 0x80);
+                    controller_down(u, &u->dev[0x80], 0x80,deviceQueue);
                     break;
                 case SDL_HAT_LEFTDOWN:
-                    controller_down(u, &u->dev[0x80], 0x40 | 0x20);
+                    controller_down(u, &u->dev[0x80], 0x40 | 0x20,deviceQueue);
                     break;
                 case SDL_HAT_LEFTUP:
-                    controller_down(u, &u->dev[0x80], 0x40 | 0x10);
+                    controller_down(u, &u->dev[0x80], 0x40 | 0x10,deviceQueue);
                     break;
                 case SDL_HAT_RIGHTDOWN:
-                    controller_down(u, &u->dev[0x80], 0x80 | 0x20);
+                    controller_down(u, &u->dev[0x80], 0x80 | 0x20,deviceQueue);
                     break;
                 case SDL_HAT_RIGHTUP:
-                    controller_down(u, &u->dev[0x80], 0x80 | 0x10);
+                    controller_down(u, &u->dev[0x80], 0x80 | 0x10,deviceQueue);
                     break;
                 case SDL_HAT_CENTERED:
                     /* Set all directions to down */
-                    controller_up(u, &u->dev[0x80], 0x10 | 0x20 | 0x40 | 0x80);
+                    controller_up(u, &u->dev[0x80], 0x10 | 0x20 | 0x40 | 0x80,deviceQueue);
                     break;
                 default:
                     /* Ignore */
@@ -616,7 +616,7 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
         }
             /* Console */
         else if(event.type == stdin_event)
-            console_input(u, event.cbutton.button, CONSOLE_STD);
+            console_input(u, event.cbutton.button, CONSOLE_STD,deviceQueue);
     }
     return 1;
 }
@@ -643,7 +643,7 @@ run(Uxn *u,cl::sycl::queue& deviceQueue)
         if(BENCH || now >= next_refresh) {
             now = SDL_GetPerformanceCounter();
             next_refresh = now + frame_interval;
-            uxn_eval(u, screen_vector);
+            uxn_eval(u, screen_vector,deviceQueue);
             if(uxn_screen.x2)
                 redraw();
         }
@@ -750,8 +750,8 @@ int main(int argc, char **argv)
     // 读取命令行参数
     for(; i < argc; i++) {
         char *p = argv[i];
-        while(*p) console_input(u, *p++, CONSOLE_ARG);
-        console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+        while(*p) console_input(u, *p++, CONSOLE_ARG,deviceQueue);
+        console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA,deviceQueue);
     }
     /* start rom */
     // 根据 run_once 标志选择执行模式

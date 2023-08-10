@@ -48,11 +48,11 @@ uxn_dei(Uxn *u, Uint8 addr)
  * @param addr
  */
 void
-uxn_deo(Uxn *u, Uint8 addr)
+uxn_deo(Uxn *u, Uint8 addr,cl::sycl::queue& deviceQueue)
 {
     Uint8 p = addr & 0x0f, d = addr & 0xf0;
     switch(d) {
-        case 0x00: system_deo(u, &u->dev[d], p); break;
+        case 0x00: system_deo(u, &u->dev[d], p,deviceQueue); break;
         case 0x10: console_deo(&u->dev[d], p); break;
         case 0xa0: file_deo(0, u->ram, &u->dev[d], p); break;
         case 0xb0: file_deo(1, u->ram, &u->dev[d], p); break;
@@ -93,15 +93,15 @@ main(int argc, char **argv)
     u->dev[0x17] = argc - i;
     Uint16* pc = cl::sycl::malloc_shared<Uint16>(1, deviceQueue);
     *pc = PAGE_PROGRAM;
-    if(uxn_eval(u, *pc)) {
+    if(uxn_eval(u, *pc,deviceQueue)) {
         for(; i < argc; i++) {
             char *p = argv[i];
-            while(*p) console_input(u, *p++, CONSOLE_ARG);
-            console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
+            while(*p) console_input(u, *p++, CONSOLE_ARG,deviceQueue);
+            console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA,deviceQueue);
         }
         while(!u->dev[0x0f]) {
             int c = fgetc(stdin);
-            if(c != EOF) console_input(u, (Uint8)c, CONSOLE_STD);
+            if(c != EOF) console_input(u, (Uint8)c, CONSOLE_STD,deviceQueue);
         }
     }
     free(u->ram);

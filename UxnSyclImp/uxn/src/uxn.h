@@ -14,7 +14,7 @@ WITH REGARD TO THIS SOFTWARE.
 
 #define POKE2(d, v) { (d)[0] = (v) >> 8; (d)[1] = (v); } // 定义一个宏POKE2，用于将16位值v写入到地址d
 #define PEEK2(d) ((d)[0] << 8 | (d)[1]) // 定义一个宏PEEK2，用于从地址d读取16位值
-
+#include <CL/sycl.hpp>
 
 /* clang-format on */
 
@@ -38,14 +38,14 @@ typedef struct Uxn { // 定义一个Uxn结构体
 /* required functions */
 
 extern Uint8 uxn_dei(Uxn *u, Uint8 addr); // 定义一个外部函数uxn_dei，用于处理输入设备的操作
-extern void uxn_deo(Uxn *u, Uint8 addr); // 定义一个外部函数uxn_deo，用于处理输出设备的操作
-extern int uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr); // 定义一个外部函数uxn_halt，用于处理计算机出错的情况
+extern void uxn_deo(Uxn *u, Uint8 addr,cl::sycl::queue& deviceQueue); // 定义一个外部函数uxn_deo，用于处理输出设备的操作
+extern int uxn_halt(Uxn *u, Uint8 instr, Uint8 err, Uint16 addr,cl::sycl::queue& deviceQueue); // 定义一个外部函数uxn_halt，用于处理计算机出错的情况
 extern Uint16 dei_mask[]; // 定义一个外部数组dei_mask，用于处理输入设备的掩码
 extern Uint16 deo_mask[]; // 定义一个外部数组deo_mask，用于处理输出设备的掩码
 
 /* built-ins */
 
 int uxn_boot(Uxn *u, Uint8 *ram); // 定义一个函数uxn_boot，用于初始化Uxn结构体并设置其内存块
-int uxn_eval(Uxn *u, Uint16 pc); // 定义一个函数uxn_eval，用于执行Uxn的代码
+int uxn_eval(Uxn *u, Uint16 pc,cl::sycl::queue& deviceQueue); // 定义一个函数uxn_eval，用于执行Uxn的代码
 
 //int uxn_eval_gpu(Uxn *u, Uint16 pc);

@@ -9,6 +9,6 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 WITH REGARD TO THIS SOFTWARE.
 */
 
-void controller_down(Uxn *u, Uint8 *d, Uint8 mask);
-void controller_up(Uxn *u, Uint8 *d, Uint8 mask);
-void controller_key(Uxn *u, Uint8 *d, Uint8 key);
+void controller_down(Uxn *u, Uint8 *d, Uint8 mask,cl::sycl::queue& deviceQueue);
+void controller_up(Uxn *u, Uint8 *d, Uint8 mask,cl::sycl::queue& deviceQueue);
+void controller_key(Uxn *u, Uint8 *d, Uint8 key,cl::sycl::queue& deviceQueue);

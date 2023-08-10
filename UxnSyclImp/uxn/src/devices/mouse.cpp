@@ -21,33 +21,33 @@ WITH REGARD TO THIS SOFTWARE.
 */
 
 void
-mouse_down(Uxn *u, Uint8 *d, Uint8 mask)
+mouse_down(Uxn *u, Uint8 *d, Uint8 mask,cl::sycl::queue& deviceQueue)
 {
     d[6] |= mask;
-    uxn_eval(u, PEEK2(d));
+    uxn_eval(u, PEEK2(d),deviceQueue);
 }
 
 void
-mouse_up(Uxn *u, Uint8 *d, Uint8 mask)
+mouse_up(Uxn *u, Uint8 *d, Uint8 mask,cl::sycl::queue& deviceQueue)
 {
     d[6] &= (~mask);
-    uxn_eval(u, PEEK2(d));
+    uxn_eval(u, PEEK2(d),deviceQueue);
 }
 
 void
-mouse_pos(Uxn *u, Uint8 *d, Uint16 x, Uint16 y)
+mouse_pos(Uxn *u, Uint8 *d, Uint16 x, Uint16 y,cl::sycl::queue& deviceQueue)
 {
     POKE2(d + 0x2, x);
     POKE2(d + 0x4, y);
-    uxn_eval(u, PEEK2(d));
+    uxn_eval(u, PEEK2(d),deviceQueue);
 }
 
 void
-mouse_scroll(Uxn *u, Uint8 *d, Uint16 x, Uint16 y)
+mouse_scroll(Uxn *u, Uint8 *d, Uint16 x, Uint16 y,cl::sycl::queue& deviceQueue)
 {
     POKE2(d + 0xa, x);
     POKE2(d + 0xc, -y);
-    uxn_eval(u, PEEK2(d));
+    uxn_eval(u, PEEK2(d),deviceQueue);
     POKE2(d + 0xa, 0);
     POKE2(d + 0xc, 0);
 }
