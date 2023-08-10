@@ -50,7 +50,7 @@ typedef struct Uxn { // 定义一个Uxn结构体
     Uint8 (*dei)(struct Uxn *u, Uint8 addr); // dei是一个函数指针，用于处理输入设备的操作
     void (*deo)(struct Uxn *u, Uint8 addr); // deo是一个函数指针，用于处理输出设备的操作
     Params *params;
-    cl::sycl::queue queue;
+    //cl::sycl::queue queue;
 } Uxn;
 
 /* required functions */

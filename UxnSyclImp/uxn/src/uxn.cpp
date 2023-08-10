@@ -222,8 +222,8 @@ uxn_eval(Uxn *u, Uint16 pc_raw,cl::sycl::queue& deviceQueue)
 {
 
 
-    Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
-//    Params* params = u->params;
+    //Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
+    Params* params = u->params;
 //  assign values to the object
     *params = {pc_raw, nullptr, nullptr, 0};
 

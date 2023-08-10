@@ -297,6 +297,8 @@ start(Uxn *u, char *rom, int queue,cl::sycl::queue& deviceQueue)
     Uint16* pc = cl::sycl::malloc_shared<Uint16>(1, deviceQueue);
     *pc = PAGE_PROGRAM;
     // 执行rom 中的程序
+    u->params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
+
     if(!uxn_eval(u, *pc,deviceQueue))
         return system_error("Boot", "Failed to eval rom.");
 
@@ -714,9 +716,10 @@ int main(int argc, char **argv)
     // Uint8* ram = cl::sycl::malloc_shared<Uint8>(1,deviceQueue);
     // malloc shared memory for Uxn  by SYCL USM
     Uxn* u = cl::sycl::malloc_shared<Uxn>(1, deviceQueue);
-    Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
-    u->params = params;
-    u->queue = cl::sycl::queue (cl::sycl::default_selector{});
+    //Params* params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
+    //*params = {0, nullptr, nullptr, 0};
+
+    //u->queue = cl::sycl::queue (cl::sycl::default_selector{});
 
     // u 指针       *u 指针 取 他指向地址的 值
     // &u 指针变量在内存的地址
