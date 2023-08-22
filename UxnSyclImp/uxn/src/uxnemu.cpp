@@ -18,7 +18,7 @@
 #pragma clang diagnostic ignored "-Wtypedef-redefinition"
 #include <SDL.h>
 #include <iostream>
-#include <hipSYCL/sycl/queue.hpp>
+
 
 #include "devices/system.h"
 #include "devices/screen.h"

@@ -109,11 +109,16 @@ void kernel(Uxn *u, Params *params) {
 //            std::cout << "  - " << device.get_info<cl::sycl::info::device::name>() << "\n";
 //        }
 //    }
+    // buffer
+    cl::sycl::buffer<char, 1> buf(1024);
 
-        u->queue.submit([&](cl::sycl::handler& cgh) {
+    u->queue.submit([&](cl::sycl::handler& cgh) {
+        // creat stream
+        cl::sycl::stream out(1024, 256, cgh);
 
 
-        cgh.single_task<class my_kernel>([=]() mutable {
+        cgh.single_task<class my_kernel>([=]()  {
+            out << "running on kernel" << cl::sycl::endl;
 
             Uint8 *ram = u->ram;
             Uint16 &pc = params->pc;
@@ -285,4 +290,3 @@ uxn_boot(Uxn *u, Uint8 *ram)
     u->ram = ram;
     return 1;
 }
-
