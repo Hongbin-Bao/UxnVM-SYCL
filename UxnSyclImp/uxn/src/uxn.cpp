@@ -73,25 +73,6 @@ void PUT_F(Stack* s, Uint8 o, Uint8 v) {
 //    }
 //}
 
-
-
-
-typedef struct {
-    Uint16 pc;
-    Stack *s;
-    Stack *z;
-    int t;
-    int n;
-    int l;
-    int k;
-    int tmp;
-    int opc;
-    int ins;
-    int ret;
-    int haltCode;
-    bool yield;
-} Params1;
-
 void kernel(Uxn *u, Params *params) {
 
 
@@ -110,15 +91,15 @@ void kernel(Uxn *u, Params *params) {
 //        }
 //    }
     // buffer
-    cl::sycl::buffer<char, 1> buf(1024);
+    //cl::sycl::buffer<char, 1> buf(1024);
 
     u->queue.submit([&](cl::sycl::handler& cgh) {
         // creat stream
-        cl::sycl::stream out(1024, 256, cgh);
+        //cl::sycl::stream out(1024, 256, cgh);
 
 
         cgh.single_task<class my_kernel>([=]()  {
-            out << "running on kernel" << cl::sycl::endl;
+            //out << "running on kernel" << cl::sycl::endl;
 
             Uint8 *ram = u->ram;
             Uint16 &pc = params->pc;

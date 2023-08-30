@@ -95,15 +95,19 @@ fi
 ./bin/uxnasm projects/software/launcher.tal bin/launcher.rom
 ./bin/uxnasm projects/software/asma.tal bin/asma.rom
 #./bin/uxnasm projects/software/uxnlin.tal bin/uxnlin.rom
+./bin/uxnasm projects/software/fib.tal bin/fib.rom
+
+
+
 
 if [ $norun = 1 ]; then exit; fi
 
 ./bin/uxnasm projects/software/piano.tal bin/piano.rom
 ./bin/uxnasm projects/software/uxnlin.tal bin/uxnlin.rom
-./bin/uxnemu -2x bin/launcher.rom
+#./bin/uxnemu -2x bin/launcher.rom
 
 #./bin/uxnemu  -o bin/piano.rom
-
+./bin/uxnemu  -2x  bin/piano.rom
 # ./bin/uxncli uxnlin.rom projects/asma.tal
 
 #./bin/uxncli uxnlin.rom
@@ -113,4 +117,5 @@ if [ $norun = 1 ]; then exit; fi
 #
 #cd bin
 #
-##./uxncli uxnlin.rom  paino.tal
+#./bin/uxncli uxnlin.rom  paino.tal
+# ./bin/uxncli bin/fib.rom

@@ -1,6 +1,6 @@
 /**
  * 
- * Description:
+ * Description:uxnemu implementation
  * 
  * Created by: Hongbin Bao
  * Created on: 2023/7/10
@@ -28,7 +28,7 @@
 #include "devices/mouse.h"
 #include "devices/datetime.h"
 
-#define MOVE_THRESHOLD 5
+#define MOVE_THRESHOLD 1
 
 //#define SMOOTH_FACTOR 0.5
 
@@ -107,41 +107,45 @@ audio_deo(int instance, Uint8 *d, Uint8 port, Uxn *u)
     }
 }
 
-// 输入函数实现
+//Input function implementation
 Uint8
 uxn_dei(Uxn *u, Uint8 addr)
 {
-    Uint8 p = addr & 0x0f, d = addr & 0xf0; // 提取设备编号和端口号
-    switch(d) {  // 判断设备编号
-        case 0x20: return screen_dei(u, addr); // 屏幕设备输入
-        case 0x30: return audio_dei(0, &u->dev[d], p); // 音频设备输入1
-        case 0x40: return audio_dei(1, &u->dev[d], p); // 音频设备输入2
-        case 0x50: return audio_dei(2, &u->dev[d], p); // 音频设备输入3
-        case 0x60: return audio_dei(3, &u->dev[d], p); // 音频设备输入4
-        case 0xc0: return datetime_dei(u, addr); // 时间日期设备输入
+    Uint8 p = addr & 0x0f, d = addr & 0xf0; // Extract the device number and port number
+    switch(d) {  // Determine the device number
+        case 0x20: return screen_dei(u, addr); //Screen device input
+        case 0x30: return audio_dei(0, &u->dev[d], p); //Audio device input 1
+        case 0x40: return audio_dei(1, &u->dev[d], p); //Audio device input 2
+        case 0x50: return audio_dei(2, &u->dev[d], p); //Audio device input 3
+        case 0x60: return audio_dei(3, &u->dev[d], p); //Audio device input 4
+        case 0xc0: return datetime_dei(u, addr); // time and date device input
     }
-    return u->dev[addr];  // 无匹配设备，返回指定地址的设备状态
+    return u->dev[addr];  // No matching device, return the device status of the specified address
 }
+/**
+ * Output function implementation
+ * @param u
+ * @param addr
+ */
 
-// 输出函数实现
 void
 uxn_deo(Uxn *u, Uint8 addr)
 {
-    Uint8 p = addr & 0x0f, d = addr & 0xf0;  // 提取设备编号和端口号
-    switch(d) {  // 判断设备编号
-        case 0x00:  // 系统设备
-            system_deo(u, &u->dev[d], p);  // 系统设备输出
+    Uint8 p = addr & 0x0f, d = addr & 0xf0;  // Extract the device number and port number
+    switch(d) {  // Determine the device number
+        case 0x00:  // system devices
+            system_deo(u, &u->dev[d], p);  // system device output
             if(p > 0x7 && p < 0xe)
-                screen_palette(&u->dev[0x8]);  // 屏幕颜色输出
+                screen_palette(&u->dev[0x8]);  // screen color output
             break;
-        case 0x10: console_deo(&u->dev[d], p); break; // 控制台设备输出
-        case 0x20: screen_deo(u->ram, &u->dev[d], p); break; // 屏幕设备输出
-        case 0x30: audio_deo(0, &u->dev[d], p, u); break; // 音频设备输出1
-        case 0x40: audio_deo(1, &u->dev[d], p, u); break; // 音频设备输出2
-        case 0x50: audio_deo(2, &u->dev[d], p, u); break; // 音频设备输出3
-        case 0x60: audio_deo(3, &u->dev[d], p, u); break; // 音频设备输出4
-        case 0xa0: file_deo(0, u->ram, &u->dev[d], p); break; // 文件设备输出1
-        case 0xb0: file_deo(1, u->ram, &u->dev[d], p); break; // 文件设备输出2
+        case 0x10: console_deo(&u->dev[d], p); break; //Console device output
+        case 0x20: screen_deo(u->ram, &u->dev[d], p); break; //Screen device output
+        case 0x30: audio_deo(0, &u->dev[d], p, u); break; // audio device output 1
+        case 0x40: audio_deo(1, &u->dev[d], p, u); break; // audio device output 2
+        case 0x50: audio_deo(2, &u->dev[d], p, u); break; // audio device output 3
+        case 0x60: audio_deo(3, &u->dev[d], p, u); break; // audio device output 4
+        case 0xa0: file_deo(0, u->ram, &u->dev[d], p); break; //  File device output 1
+        case 0xb0: file_deo(1, u->ram, &u->dev[d], p); break; //  File device output 2
     }
 }
 
@@ -263,7 +267,7 @@ init(void)
 
 /* Boot */
 /**
- * 主要负责启动Uxn系统并加载rom文件
+ * Mainly responsible for starting the Uxn system and loading rom files
  * @param u
  * @param rom
  * @param queue
@@ -271,38 +275,35 @@ init(void)
  */
 static int
 start(Uxn *u, char *rom, int queue,cl::sycl::queue& deviceQueue)
-{   // 释放之前的内存
-    //free(u->ram);
+{
+
     cl::sycl::free(u->ram, deviceQueue);
     //cl::sycl::free(pc,deviceQueue);
 
 
-    //cl::sycl::queue deviceQueue; // Initialize a SYCL queue
+
 
     uint8_t* p = malloc_shared<uint8_t>(0x10000 * RAM_PAGES, deviceQueue);
-    //uint16_t* pc = malloc_shared<uint16_t>(1, deviceQueue);
-    // *pc = PAGE_PROGRAM;
-    // 启动uxn 为其分配内存空间
-//    if(!uxn_boot(u, (Uint8 *)calloc(0x10000 * RAM_PAGES, sizeof(Uint8))))
+
     if(!uxn_boot(u, p))
         return system_error("Boot", "Failed to start uxn.");
-    // 加载rom 文件
+    // Load rom file
     if(!system_load(u, rom))
         return system_error("Boot", "Failed to load rom.");
-    // 将命令行参数数量 存入设备内存中的特定位置
+    // Store the number of command-line arguments to a specific location in device memory
     u->dev[0x17] = queue;
-    // 设置执行截止时间
+    //Set execution deadline
     exec_deadline = SDL_GetPerformanceCounter() + deadline_interval;
 
     Uint16* pc = cl::sycl::malloc_shared<Uint16>(1, deviceQueue);
     *pc = PAGE_PROGRAM;
     u->params = cl::sycl::malloc_shared<Params>(sizeof(Params),deviceQueue);
     u->queue = deviceQueue;
-    // 执行rom 中的程序
+    // Execute the program in rom
     if(!uxn_eval(u, *pc))
         return system_error("Boot", "Failed to eval rom.");
 
-    // 将窗口标题设置为rom 文件名
+    // Set window title to rom filename
     SDL_SetWindowTitle(emu_window, rom);
     cl::sycl::free(pc, deviceQueue);
     return 1;
@@ -416,44 +417,44 @@ do_shortcut(Uxn *u, SDL_Event *event,cl::sycl::queue& deviceQueue)
 }
 
 /**
- * 在代码中，添加一个MouseState类型的静态变量来保存当前鼠标的状态，包括鼠标的位置，滚轮的状态，以及鼠标的按键状态。
- * 然后，将处理鼠标移动，鼠标滚轮移动，鼠标按键按下，和鼠标按键释放的代码统一放在一个函数mouse_state_update中。
- * 在每一次SDL事件循环中，如果发现有鼠标的相关事件，我就更新MouseState变量的状态，并调用mouse_state_update函数处理这个事件。
- * 同时，保留了上一次鼠标的状态，只有当鼠标的状态发生改变的时候，才会调用相关的处理函数。这样，就可以减少不必要的函数调用和设备与主机间的通讯。
- * *
- * 这种优化方法的思路是减少对设备的操作。对设备的每一次操作，都会涉及到设备与主机之间的数据传输，这是一种相对昂贵的操作。
- * 如果能够通过在主机端预处理数据，减少对设备的操作，就可以提高效率。
- * 通过在主机端保存鼠标的状态，并只在状态发生改变的时候调用处理函数，从而减少了对设备的操作，提高了效率。
- * 同时，通过合并处理多种鼠标事件的代码，还减少了代码的冗余。
- * 在原来的代码中，处理鼠标移动，鼠标滚轮移动，鼠标按键按下，
- * 和鼠标按键释放的代码是分散在不同的地方的。在代码中，将这些代码统一放在了一个函数中，减少了代码的冗余，提高了代码的可读性和可维护性。
+* In the code, add a static variable of type MouseState to save the current mouse state, including the mouse position, the wheel state, and the mouse button state.
+  * Then, put the code that handles mouse movement, mouse wheel movement, mouse button press, and mouse button release into one function mouse_state_update.
+  * In each SDL event loop, if a mouse-related event is found, I update the state of the MouseState variable and call the mouse_state_update function to handle the event.
+  * At the same time, the last mouse state is retained. Only when the mouse state changes, the relevant processing function will be called. In this way, unnecessary function calls and communication between the device and the host can be reduced.
+  * *
+  * The idea of this optimization method is to reduce the operation of the equipment. Every operation on the device involves data transmission between the device and the host, which is a relatively expensive operation.
+  * If the data can be preprocessed on the host side and the operations on the device can be reduced, efficiency can be improved.
+  * By saving the mouse state on the host side and calling the processing function only when the state changes, the operations on the device are reduced and efficiency is improved.
+  * At the same time, code redundancy is also reduced by merging codes that handle multiple mouse events.
+  * In the original code, handle mouse movement, mouse wheel movement, mouse button press,
+  * The code for mouse button release is scattered in different places. In the code, these codes are unified into one function, which reduces the redundancy of the code and improves the readability and maintainability of the code.
  */
-// 定义鼠标状态的数据结构，包含了当前和上次鼠标的位置、按键状态、滚轮位置等信息
+// Define the data structure of the mouse status, including the current and last mouse positions, button status, wheel position and other information
 typedef struct MouseState {
-    int x, y, button;  // 当前鼠标的位置和按键状态
-    int lastX, lastY, lastButton;  // 上次鼠标的位置和按键状态
-    bool isButtonDown;  // 鼠标是否按下的状态
-    SDL_Point wheel, lastWheel;  // 当前和上次滚轮的位置
+    int x, y, button;  //Current mouse position and button status
+    int lastX, lastY, lastButton;  // The last mouse position and button state
+    bool isButtonDown;  // Whether the mouse is pressed or not
+    SDL_Point wheel, lastWheel;  //Current and last scroll wheel positions
     int accumulatedDeltaX, accumulatedDeltaY;  // Accumulated mouse movement
 } MouseState;
 
-// 更新并处理鼠标状态的函数
+// Function to update and handle mouse state
 void mouse_state_update(Uxn* u, MouseState* ms, int eventType) {
-    // 如果鼠标位置发生了变化，更新鼠标位置
+    //If the mouse position changes, update the mouse position
     if(ms->x != ms->lastX || ms->y != ms->lastY)
         mouse_pos(u, &u->dev[0x90], ms->x, ms->y);
-    // 如果滚轮位置发生了变化，处理滚轮滚动事件
+    //If the wheel position changes, handle the wheel scroll event
     if(ms->wheel.x != ms->lastWheel.x || ms->wheel.y != ms->lastWheel.y)
         mouse_scroll(u, &u->dev[0x90], ms->wheel.x, ms->wheel.y);
 
-    // 如果检测到鼠标按键释放事件，处理按键释放
+    // If a mouse button release event is detected, handle the button release
     if(eventType == SDL_MOUSEBUTTONUP)
         mouse_up(u, &u->dev[0x90], ms->button);
-        // 如果检测到鼠标按键按下事件，处理按键按下
+        // If a mouse button press event is detected, handle the button press
     else if(eventType == SDL_MOUSEBUTTONDOWN)
         mouse_down(u, &u->dev[0x90], ms->button);
 
-    // 更新上次的鼠标状态为当前状态，为下一次比较做准备
+    //Update the last mouse state to the current state to prepare for the next comparison
     ms->lastX = ms->x;
     ms->lastY = ms->y;
     ms->lastWheel = ms->wheel;
@@ -486,14 +487,6 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
         else if(event.type >= audio0_event && event.type < audio0_event + POLYPHONY)
             uxn_eval(u, PEEK2(&u->dev[0x30 + 0x10 * (event.type - audio0_event)]));
             /* Mouse */
-//        else if(event.type == SDL_MOUSEMOTION)
-//            mouse_pos(u, &u->dev[0x90], clamp(event.motion.x - PAD, 0, uxn_screen.width - 1), clamp(event.motion.y - PAD, 0, uxn_screen.height - 1));
-//        else if(event.type == SDL_MOUSEBUTTONUP)
-//            mouse_up(u, &u->dev[0x90], SDL_BUTTON(event.button.button));
-//        else if(event.type == SDL_MOUSEBUTTONDOWN)
-//            mouse_down(u, &u->dev[0x90], SDL_BUTTON(event.button.button));
-//        else if(event.type == SDL_MOUSEWHEEL)
-//            mouse_scroll(u, &u->dev[0x90], event.wheel.x, event.wheel.y);
         else if(event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONUP || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEWHEEL)
         {
             switch(event.type) {
@@ -517,23 +510,23 @@ handle_events(Uxn *u,cl::sycl::queue& deviceQueue)
                         ms.accumulatedDeltaY = 0;
                     }
 
-//                    // 计算移动距离
+//                   // Calculate moving distance
 //                    int deltaX = event.motion.x - ms.lastX;
 //                    int deltaY = event.motion.y - ms.lastY;
 //
-//                    // 更新累计移动距离
+//                    //Update cumulative movement distance
 //                    ms.accumulatedDeltaX += deltaX;
 //                    ms.accumulatedDeltaY += deltaY;
 //
-//                    // 应用累计移动距离的一部分
+//                   // apply a fraction of the cumulative distance traveled
 //                    int appliedDeltaX = (int)(ms.accumulatedDeltaX * SMOOTH_FACTOR);
 //                    int appliedDeltaY = (int)(ms.accumulatedDeltaY * SMOOTH_FACTOR);
 //
-//                    // 更新鼠标位置
+//                    //Update mouse position
 //                    ms.x = clamp(ms.x + appliedDeltaX - PAD, 0, uxn_screen.width - 1);
 //                    ms.y = clamp(ms.y + appliedDeltaY - PAD, 0, uxn_screen.height - 1);
 //
-//                    // 更新剩余的累计移动距离
+//                   // Update the remaining cumulative movement distance
 //                    ms.accumulatedDeltaX -= appliedDeltaX;
 //                    ms.accumulatedDeltaY -= appliedDeltaY;
 //                    break;
@@ -685,7 +678,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < argc; i++) {
         std::cout << "argv[" << i << "] = " << argv[i] << std::endl;
     }
-    // 创建一个标志来表示是否执行一次性的计算
+    // Create a flag to indicate whether to perform a one-time calculation
     bool run_once = false;
 
     for (int i = 1; i < argc; i++) {
@@ -706,10 +699,10 @@ int main(int argc, char **argv)
     }
 
 
-    // 初始化显示模式变量
+    //Initialize display mode variables
     SDL_DisplayMode DM;
 
-    // 创建一个Uxn类型的变量u，并对其进行初始化
+    //Create a Uxn type variable u and initialize it
     cl::sycl::queue deviceQueue(cl::sycl::default_selector{});
     //cl::sycl::queue deviceQueue(cl::sycl::gpu_selector {});
 
@@ -717,46 +710,43 @@ int main(int argc, char **argv)
     // malloc shared memory for Uxn  by SYCL USM
     Uxn* u = cl::sycl::malloc_shared<Uxn>(1, deviceQueue);
 
-    // u 指针       *u 指针 取 他指向地址的 值
-    // &u 指针变量在内存的地址
+    // u pointer *u pointer takes the value of the address it points to
+    // &u The address of the pointer variable in memory
 
-    //**u
-    // 内存区域全部写0
-    //*u = {0};
-    //Uxn u = {0};
+
     // 创建并初始化索引i
     int i = 1;
 
-    // 如果初始化失败 返回错误
+    //If initialization fails, return error
     if(!init())
         return system_error("Init", "Failed to initialize emulator.");
     /* default resolution */
-    // 设置默认屏幕分辨率
+    // Set the default screen resolution
     screen_resize(WIDTH, HEIGHT);
     /* default zoom */
-    // 检查是否存在缩放选项
+    // check if zoom option exists
     if(argc > 1 && (strcmp(argv[i], "-1x") == 0 || strcmp(argv[i], "-2x") == 0 || strcmp(argv[i], "-3x") == 0))
         set_zoom(argv[i++][1] - '0');
     else if(SDL_GetCurrentDisplayMode(0, &DM) == 0)
         set_zoom(DM.w / 1280);
     /* load rom */
-    // 检查是否提供了rom 文件路径
+    // Check if rom file path is provided
     if(i == argc)
         return system_error("usage", "uxnemu [-2x][-3x] file.rom [args...]");
-    rom_path = argv[i++]; // 存储rom路径
+    rom_path = argv[i++]; // storage rom path
 
-    // 如果启动失败 返回错误
+    // If startup fails, return an error
     if(!start(u, rom_path, argc - i,deviceQueue))
         return system_error("Start", "Failed");
     /* read arguments */
-    // 读取命令行参数
+
     for(; i < argc; i++) {
         char *p = argv[i];
         while(*p) console_input(u, *p++, CONSOLE_ARG);
         console_input(u, '\n', i == argc - 1 ? CONSOLE_END : CONSOLE_EOA);
     }
     /* start rom */
-    // 根据 run_once 标志选择执行模式
+    //Select execution mode based on run_once flag
     if(run_once) {
         // Execute all computations at once and return the result
 //        uxn_eval(u, PEEK2(u->dev[0x20]));
@@ -772,7 +762,7 @@ int main(int argc, char **argv)
     close(0); /* make stdin thread exit */
 #endif
 
-    // 清理SDL资源
+    // Clean up SDL resources
 
     SDL_Quit();
     return 0;

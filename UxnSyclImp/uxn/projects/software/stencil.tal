@@ -1,0 +1,89 @@
+|0000
+@t $2 @te $2
+@i $2 @ip $2
+@j $2 @jp $2
+@k $2 @kp $2
+@idx $2
+
+|0100 @main
+
+#0000 .t STZ2
+#fffe .te STZ2
+
+@loop_t
+
+#0000 .k STZ2
+#000f .kp STZ2
+@loop_k
+
+#0000 .j STZ2
+#000f .jp STZ2
+@loop_j
+
+#0000 .i STZ2
+#000f .ip STZ2
+@loop_i
+
+( i+16*j+256*k )
+
+.k LDZ2 #0100 MUL2
+.j LDZ2 #0010 MUL2
+ADD2
+.i LDZ2 
+ADD2
+;p ADD2
+.idx STZ2
+
+.idx LDZ2 #0001 ADD2 LDA2
+.idx LDZ2 #0001 SUB2 LDA2
+ADD2
+.idx LDZ2 #0010 ADD2 LDA2
+.idx LDZ2 #0010 SUB2 LDA2
+ADD2
+ADD2
+.idx LDZ2 #0100 ADD2 LDA2
+.idx LDZ2 #0100 SUB2 LDA2
+ADD2 
+ADD2
+#0003 MUL2
+
+.idx LDZ2 LDA2 
+ADD2
+#0004 DIV2
+
+.idx LDZ2 STA2
+
+.i LDZ2 INC2k .i STZ2  
+.ip LDZ2 LTH2 ;loop_i JCN2
+
+.j LDZ2 INC2k .j STZ2 
+.jp LDZ2 LTH2 ;loop_j JCN2
+
+.k LDZ2 INC2k .k STZ2 
+.kp LDZ2 LTH2 ;loop_k JCN2
+
+
+.t LDZ2 
+
+DUP2 ;print JSR2
+#0a18 DEO 
+
+INC2k .t STZ2
+ .te LDZ2 LTH2 ;loop_t JCN2
+
+.t LDZ2
+;print JSR2
+#0a18 DEO
+( halt ) #010f DEO
+
+BRK
+
+@print ( short* -- )
+
+    &short ( short* -- ) SWP ,&byte JSR
+    &byte ( byte -- ) DUP #04 SFT ,&char JSR
+    &char ( char -- ) #0f AND DUP #09 GTH #27 MUL ADD #30 ADD #18 DEO
+
+JMP2r
+
+@p

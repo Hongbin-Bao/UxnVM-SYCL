@@ -110,6 +110,7 @@ add_executable(uxnasm
         ${UXN_SOURCE_DIR}/uxnasm.c
         )
 
+
 #add_sycl_to_target(TARGET uxnasm SOURCES uxnasm.cpp)
 #add_sycl_to_target(TARGET uxnemu SOURCES uxnemu.cpp)
 #add_sycl_to_target(TARGET uxncli SOURCES uxncli.cpp)

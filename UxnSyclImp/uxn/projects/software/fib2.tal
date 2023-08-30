@@ -1,0 +1,15 @@
+( https://git.sr.ht/~rabbits/uxn at commit 05d8b44
+    Compile with `uxntal fib.uxn fib.rom`
+      Run with `uxnemu fib.rom` )
+|0100
+
+#0020 ;fib JSR2 
+#01 #0f DEO BRK 
+
+@fib ( N -- fib[N] )
+( not[n < 2] equivalent to n > 1 )
+    DUP2 #0001 GTH2 ,&inductive-case; JCN JMP2r
+    &inductive-case;
+    DUP2 #0001 SUB2 ;fib JSR2 ( stack now N fib[N-1] )
+    SWP2 #0002 SUB2 ;fib JSR2 ( stack now fib[N-1] fib[N-2] )
+    ADD2 JMP2r

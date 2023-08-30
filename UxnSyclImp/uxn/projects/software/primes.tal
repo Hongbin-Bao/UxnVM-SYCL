@@ -1,0 +1,62 @@
+( Primes:
+	An integer greater than one is called a prime number
+	if its only positive divisors are one and itself. )
+
+|0100 ( -> ) @reset
+
+	#0000 INC2k
+	( #0303 #00f1 )
+	&loop
+		DUP2 ,is-prime JSR #00 EQU ,&skip JCN
+            
+            DUP2 DUP2 ;mem STA2
+			( print ) ( DUP2 )
+            ,print/short JSR 
+			( space ) #2018 DEO 
+			&skip
+		INC2 NEQ2k ,&loop JCN
+	POP2 POP2
+    ;mem LDA2 ,print/short JSR
+	( halt ) #010f DEO
+	
+BRK
+
+@is-prime ( number* -- flag )
+	
+	DUP2 ( 13 14 14 14 ) 
+	#0001 EQU2 ,&fail JCN ( 13 14 14 )
+	STH2k ( number on ws & rs )
+	( 13 14 14 )
+	( range ) #01 SFT2 #0002 ( n/2  2 ) 
+	 ( n-1 n n/2 2 )
+	&loop
+	( n from rs but keep it there ) 
+	(  
+		n-1 n 2  n%n/2
+		ORA means to OR the upper byte and the lower byte, presumably to see if neither of them is 0, If the module is 0 it's not a prime. 
+		I guess this is simply to save #0000 EQU2
+	)
+		STH2kr OVR2 ( mod2 ) [ DIV2k MUL2 SUB2 ] ORA ,&continue JCN
+			( this would clear the ws and the rs and return 0 )
+			POP2 POP2
+			POP2r #00 JMP2r
+			&continue
+			( if the modulo is not zero, it might be a prime )
+			( so we increment the modulo and as long as this is >?? )
+			( n 2+1 n>2+1 )
+		INC2  ( n-1 n+1 n/2 3 ) GTH2k ,&loop JCN
+	POP2 POP2
+	POP2r #01
+
+JMP2r
+	&fail POP2 #00 JMP2r
+
+@print ( short* -- )
+
+	&short ( short* -- ) SWP ,&byte JSR
+	&byte ( byte -- ) DUP #04 SFT ,&char JSR
+	&char ( char -- ) #0f AND DUP #09 GTH #27 MUL ADD #30 ADD #18 DEO
+
+JMP2r
+
+@mem

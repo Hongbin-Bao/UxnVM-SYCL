@@ -1,3 +1,14 @@
+/**
+ *
+ * Description: A simple CLI (command line interface) implementation of the UXN virtual machine.
+ *
+ * Created by: Hongbin Bao
+ * Created on: 2023/7/10 17:17
+ *
+ */
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstdio>
@@ -18,15 +29,15 @@ copyright notice and this permission notice appear in all copies.
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 WITH REGARD TO THIS SOFTWARE.
 */
-// 一个简单的UXN虚拟机的CLI（命令行界面）实现。
+
 
 //这些掩码用于设备输入输出操作
 Uint16 deo_mask[] = {0xc028, 0x0300, 0xc028, 0x8000, 0x8000, 0x8000, 0x8000, 0x0000, 0x0000, 0x0000, 0xa260, 0xa260, 0x0000, 0x0000, 0x0000, 0x0000};
 Uint16 dei_mask[] = {0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x07ff, 0x0000, 0x0000, 0x0000};
 /**
- * 函数根据地址读取设备的数据
- * 这个函数首先检查设备地址的高4位（通过&操作实现）。
- * 在这个例子中，如果地址的高4位为0xc0，则调用datetime_dei函数进行操作。否则，它会直接从虚拟机的设备数组中读取相应的值。
+* Function reads device data based on address
+  * This function first checks the upper 4 bits of the device address (implemented through the & operation).
+  * For example: if the high 4 bits of the address are 0xc0, call the datetime_dei function to operate. Otherwise, it reads the corresponding value directly from the virtual machine's device array.
  * @param u
  * @param addr
  * @return
@@ -40,10 +51,8 @@ uxn_dei(Uxn *u, Uint8 addr)
     return u->dev[addr];
 }
 /**
- * 函数负责将数据写入设备
- * 将设备地址分解为高4位和低4位。然后根据高4位的值来调用对应的设备操作函数。
- * 在这个例子中，如果高4位是0x00，那么就调用system_deo函数，
- * 如果是0x10，那么就调用console_deo函数，如果是0xa0或0xb0，则调用file_deo函数。
+* Function is responsible for writing data to the device
+* Decompose the device address into high 4 bits and low 4 bits. Then call the corresponding device operation function based on the value of the high 4 bits.
  * @param u
  * @param addr
  */
@@ -59,9 +68,9 @@ uxn_deo(Uxn *u, Uint8 addr)
     }
 }
 /**
- * 它检查命令行参数，如果没有提供ROM文件名，则会报错并退出。然后，它初始化一个UXN虚拟机，并为虚拟机的内存分配空间。接着，它从ROM文件中加载程序到虚拟机，
- * 然后设置设备的一些状态，之后开始执行虚拟机中的程序。如果虚拟机程序需要参数，那么它将会从命令行参数中获取。最后，当虚拟机停止运行时，释放分配的内存，并返回虚拟机的状态
- * argc 是整数参数，用于表示命令行参数的数量，而 argv 是一个指向字符串指针的指针，用于表示命令行参数的字符串数组。
+ * Check the command line parameters. If the ROM file name is not provided, an error will be reported and exit. Then, it initializes a UXN virtual machine and allocates space for the virtual machine's memory. Next, it loads the program from the ROM file into the virtual machine,
+ * Then set some status of the device, and then start executing the program in the virtual machine. If the virtual machine program requires parameters, it will be obtained from the command line parameters. Finally, when the virtual machine stops running, the allocated memory is released and the status of the virtual machine is returned.
+ * argc is an integer parameter used to represent the number of command line parameters, while argv is a pointer to a string pointer used to represent a string array of command line parameters.
  * @param argc
  * @param argv
  * @return
