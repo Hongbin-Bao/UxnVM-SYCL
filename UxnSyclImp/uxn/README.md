@@ -1,7 +1,10 @@
 # Uxn
 
 An assembler and emulator for the [Uxn stack-machine](https://wiki.xxiivv.com/site/uxn.html), written in ANSI C. 
-
+## You need to download a compiler that can compile SYCL code
+https://github.com/OpenSYCL/OpenSYCL
+or
+https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html#gs.4jf3mn
 ## Download binaries
 
 Binaries are available for 64-bit x86 computers running [Linux](https://drive.100r.co/uxn/uxn-essentials-lin64.tar.gz), [Windows](https://drive.100r.co/uxn/uxn-essentials-win64.zip) and [macOS](https://drive.100r.co/uxn/uxn-essentials-mac64.tar.gz).
@@ -115,6 +118,3 @@ The following resources are a good place to start:
 * [compudanzas — uxn tutorial](https://compudanzas.net/uxn_tutorial.html)
 * [Fediverse — #uxn tag](https://merveilles.town/tags/uxn)
 
-## Contributing
-
-Submit patches using [`git send-email`](https://git-send-email.io/) to the [~rabbits/public-inbox mailing list](https://lists.sr.ht/~rabbits/public-inbox).
