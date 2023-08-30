@@ -5,9 +5,6 @@ An assembler and emulator for the [Uxn stack-machine](https://wiki.xxiivv.com/si
 https://github.com/OpenSYCL/OpenSYCL
 or
 https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html#gs.4jf3mn
-## Download binaries
-
-Binaries are available for 64-bit x86 computers running [Linux](https://drive.100r.co/uxn/uxn-essentials-lin64.tar.gz), [Windows](https://drive.100r.co/uxn/uxn-essentials-win64.zip) and [macOS](https://drive.100r.co/uxn/uxn-essentials-mac64.tar.gz).
 
 ## Build
 
