@@ -96,3 +96,10 @@ A workload that takes more than four seconds for GPU hardware to execute is a lo
 
 However, due to the current imperfect development of SYCL, this error looks more like the GPU device was not found. It has been fed back to the intel/llvm open source community.https://github.com/intel/llvm/issues/10944
 
+4.Some test case, you can find these places:
+
+https://codeberg.org/wimvanderbauwhede/nito/src/branch/main/demos
+
+https://git.sr.ht/~rabbits/uxn/tree/main/item/projects/examples/exercises/fib.tal
+
+https://git.sr.ht/~rabbits/uxn/tree/main/item/projects/software/piano.tal
