@@ -38,16 +38,16 @@ WITH REGARD TO THIS SOFTWARE.
 
 int
 uxn_eval(Uxn *u, Uint16 pc)
-{   int t, n, l, k, tmp, opc, ins;  // 定义一些整型变量，用于后续的计算
-    Uint8 *ram = u->ram;  // 定义一个8位无符号整型指针，指向Uxn结构体中的ram成员
-    Stack *s, *z;  // 定义两个指向Stack的指针
-    if(!pc || u->dev[0x0f]) return 0;  // 如果pc为0或者u的dev数组的第16个元素（0x0f）非零，则函数返回0
-    for(;;) {  // 无限循环，直到满足某个退出条件才会跳出
-        ins = ram[pc++] & 0xff;  // 获取ram中pc指定的元素值，并与0xff做与操作，然后pc自增
-        k = ins & 0x80 ? 0xff : 0;  // 若ins的最高位（第8位）为1，则k为0xff，否则为0
-        s = ins & 0x40 ? &u->rst : &u->wst;  // 若ins的第7位为1，则s指向u的rst成员，否则指向wst成员
-        opc = !(ins & 0x1f) ? (0 - (ins >> 5)) & 0xff : ins & 0x3f;  // 如果ins的最低5位全为0，则opc等于ins右移5位后的负值与0xff的与运算结果，否则等于ins与0x3f的与运算结果
-        switch(opc) {  // 开始switch语句，对opc进行分支处理
+{   int t, n, l, k, tmp, opc, ins;  // Define some integer variables for subsequent calculations
+    Uint8 *ram = u->ram;  //Define an 8-bit unsigned integer pointer pointing to the ram member in the Uxn structure
+    Stack *s, *z;  //Define two pointers to Stack
+    if(!pc || u->dev[0x0f]) return 0;  // If pc is 0 or the 16th element (0x0f) of u's dev array is non-zero, the function returns 0
+    for(;;) {  // Infinite loop, will not jump out until certain exit condition is met
+        ins = ram[pc++] & 0xff;  // Get the element value specified by pc in ram, and perform an AND operation with 0xff, and then pc will be incremented
+        k = ins & 0x80 ? 0xff : 0;  // If the highest bit (8th bit) of ins is 1, then k is 0xff, otherwise it is 0
+        s = ins & 0x40 ? &u->rst : &u->wst;  // If bit 7 of ins is 1, then s points to the rst member of u, otherwise it points to the wst member
+        opc = !(ins & 0x1f) ? (0 - (ins >> 5)) & 0xff : ins & 0x3f;  // If the lowest 5 bits of ins are all 0, opc is equal to the AND operation result of the negative value of ins shifted right by 5 bits and 0xff, otherwise it is equal to the AND operation result of ins and 0x3f
+        switch(opc) { //Start the switch statement and perform branch processing on opc
 			/* IMM */
 			case 0x00: /* BRK   */ return 1;
 			case 0xff: /* JCI   */ pc += !!s->dat[--s->ptr] * PEEK2(ram + pc) + 2; break;
@@ -124,23 +124,23 @@ uxn_eval(Uxn *u, Uint16 pc)
 	}
 }
 /**
- * 先初始化指向Uxn的指针u，将其所指向的内存区域全部清零。
- * 然后将传入的ram指针赋值给Uxn结构体的ram成员，即设置Uxn的内存块为ram。
- * 最后返回1，表示函数执行成功
+ * First initialize the pointer u pointing to Uxn, and clear all the memory areas it points to.
+ * Then assign the passed ram pointer to the ram member of the Uxn structure, that is, set the memory block of Uxn to ram.
+ * Finally returns 1, indicating that the function is executed successfully
  * @param u
  * @param ram
  * @return
  */
-int uxn_boot(Uxn *u, Uint8 *ram) // 定义一个函数，输入是指向Uxn结构体的指针u和指向一个8位无符号整数的指针ram
+int uxn_boot(Uxn *u, Uint8 *ram) //Define a function whose input is a pointer u pointing to the Uxn structure and a pointer ram pointing to an 8-bit unsigned integer.
 {
-    Uint32 i; // 定义一个32位无符号整数i，用于循环计数
-    char *cptr = (char *)u; // 定义一个字符指针cptr，并将u的地址转换为char*类型后赋值给cptr
+    Uint32 i; // Define a 32-bit unsigned integer i for loop counting
+    char *cptr = (char *)u; // Define a character pointer cptr, convert the address of u to char* type and assign it to cptr
 
-    for(i = 0; i < sizeof(*u); i++) // 循环，从0开始，直到i等于Uxn结构体的大小（字节数），每次循环i加1
-        cptr[i] = 0; // 将cptr指向的内存区域的当前位置（cptr + i）清零
+    for(i = 0; i < sizeof(*u); i++) // Loop, starting from 0, until i is equal to the size (number of bytes) of the Uxn structure, adding 1 to i each time
+        cptr[i] = 0; // Clear the current position (cptr + i) of the memory area pointed to by cptr.
 
-    u->ram = ram; // 将输入的ram指针赋值给Uxn结构体的ram成员
+    u->ram = ram; //Assign the input ram pointer to the ram member of the Uxn structure
 
-    return 1; // 返回1，表示函数执行成功
+    return 1; //Return 1, indicating that the function is executed successfully
 }
 
