@@ -96,7 +96,7 @@ void kernel(Uxn *u, Params *params) {
 //    }
     // buffer
     //cl::sycl::buffer<char, 1> buf(1024);
-
+    //SYCL queue
     u->queue.submit([&](cl::sycl::handler& cgh) {
         // creat stream
         //cl::sycl::stream out(1024, 256, cgh);
