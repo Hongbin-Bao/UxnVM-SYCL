@@ -1,6 +1,6 @@
 /**
  *
- * Description:
+ * Description:SYCL core implementation
  *
  * Created by: Hongbin Bao
  * Created on: 2023/7/10 17:17
@@ -72,20 +72,24 @@ void PUT_F(Stack* s, Uint8 o, Uint8 v) {
 //        u->deo(u, a);
 //    }
 //}
-
+/**
+ * Make the decoder run on the SYCL queue
+ * @param u
+ * @param params
+ */
 void kernel(Uxn *u, Params *params) {
 
 
 
 
 
-//    // 查询GPU设备
+//    // Query GPU device
 //    auto devices = cl::sycl::device::get_devices(cl::sycl::info::device_type::gpu);
 //
 //    if(devices.empty()) {
-//        std::cout << "没有可用的GPU。\n";
+//        std::cout << "No GPU available。\n";
 //    } else {
-//        std::cout << "找到以下GPU设备：\n";
+//        std::cout << "Found the following GPU devices：\n";
 //        for(const auto& device : devices) {
 //            std::cout << "  - " << device.get_info<cl::sycl::info::device::name>() << "\n";
 //        }
@@ -202,7 +206,12 @@ void kernel(Uxn *u, Params *params) {
     u->queue.wait();
 
 }
-
+/**
+ * SYCL implements UxnVM core logic
+ * @param u
+ * @param pc_raw
+ * @return
+ */
 int
 uxn_eval(Uxn *u, Uint16 pc_raw)
 {
